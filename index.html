@@ -1,863 +1,1348 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#FFF8E7">
-<title>🌟 Spelling World — 3 Games in One</title>
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Spelling World</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIlNwZWxsaW5nIFdvcmxkIiwgInNob3J0X25hbWUiOiAiU3BlbGxpbmciLCAic3RhcnRfdXJsIjogIi4iLCAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwgImJhY2tncm91bmRfY29sb3IiOiAiI0ZGRjhFNyIsICJ0aGVtZV9jb2xvciI6ICIjRkZGOEU3IiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIWnBaWGRDYjNnOUlqQWdNQ0F4T1RJZ01Ua3lJajQ4Y21WamRDQm1hV3hzUFNJalJrWkdPRVUzSWlCM2FXUjBhRDBpTVRreUlpQm9aV2xuYUhROUlqRTVNaUlnY25nOUlqSTBJaTgrUEhSbGVIUWdlRDBpT1RZaUlIazlJakV6TUNJZ1ptOXVkQzF6YVhwbFBTSXhNREFpSUhSbGVIUXRZVzVqYUc5eVBTSnRhV1JrYkdVaVB2Q2ZqTGc4TDNSbGVIUStQQzl6ZG1jKyIsICJzaXplcyI6ICIxOTJ4MTkyIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCBmaWxsPSIjRkZGOEU3IiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjI0Ii8+PHRleHQgeD0iOTYiIHk9IjEzMCIgZm9udC1zaXplPSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCfjLg8L3RleHQ+PC9zdmc+">
 <style>
 @font-face {
   font-family: 'OpenDyslexic';
-  src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic@master/woff/OpenDyslexic-Regular.woff') format('woff');
-  font-weight: normal; font-style: normal; font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
+
 :root {
-  --bg: #FFF8E7; --bg-soft: #FEF5E7; --text: #2C3E50; --text-light: #5D6D7E;
-  --accent: #5DADE2; --accent-dark: #2E86C1; --success: #58D68D; --success-dark: #27AE60;
-  --tile-bg: #FEF9E7; --tile-border: #F4D03F; --tile-active: #FCF3CF;
-  --wrong: #F5B7B1; --hint: #AED6F1;
+  --bg: #FFF8E7;
+  --card: #FFFDF5;
+  --green: #6B9E6B;
+  --green-dark: #4A7A4A;
+  --green-light: #E8F5E8;
+  --text: #3D4A3D;
+  --text-light: #6B7B6B;
+  --accent: #F4D03F;
+  --accent-orange: #E67E22;
+  --wrong: #C0392B;
+  --shadow: rgba(61,74,61,0.08);
 }
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body {
-  font-family: 'OpenDyslexic', 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
-  background: var(--bg); color: var(--text); min-height: 100vh;
-  overflow-x: hidden; touch-action: manipulation; line-height: 1.7;
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'OpenDyslexic', 'Comic Sans MS', 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Start Overlay */
+#startOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  text-align: center;
+  padding: 24px;
+}
+
+#startOverlay .logo {
+  font-size: 80px;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+}
+
+#startOverlay h1 {
+  font-size: 32px;
+  margin: 0 0 8px;
+  color: var(--green-dark);
+}
+
+#startOverlay p {
+  font-size: 18px;
+  color: var(--text-light);
+  margin: 0 0 32px;
+}
+
+.start-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 18px 48px;
+  font-size: 22px;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(107,158,107,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.start-btn:active {
+  transform: scale(0.96);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin: 0;
+  color: var(--green-dark);
+}
+
+.header .subtitle {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* Garden Progress */
+.garden {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.garden-flower {
+  font-size: 28px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg);
+  transition: transform 0.3s;
+}
+
+.garden-flower.mastered {
+  animation: bloom 0.5s ease;
+}
+
+@keyframes bloom {
+  0% { transform: scale(0) rotate(-20deg); }
+  60% { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* Menu Cards */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.game-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 12px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 3px solid transparent;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.game-card:active {
+  transform: scale(0.98);
+}
+
+.game-card:hover {
+  border-color: var(--green-light);
+}
+
+.game-icon {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.game-info h3 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  color: var(--green-dark);
+}
+
+.game-info p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* Screens */
 .screen {
-  display: none; min-height: 100vh; padding: 16px 16px 40px;
-  max-width: 520px; margin: 0 auto; animation: fadeIn 0.4s ease;
+  display: none;
+  flex-direction: column;
+  flex: 1;
 }
-.screen.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
-@keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
-@keyframes bloom { 0%{transform:scale(0) rotate(-20deg);opacity:0} 60%{transform:scale(1.2) rotate(5deg);opacity:1} 100%{transform:scale(1) rotate(0deg);opacity:1} }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-@keyframes bounceIn { 0%{transform:scale(0.3);opacity:0} 50%{transform:scale(1.05)} 70%{transform:scale(0.9)} 100%{transform:scale(1);opacity:1} }
 
-.header { text-align: center; padding: 16px 0 8px; }
-.header h1 { font-size: 30px; margin-bottom: 4px; }
-.header p { font-size: 18px; color: var(--text-light); }
+.screen.active {
+  display: flex;
+}
 
-.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-top: 8px; }
-.back-btn { background: var(--bg-soft); border: 3px solid var(--tile-border); border-radius: 14px; padding: 10px 16px; font-size: 16px; font-family: inherit; font-weight: bold; cursor: pointer; color: var(--text); touch-action: manipulation; }
-.week-badge { background: var(--accent); color: white; padding: 8px 14px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+/* Word List */
+.word-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
 
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent); color: white; border: none; border-radius: 16px; padding: 16px 24px; font-size: 18px; font-family: inherit; font-weight: bold; cursor: pointer; box-shadow: 0 5px 0 var(--accent-dark); transition: all 0.15s ease; width: 100%; margin-top: 10px; touch-action: manipulation; }
-.btn:active { transform: translateY(5px); box-shadow: 0 0 0 var(--accent-dark); }
-.btn-success { background: var(--success); box-shadow: 0 5px 0 var(--success-dark); }
-.btn-success:active { box-shadow: 0 0 0 var(--success-dark); }
-.btn-hint { background: var(--hint); color: var(--text); box-shadow: 0 5px 0 #85C1E9; }
-.btn-hint:active { box-shadow: 0 0 0 #85C1E9; }
-.btn-secondary { background: var(--bg-soft); color: var(--text); box-shadow: 0 5px 0 #D5DBDB; }
-.btn-secondary:active { box-shadow: 0 0 0 #D5DBDB; }
+.word-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px var(--shadow);
+}
 
-.sentence-box { background: white; border-radius: 20px; padding: 24px 20px; margin: 16px 0; border: 3px solid var(--tile-border); font-size: 22px; text-align: center; line-height: 2; }
-.sentence-box .blank { display: inline-block; min-width: 90px; border-bottom: 3px dashed var(--accent); margin: 0 4px; text-align: center; font-weight: bold; color: var(--accent-dark); min-height: 32px; vertical-align: bottom; }
-.sentence-box .blank.filled { border-bottom: 3px solid var(--success); color: var(--success-dark); animation: pop 0.4s ease; }
+.word-card:active {
+  transform: scale(0.95);
+}
 
-.audio-btn { background: var(--success); color: white; border: none; border-radius: 50%; width: 68px; height: 68px; font-size: 30px; cursor: pointer; box-shadow: 0 5px 0 var(--success-dark); transition: all 0.15s ease; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; touch-action: manipulation; }
-.audio-btn:active { transform: translateY(5px); box-shadow: 0 0 0 var(--success-dark); }
-.audio-btn.muted { background: #BDC3C7; box-shadow: 0 5px 0 #95A5A6; }
+.word-card.mastered {
+  border-color: var(--green);
+  background: var(--green-light);
+}
 
-.feedback-msg { text-align: center; font-size: 20px; min-height: 32px; margin: 10px 0; font-weight: bold; color: var(--text-light); }
+.word-card .w-word {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
 
-.slots-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; min-height: 70px; }
-.letter-slot { width: 56px; height: 64px; border-radius: 14px; background: white; border: 3px solid var(--tile-border); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; transition: all 0.3s ease; }
-.letter-slot.filled { background: var(--tile-active); border-color: var(--success); color: var(--success-dark); animation: pop 0.3s ease; }
-.letter-slot.hinted { background: var(--hint); border-color: var(--accent); }
+.word-card .w-status {
+  font-size: 24px;
+}
 
-.letters-pool { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 16px 0; }
-.letter-tile { width: 58px; height: 58px; border-radius: 16px; background: var(--tile-bg); border: 3px solid var(--tile-border); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 0 var(--tile-border); user-select: none; touch-action: manipulation; }
-.letter-tile:active { transform: translateY(4px); box-shadow: 0 0 0 var(--tile-border); }
-.letter-tile.used { opacity: 0.25; pointer-events: none; transform: scale(0.85); }
-.letter-tile.wrong { animation: shake 0.4s ease; background: var(--wrong); }
+/* Game Area */
+.game-area {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px var(--shadow);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-/* Game Selector */
-.game-cards { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; }
-.game-card { background: white; border-radius: 24px; padding: 24px 20px; border: 4px solid var(--tile-border); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 6px 0 var(--tile-border); text-align: center; position: relative; overflow: hidden; }
-.game-card:active { transform: translateY(6px); box-shadow: 0 0 0 var(--tile-border); }
-.game-card .game-emoji { font-size: 56px; display: block; margin-bottom: 8px; animation: float 3s ease infinite; }
-.game-card h3 { font-size: 24px; margin-bottom: 6px; }
-.game-card p { font-size: 16px; color: var(--text-light); line-height: 1.5; }
-.progress-mini { margin-top: 12px; background: var(--bg-soft); border-radius: 12px; height: 10px; overflow: hidden; }
-.progress-mini-fill { height: 100%; border-radius: 12px; transition: width 0.5s ease; }
+.sentence {
+  font-size: 20px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  color: var(--text);
+}
 
-/* Game 1: Garden */
-.garden-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
-.word-card { background: white; border-radius: 20px; padding: 18px 10px; text-align: center; border: 3px solid var(--tile-border); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 0 var(--tile-border); position: relative; min-height: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.word-card:active { transform: translateY(4px); box-shadow: 0 0 0 var(--tile-border); }
-.word-card.completed { border-color: var(--success); box-shadow: 0 4px 0 var(--success-dark); background: #EAFAF1; }
-.word-card.completed .card-emoji { animation: float 3s ease infinite; }
-.card-emoji { font-size: 44px; margin-bottom: 6px; display: block; }
-.card-word { font-size: 20px; font-weight: bold; }
-.card-status { font-size: 13px; color: var(--text-light); margin-top: 4px; }
-.progress-bar { background: var(--bg-soft); border-radius: 20px; height: 28px; margin: 14px 0 20px; overflow: hidden; border: 2px solid var(--tile-border); position: relative; }
-.progress-fill { background: linear-gradient(90deg, var(--success), var(--success-dark)); height: 100%; border-radius: 20px; transition: width 0.6s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 14px; }
+.sentence .highlight {
+  background: var(--accent);
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+}
 
-/* Game 2: Treasure */
-.island-map { background: linear-gradient(180deg, #E8F6F3 0%, #D5F5E3 100%); border-radius: 24px; padding: 20px; margin-top: 16px; border: 3px solid #1ABC9C; min-height: 300px; }
-.spot-row { display: flex; justify-content: space-around; margin: 16px 0; }
-.treasure-spot { width: 72px; height: 72px; border-radius: 50%; background: white; border: 4px solid #1ABC9C; display: flex; align-items: center; justify-content: center; font-size: 36px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 0 #16A085; position: relative; }
-.treasure-spot:active { transform: translateY(4px); box-shadow: 0 0 0 #16A085; }
-.treasure-spot.completed { border-color: var(--success); box-shadow: 0 4px 0 var(--success-dark); background: #EAFAF1; animation: float 3s ease infinite; }
-.treasure-spot .spot-label { position: absolute; bottom: -22px; font-size: 12px; font-weight: bold; color: var(--text-light); white-space: nowrap; }
-.treasure-scene { background: linear-gradient(180deg, #FEF9E7 0%, #FAD7A0 100%); border-radius: 20px; padding: 20px; margin: 16px 0; border: 3px solid #F39C12; min-height: 200px; position: relative; text-align: center; }
-.scene-emoji { font-size: 64px; display: block; margin-bottom: 8px; animation: float 4s ease infinite; }
-.scene-title { font-size: 22px; font-weight: bold; color: #D68910; margin-bottom: 4px; }
-.scene-subtitle { font-size: 16px; color: var(--text-light); }
+.sentence .blank {
+  display: inline-block;
+  min-width: 160px;
+  border-bottom: 3px solid var(--green);
+  background: transparent;
+  font-family: inherit;
+  font-size: 1.1em;
+  text-align: center;
+  color: var(--green-dark);
+  outline: none;
+  padding: 4px 8px;
+  margin: 0 4px;
+  caret-color: var(--green);
+}
 
-/* Game 3: Workshop */
-.workshop-bench { background: linear-gradient(180deg, #F5EEF8 0%, #E8DAEF 100%); border-radius: 20px; padding: 20px; margin: 16px 0; border: 3px solid #9B59B6; text-align: center; }
-.blueprint-emoji { font-size: 72px; display: block; margin-bottom: 8px; animation: bounceIn 0.8s ease; }
-.blueprint-name { font-size: 22px; font-weight: bold; color: #8E44AD; margin-bottom: 4px; }
-.blueprint-parts { display: flex; justify-content: center; gap: 8px; margin: 12px 0; flex-wrap: wrap; }
-.part-dot { width: 16px; height: 16px; border-radius: 50%; background: #D5DBDB; transition: all 0.4s ease; }
-.part-dot.done { background: var(--success); box-shadow: 0 0 8px var(--success); animation: float 2s ease infinite; }
-.conveyor-belt { background: repeating-linear-gradient(90deg, #5D6D7E, #5D6D7E 10px, #85929E 10px, #85929E 20px); border-radius: 12px; padding: 16px; margin: 16px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; min-height: 80px; border: 3px solid #2C3E50; }
+.sentence .blank:focus {
+  border-bottom-color: var(--accent-orange);
+}
 
-/* Celebration */
-.celebration { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,248,231,0.96); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; padding: 20px; }
-.celebration.active { display: flex; }
-.celebration-emoji { font-size: 90px; animation: bloom 0.8s ease; }
-.celebration h2 { font-size: 34px; color: var(--success-dark); margin: 16px 0 8px; }
-.celebration p { font-size: 20px; color: var(--text-light); margin-bottom: 24px; max-width: 320px; line-height: 1.6; }
+.sentence .first-letter,
+.sentence .last-letter {
+  font-weight: bold;
+  color: var(--green-dark);
+  font-size: 1.1em;
+}
 
-/* Welcome / Sound Unlock Screen */
-.welcome-screen { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 300; text-align: center; padding: 30px; }
-.welcome-screen.hidden { display: none; }
-.welcome-emoji { font-size: 80px; margin-bottom: 16px; animation: float 3s ease infinite; }
-.welcome-screen h1 { font-size: 32px; color: var(--accent-dark); margin-bottom: 8px; }
-.welcome-screen p { font-size: 18px; color: var(--text-light); margin-bottom: 24px; max-width: 320px; line-height: 1.6; }
-.welcome-screen .sound-status { font-size: 16px; color: var(--text-light); margin: 12px 0; min-height: 24px; }
-.sound-on { color: var(--success-dark) !important; font-weight: bold; }
-.sound-off { color: #922B21 !important; }
+.timer-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--green-light);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
 
-/* Parent Gate */
-.parent-gate { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(44,62,80,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-.parent-gate.active { display: flex; }
-.gate-box { background: var(--bg); border-radius: 24px; padding: 32px 24px; max-width: 360px; width: 100%; text-align: center; }
-.gate-box h3 { font-size: 24px; margin-bottom: 16px; }
-.gate-box p { font-size: 18px; margin-bottom: 20px; color: var(--text-light); }
-.gate-input { width: 100%; padding: 16px; font-size: 24px; text-align: center; border: 3px solid var(--tile-border); border-radius: 16px; font-family: inherit; margin-bottom: 16px; background: white; }
+.timer-bar .fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 4px;
+  animation: shrink 3s linear forwards;
+}
 
-.parent-panel { display: none; min-height: 100vh; padding: 16px 16px 40px; max-width: 520px; margin: 0 auto; }
-.parent-panel.active { display: block; }
-.parent-panel h2 { font-size: 26px; margin: 16px 0 12px; color: var(--accent-dark); }
-.parent-panel label { display: block; font-size: 17px; font-weight: bold; margin: 16px 0 8px; }
-.parent-panel textarea { width: 100%; min-height: 180px; padding: 16px; font-size: 17px; border: 3px solid var(--tile-border); border-radius: 16px; font-family: inherit; background: white; line-height: 1.7; }
-.parent-panel .help-text { font-size: 15px; color: var(--text-light); margin-top: 8px; line-height: 1.6; }
-.share-box { background: white; border-radius: 16px; padding: 20px; margin: 20px 0; border: 3px solid var(--tile-border); }
-.share-box h4 { font-size: 20px; margin-bottom: 12px; }
-.code-display { background: var(--bg-soft); padding: 16px; border-radius: 12px; font-size: 22px; font-weight: bold; text-align: center; letter-spacing: 2px; margin: 12px 0; border: 2px dashed var(--accent); color: var(--accent-dark); }
-.hidden-trigger { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; opacity: 0; cursor: pointer; }
+@keyframes shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
 
-/* OCR Section */
-.ocr-section { background: white; border-radius: 20px; padding: 20px; margin: 20px 0; border: 3px solid var(--tile-border); }
-.ocr-section h3 { font-size: 22px; margin-bottom: 12px; color: var(--accent-dark); }
-.ocr-section p { font-size: 16px; color: var(--text-light); margin-bottom: 12px; line-height: 1.5; }
-.ocr-file-input { width: 100%; padding: 14px; font-size: 16px; border: 3px dashed var(--tile-border); border-radius: 16px; background: var(--bg-soft); font-family: inherit; margin-bottom: 12px; }
-.ocr-preview { max-width: 100%; border-radius: 12px; margin: 12px 0; border: 2px solid var(--tile-border); display: none; }
-.ocr-preview.active { display: block; }
-.ocr-loading { text-align: center; padding: 20px; font-size: 18px; color: var(--text-light); display: none; }
-.ocr-loading.active { display: block; }
-.ocr-result { margin-top: 16px; }
-.ocr-sentence-card { background: var(--bg-soft); border-radius: 14px; padding: 14px; margin-bottom: 10px; border: 2px solid var(--tile-border); }
-.ocr-sentence-card .num { font-weight: bold; color: var(--accent-dark); font-size: 18px; }
-.ocr-sentence-card .sent { font-size: 17px; margin: 6px 0; line-height: 1.6; }
-.ocr-sentence-card input { width: 100%; padding: 12px; font-size: 18px; border: 3px solid var(--tile-border); border-radius: 12px; font-family: inherit; margin-top: 6px; background: white; }
-.ocr-sentence-card input:focus { border-color: var(--accent); outline: none; }
+/* Feedback */
+.feedback {
+  font-size: 20px;
+  margin: 12px 0;
+  min-height: 32px;
+  font-weight: bold;
+}
 
-@media (max-width: 380px) {
-  .garden-grid { grid-template-columns: 1fr; }
-  .letter-tile { width: 50px; height: 50px; font-size: 24px; }
-  .letter-slot { width: 48px; height: 56px; font-size: 26px; }
-  .header h1 { font-size: 26px; }
-  .sentence-box { font-size: 19px; padding: 18px 14px; }
+.feedback.correct {
+  color: var(--green-dark);
+}
+
+.feedback.wrong {
+  color: var(--accent-orange);
+}
+
+/* Wiggle Animation */
+.wiggle {
+  animation: gentle-wiggle 0.5s ease;
+}
+
+@keyframes gentle-wiggle {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Success Animation */
+.success-glow {
+  animation: success-pulse 0.6s ease;
+}
+
+@keyframes success-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); box-shadow: 0 0 30px rgba(107,158,107,0.3); }
+  100% { transform: scale(1); }
+}
+
+/* Keyboard */
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.key {
+  flex: 1 1 16%;
+  max-width: 56px;
+  min-width: 44px;
+  height: 52px;
+  background: var(--bg);
+  border: 2px solid var(--green-light);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.key:active {
+  background: var(--green);
+  color: white;
+  transform: scale(0.92);
+}
+
+.key-wide {
+  flex: 2 1 30%;
+  max-width: 120px;
+  font-size: 16px;
+}
+
+.key-submit {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+
+.key-submit:active {
+  background: var(--green-dark);
+}
+
+/* Buttons Row */
+.btn-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: var(--card);
+  border: 2px solid var(--green-light);
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn:active {
+  transform: scale(0.95);
+  background: var(--green-light);
+}
+
+.btn-primary {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+
+.btn-primary:active {
+  background: var(--green-dark);
+}
+
+/* Parent Corner */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61,74,61,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.modal h2 {
+  margin: 0 0 16px;
+  color: var(--green-dark);
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--green-light);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--text);
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--green);
+}
+
+textarea.input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.gate-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.gate-box p {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+
+.stars {
+  font-size: 36px;
+  margin: 8px 0;
+}
+
+.small {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.back-link {
+  text-align: center;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.back-link:active {
+  color: var(--green-dark);
+}
+
+.parent-trigger {
+  text-align: center;
+  padding: 16px;
+  font-size: 13px;
+  color: var(--text-light);
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.parent-trigger:active {
+  opacity: 1;
+}
+
+/* OCR preview */
+.ocr-preview {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  border: 1px solid var(--green-light);
+}
+
+/* Responsive */
+@media (min-width: 480px) {
+  .word-grid { grid-template-columns: repeat(3, 1fr); }
+  .key { flex: 1 1 12%; max-width: 64px; height: 56px; font-size: 22px; }
 }
 </style>
 </head>
 <body>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- ║  EDIT YOUR WEEKLY WORDS HERE                                  ║ -->
-<!-- ║  Format:  word|sentence                                        ║ -->
-<!-- ║  The word is what your child spells. The sentence gives context.║ -->
-<!-- ║  One word per line. Replace below each week.                  ║ -->
+<!--  EDIT YOUR WEEKLY SPELLING WORDS BELOW                         -->
+<!--  Replace the sentences and words each week. Keep the format.   -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<script id="weekly-words">
-const DEFAULT_WORDS = [
-  { word: "close",  sentence: "Please close the window.", done: false },
-  { word: "read",   sentence: "I read a book every day.", done: false },
-  { word: "answer", sentence: "Can you answer the call?", done: false },
-  { word: "stool",  sentence: "I sat on a stool to rest my feet.", done: false },
-  { word: "write",  sentence: "We write a letter to our friend.", done: false },
-  { word: "learn",  sentence: "She wants to learn how to dance.", done: false },
-  { word: "teacher",sentence: "My teacher is telling us how to play the game.", done: false },
-  { word: "copy",   sentence: "We copy the words neatly from the whiteboard.", done: false }
+<script>
+const SPELLING_WORDS = [
+  { sentence: "Please close the door quietly.", word: "close" },
+  { sentence: "I like to read storybooks.", word: "read" },
+  { sentence: "Can you answer the question?", word: "answer" },
+  { sentence: "Sit on the stool please.", word: "stool" },
+  { sentence: "Write your name here.", word: "write" },
+  { sentence: "I learn new things every day.", word: "learn" },
+  { sentence: "My teacher is very kind.", word: "teacher" },
+  { sentence: "Copy the words on the board.", word: "copy" }
 ];
 </script>
-<!-- ═══════════════════════════════════════════════════════════════ -->
 
-<!-- WELCOME / SOUND UNLOCK SCREEN -->
-<div class="welcome-screen" id="welcome-screen">
-  <div class="welcome-emoji">🌟</div>
+<!-- Tap to Start Overlay -->
+<div id="startOverlay">
+  <div class="logo">🌸</div>
   <h1>Spelling World</h1>
-  <p>Tap the button below to start.<br>This lets the game speak the words aloud.</p>
-  <div class="sound-status" id="sound-status">🔇 Sound is off — tap to turn on</div>
-  <button class="btn btn-success" onclick="unlockAudio()" style="max-width:280px;margin-top:8px;">
-    🔊 Tap to Start
-  </button>
+  <p>Tap below to start your adventure!</p>
+  <button class="start-btn" onclick="unlockAudio()">🌟 Tap to Start</button>
 </div>
 
-<!-- HOME -->
-<div id="screen-home" class="screen">
-  <div class="header">
-    <h1>🌟 Spelling World</h1>
-    <p>Pick a game to practice your words!</p>
-  </div>
-  <div class="progress-bar">
-    <div class="progress-fill" id="home-progress" style="width:0%">0 / 8</div>
-  </div>
-  <div class="game-cards">
-    <div class="game-card" onclick="goToGame(1)" style="border-color:#1ABC9C;box-shadow:0 6px 0 #16A085;">
-      <span class="game-emoji">🌱</span>
-      <h3 style="color:#16A085;">🌸 Word Garden</h3>
-      <p>Plant seeds by spelling words.<br>Watch them bloom into flowers!</p>
-      <div class="progress-mini"><div class="progress-mini-fill" id="mini-1" style="width:0%;background:#1ABC9C;"></div></div>
+<!-- App -->
+<div id="app" style="display:none">
+
+  <!-- Main Menu -->
+  <div id="screen-menu" class="screen active">
+    <div class="header">
+      <h1>🌸 Spelling World</h1>
+      <div class="subtitle">Choose a game to play!</div>
     </div>
-    <div class="game-card" onclick="goToGame(2)" style="border-color:#F39C12;box-shadow:0 6px 0 #D68910;">
-      <span class="game-emoji">🏝️</span>
-      <h3 style="color:#D68910;">🏴‍☠️ Treasure Hunt</h3>
-      <p>Explore the island and find<br>letters to open treasure chests!</p>
-      <div class="progress-mini"><div class="progress-mini-fill" id="mini-2" style="width:0%;background:#F39C12;"></div></div>
+
+    <div class="garden" id="garden"></div>
+
+    <div class="menu-grid">
+      <div class="game-card" onclick="showWordList(1)">
+        <div class="game-icon">🌺</div>
+        <div class="game-info">
+          <h3>Memory Garden</h3>
+          <p>See the word bloom, then spell it from memory!</p>
+        </div>
+      </div>
+      <div class="game-card" onclick="showWordList(2)">
+        <div class="game-icon">🌉</div>
+        <div class="game-info">
+          <h3>Missing Middle</h3>
+          <p>Fill in the missing letters between the first and last!</p>
+        </div>
+      </div>
+      <div class="game-card" onclick="showWordList(3)">
+        <div class="game-icon">🔊</div>
+        <div class="game-info">
+          <h3>Sound Type</h3>
+          <p>Listen carefully and type what you hear!</p>
+        </div>
+      </div>
     </div>
-    <div class="game-card" onclick="goToGame(3)" style="border-color:#9B59B6;box-shadow:0 6px 0 #8E44AD;">
-      <span class="game-emoji">🔧</span>
-      <h3 style="color:#8E44AD;">🏗️ Build Workshop</h3>
-      <p>Build amazing things!<br>Spell words to add parts.</p>
-      <div class="progress-mini"><div class="progress-mini-fill" id="mini-3" style="width:0%;background:#9B59B6;"></div></div>
+
+    <div class="parent-trigger" onclick="openParentGate()">👩‍👧 Parent Corner</div>
+  </div>
+
+  <!-- Word List -->
+  <div id="screen-words" class="screen">
+    <div class="header">
+      <h1 id="words-title">Pick a Word</h1>
+      <div class="subtitle">Tap a word to practice</div>
+    </div>
+    <div class="word-grid" id="word-grid"></div>
+    <div class="back-link" onclick="showScreen('screen-menu')">← Back to Menu</div>
+  </div>
+
+  <!-- Game 1: Memory Garden -->
+  <div id="screen-game1" class="screen">
+    <div class="header">
+      <h1>🌺 Memory Garden</h1>
+      <div class="subtitle" id="g1-subtitle">Watch the word bloom!</div>
+    </div>
+    <div class="game-area" id="g1-area">
+      <div class="timer-bar" id="g1-timer"><div class="fill"></div></div>
+      <div class="sentence" id="g1-sentence"></div>
+      <div class="feedback" id="g1-feedback"></div>
+      <div class="stars" id="g1-stars"></div>
+    </div>
+    <div class="keyboard" id="g1-keyboard"></div>
+    <div class="btn-row">
+      <button class="btn" onclick="speakCurrentSentence()">🔊 Hear Again</button>
+      <button class="btn" onclick="showGameHint(1)">💡 Hint</button>
+      <button class="btn btn-primary" onclick="checkGame1()">✓ Check</button>
+    </div>
+    <div class="back-link" onclick="backToWords()">← Back to Words</div>
+  </div>
+
+  <!-- Game 2: Missing Middle -->
+  <div id="screen-game2" class="screen">
+    <div class="header">
+      <h1>🌉 Missing Middle</h1>
+      <div class="subtitle" id="g2-subtitle">Fill in the missing letters!</div>
+    </div>
+    <div class="game-area" id="g2-area">
+      <div class="sentence" id="g2-sentence"></div>
+      <div class="feedback" id="g2-feedback"></div>
+      <div class="stars" id="g2-stars"></div>
+    </div>
+    <div class="keyboard" id="g2-keyboard"></div>
+    <div class="btn-row">
+      <button class="btn" onclick="speakCurrentSentence()">🔊 Hear Again</button>
+      <button class="btn" onclick="showGameHint(2)">💡 Hint</button>
+      <button class="btn btn-primary" onclick="checkGame2()">✓ Check</button>
+    </div>
+    <div class="back-link" onclick="backToWords()">← Back to Words</div>
+  </div>
+
+  <!-- Game 3: Sound Type -->
+  <div id="screen-game3" class="screen">
+    <div class="header">
+      <h1>🔊 Sound Type</h1>
+      <div class="subtitle" id="g3-subtitle">Listen and type what you hear!</div>
+    </div>
+    <div class="game-area" id="g3-area">
+      <div class="sentence" id="g3-sentence"></div>
+      <div class="feedback" id="g3-feedback"></div>
+      <div class="stars" id="g3-stars"></div>
+    </div>
+    <div class="keyboard" id="g3-keyboard"></div>
+    <div class="btn-row">
+      <button class="btn" onclick="speakCurrentSentence()">🔊 Hear Again</button>
+      <button class="btn" onclick="showGameHint(3)">💡 Hint</button>
+      <button class="btn btn-primary" onclick="checkGame3()">✓ Check</button>
+    </div>
+    <div class="back-link" onclick="backToWords()">← Back to Words</div>
+  </div>
+
+</div>
+
+<!-- Parent Corner Modal -->
+<div id="parent-modal" class="modal-overlay" onclick="if(event.target===this)closeParentModal()">
+  <div class="modal">
+    <div id="parent-gate">
+      <div class="gate-box">
+        <h2>👩‍👧 Parent Corner</h2>
+        <p>What is <b>3 + 4</b>?</p>
+        <input type="number" class="input" id="gate-answer" placeholder="Type your answer" onkeydown="if(event.key==='Enter')checkGate()">
+        <button class="btn btn-primary" onclick="checkGate()" style="width:100%;justify-content:center">Unlock</button>
+      </div>
+    </div>
+    <div id="parent-content" class="hidden">
+      <h2>👩‍👧 Parent Corner</h2>
+
+      <h3>📋 Edit Word List</h3>
+      <p class="small">Paste your spelling list below (one sentence per line, underline the target word with **):</p>
+      <textarea class="input" id="parent-words" placeholder="Please **close** the door.
+I like to **read**."></textarea>
+      <button class="btn btn-primary" onclick="saveParentWords()" style="width:100%;justify-content:center;margin-bottom:16px">💾 Save Word List</button>
+
+      <h3>📷 OCR Upload</h3>
+      <p class="small">Take a photo of the spelling list:</p>
+      <input type="file" class="input" id="ocr-file" accept="image/*" onchange="runOCR()">
+      <div id="ocr-result" class="ocr-preview hidden"></div>
+      <button class="btn" id="ocr-use-btn" onclick="useOCRResult()" style="width:100%;justify-content:center;margin-bottom:16px;display:none">✏️ Use This Text</button>
+
+      <h3>💾 Family Sharing</h3>
+      <p class="small">Copy this code to share progress with family:</p>
+      <textarea class="input" id="share-code" readonly style="min-height:60px;font-size:12px"></textarea>
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <button class="btn" onclick="copyShareCode()" style="flex:1;justify-content:center">📋 Copy</button>
+        <button class="btn" onclick="pasteShareCode()" style="flex:1;justify-content:center">📥 Paste & Load</button>
+      </div>
+
+      <h3>⚙️ Settings</h3>
+      <button class="btn" onclick="resetProgress()" style="width:100%;justify-content:center;margin-bottom:8px">🔄 Reset All Progress</button>
+      <button class="btn" onclick="closeParentModal()" style="width:100%;justify-content:center">✕ Close</button>
     </div>
   </div>
-  <button class="btn btn-secondary" onclick="showParentGate()" style="margin-top:24px;">👩‍👧 Parent Corner</button>
-  <div class="hidden-trigger" onclick="showParentGate()"></div>
-</div>
-
-<!-- GAME 1: GARDEN MENU -->
-<div id="screen-garden" class="screen">
-  <div class="top-bar">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <span class="week-badge">🌸 Garden</span>
-  </div>
-  <div class="header" style="padding-top:6px;">
-    <h1 style="color:#16A085;">🌱 Word Garden</h1>
-    <p>Tap a seed to grow a flower!</p>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="garden-progress" style="width:0%">0 / 8</div></div>
-  <div class="garden-grid" id="garden-grid"></div>
-</div>
-
-<!-- GAME 1: PLAY -->
-<div id="screen-garden-game" class="screen">
-  <div class="top-bar">
-    <button class="back-btn" onclick="showScreen('screen-garden')">← Back</button>
-    <span class="week-badge" style="background:#1ABC9C;">🌸 Garden</span>
-  </div>
-  <div class="header" style="padding-top:6px;"><p style="font-size:15px;color:var(--text-light);">Listen to the sentence. Spell the missing word.</p></div>
-  <button class="audio-btn" onclick="speakCurrentWord()" id="garden-audio">🔊</button>
-  <div class="sentence-box" id="garden-sentence">Loading...</div>
-  <div class="feedback-msg" id="garden-feedback"></div>
-  <div class="slots-container" id="garden-slots"></div>
-  <div class="letters-pool" id="garden-pool"></div>
-  <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-hint" onclick="useHint()" id="garden-hint" style="flex:1;">💡 Hint</button>
-    <button class="btn btn-secondary" onclick="resetCurrentGame()" style="flex:1;">🔄 Reset</button>
-  </div>
-</div>
-
-<!-- GAME 2: TREASURE MENU -->
-<div id="screen-treasure" class="screen">
-  <div class="top-bar">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <span class="week-badge" style="background:#F39C12;">🏝️ Island</span>
-  </div>
-  <div class="header" style="padding-top:6px;">
-    <h1 style="color:#D68910;">🏴‍☠️ Treasure Hunt</h1>
-    <p>Explore spots and find treasure!</p>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="treasure-progress" style="width:0%;background:linear-gradient(90deg,#F39C12,#D68910);">0 / 8</div></div>
-  <div class="island-map" id="island-map"></div>
-</div>
-
-<!-- GAME 2: PLAY -->
-<div id="screen-treasure-game" class="screen">
-  <div class="top-bar">
-    <button class="back-btn" onclick="showScreen('screen-treasure')">← Back</button>
-    <span class="week-badge" style="background:#F39C12;">🏝️ Island</span>
-  </div>
-  <div class="treasure-scene">
-    <span class="scene-emoji" id="treasure-scene-emoji">🌴</span>
-    <div class="scene-title" id="treasure-scene-title">Crystal Cave</div>
-    <div class="scene-subtitle">Find the letters to open the chest!</div>
-  </div>
-  <button class="audio-btn" onclick="speakCurrentWord()" id="treasure-audio" style="background:#F39C12;box-shadow:0 5px 0 #D68910;">🔊</button>
-  <div class="sentence-box" id="treasure-sentence">Loading...</div>
-  <div class="feedback-msg" id="treasure-feedback"></div>
-  <div class="slots-container" id="treasure-slots"></div>
-  <div class="letters-pool" id="treasure-pool"></div>
-  <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-hint" onclick="useHint()" id="treasure-hint" style="flex:1;background:#FAD7A0;color:#6E2C00;box-shadow:0 5px 0 #D68910;">💡 Hint</button>
-    <button class="btn btn-secondary" onclick="resetCurrentGame()" style="flex:1;">🔄 Reset</button>
-  </div>
-</div>
-
-<!-- GAME 3: WORKSHOP MENU -->
-<div id="screen-workshop" class="screen">
-  <div class="top-bar">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <span class="week-badge" style="background:#9B59B6;">🔧 Workshop</span>
-  </div>
-  <div class="header" style="padding-top:6px;">
-    <h1 style="color:#8E44AD;">🏗️ Build Workshop</h1>
-    <p>Build things by spelling words!</p>
-  </div>
-  <div class="progress-bar"><div class="progress-fill" id="workshop-progress" style="width:0%;background:linear-gradient(90deg,#BB8FCE,#8E44AD);">0 / 8</div></div>
-  <div id="workshop-list" style="margin-top:16px;"></div>
-</div>
-
-<!-- GAME 3: PLAY -->
-<div id="screen-workshop-game" class="screen">
-  <div class="top-bar">
-    <button class="back-btn" onclick="showScreen('screen-workshop')">← Back</button>
-    <span class="week-badge" style="background:#9B59B6;">🔧 Workshop</span>
-  </div>
-  <div class="workshop-bench">
-    <span class="blueprint-emoji" id="workshop-emoji">🚲</span>
-    <div class="blueprint-name" id="workshop-blueprint-name">Build a Scooter</div>
-    <div class="blueprint-parts" id="workshop-parts"></div>
-  </div>
-  <button class="audio-btn" onclick="speakCurrentWord()" id="workshop-audio" style="background:#9B59B6;box-shadow:0 5px 0 #8E44AD;">🔊</button>
-  <div class="sentence-box" id="workshop-sentence">Loading...</div>
-  <div class="feedback-msg" id="workshop-feedback"></div>
-  <div class="conveyor-belt" id="workshop-slots"></div>
-  <div class="letters-pool" id="workshop-pool"></div>
-  <div style="display:flex;gap:10px;margin-top:6px;">
-    <button class="btn btn-hint" onclick="useHint()" id="workshop-hint" style="flex:1;background:#D7BDE2;color:#4A235A;box-shadow:0 5px 0 #9B59B6;">💡 Hint</button>
-    <button class="btn btn-secondary" onclick="resetCurrentGame()" style="flex:1;">🔄 Reset</button>
-  </div>
-</div>
-
-<!-- CELEBRATION -->
-<div class="celebration" id="celebration">
-  <div class="celebration-emoji" id="celebration-emoji">🌸</div>
-  <h2 id="celebration-title">Amazing!</h2>
-  <p id="celebration-text">You did it!</p>
-  <button class="btn btn-success" onclick="closeCelebration()" style="max-width:280px;">Continue 🎉</button>
-</div>
-
-<!-- PARENT GATE -->
-<div class="parent-gate" id="parent-gate">
-  <div class="gate-box">
-    <h3>👋 Hello, Parent!</h3>
-    <p>To keep this area safe, please solve:</p>
-    <p style="font-size:28px;font-weight:bold;color:var(--accent-dark);margin:16px 0;">3 + 4 = ?</p>
-    <input type="number" class="gate-input" id="gate-answer" placeholder="Type answer">
-    <button class="btn" onclick="checkGate()">Enter</button>
-    <button class="btn btn-secondary" onclick="hideParentGate()" style="margin-top:8px;">Cancel</button>
-  </div>
-</div>
-
-<!-- PARENT PANEL -->
-<div class="parent-panel" id="parent-panel">
-  <div class="top-bar">
-    <button class="back-btn" onclick="goHome()">← Back to Game</button>
-  </div>
-  <h2>🛠️ Parent Corner</h2>
-
-  <!-- OCR Screenshot Upload -->
-  <div class="ocr-section">
-    <h3>📸 Upload Worksheet Screenshot</h3>
-    <p>Take a photo of the spelling worksheet. The app will read the sentences and you just type the underlined word for each.</p>
-    <input type="file" class="ocr-file-input" id="ocr-file" accept="image/*" onchange="handleOCRUpload(event)">
-    <img class="ocr-preview" id="ocr-preview" alt="Preview">
-    <div class="ocr-loading" id="ocr-loading">
-      <div style="font-size:40px;margin-bottom:10px;">🔍</div>
-      Reading the worksheet...<br><small>This may take 10–20 seconds</small>
-    </div>
-    <div class="ocr-result" id="ocr-result"></div>
-    <button class="btn btn-success" id="ocr-generate-btn" onclick="generateFromOCR()" style="display:none;margin-top:12px;">✅ Generate Word List</button>
-  </div>
-
-  <label for="word-input" style="margin-top:24px;">Or Type / Edit Word List Manually</label>
-  <textarea id="word-input" placeholder="word|sentence
-word|sentence"></textarea>
-  <p class="help-text">
-    Format: underlined word, then a pipe <b>|</b>, then the full sentence.<br>
-    The app shows the sentence with the word blanked out, just like in school.
-  </p>
-  <button class="btn btn-success" onclick="saveWords()">💾 Save Word List</button>
-
-  <div class="share-box">
-    <h4>📤 Share with Family</h4>
-    <p style="font-size:15px;color:var(--text-light);margin-bottom:12px;">
-      Share this code with family. They can use "Import Save Data" on their phone to get the same words and progress.
-    </p>
-    <div class="code-display" id="family-code">SUNNY-CAT-42</div>
-    <button class="btn" onclick="exportData()">📋 Copy Save Data</button>
-    <button class="btn btn-secondary" onclick="importData()" style="margin-top:8px;">📥 Import Save Data</button>
-    <input type="file" id="import-file" style="display:none;" accept=".json" onchange="handleImport(event)">
-  </div>
-  <button class="btn btn-secondary" onclick="resetProgress()" style="margin-top:20px;background:#F5B7B1;color:#922B21;">⚠️ Reset All Progress</button>
 </div>
 
 <script>
-// ===================== GAME DATA & STATE =====================
-const TREASURE_SPOTS = [
-  {emoji:"🌴",name:"Palm Tree"},{emoji:"🪨",name:"Rocky Cliff"},{emoji:"🏖️",name:"Sandy Beach"},
-  {emoji:"🌋",name:"Volcano"},{emoji:"🏴‍☠️",name:"Pirate Ship"},{emoji:"🐚",name:"Shell Cove"},
-  {emoji:"🦜",name:"Parrot Nest"},{emoji:"💎",name:"Crystal Cave"}
-];
+// ═══════════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════════
+let state = {
+  audioUnlocked: false,
+  currentGame: 0,
+  currentWordIndex: 0,
+  progress: {}, // word -> { mastered: bool, date: string }
+  ocrText: ''
+};
 
-const BLUEPRINTS = [
-  {emoji:"🚲",name:"Scooter"},{emoji:"🎂",name:"Birthday Cake"},{emoji:"🚀",name:"Rocket Ship"},
-  {emoji:"🏠",name:"Doll House"},{emoji:"🎸",name:"Guitar"},{emoji:"🚢",name:"Toy Boat"},
-  {emoji:"🎨",name:"Art Easel"},{emoji:"🧸",name:"Teddy Bear"}
-];
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
-let words=[], currentGame=1, currentIndex=0, currentAttempt=[], hintCount=0, speechReady=false, audioUnlocked=false;
-let ocrSentences = [];
-let speechVoices = [];
-
-function init(){
-  const saved=localStorage.getItem('spellingWorldData');
-  if(saved){ try{ const d=JSON.parse(saved); words=d.words||JSON.parse(JSON.stringify(DEFAULT_WORDS)); }catch(e){ words=JSON.parse(JSON.stringify(DEFAULT_WORDS)); }}
-  else words=JSON.parse(JSON.stringify(DEFAULT_WORDS));
-  if(!localStorage.getItem('spellingWorldFamilyCode')) localStorage.setItem('spellingWorldFamilyCode',generateFamilyCode());
-
-  // Load voices when available
-  if('speechSynthesis' in window){
-    speechReady=true;
-    speechVoices = window.speechSynthesis.getVoices();
-    if(speechVoices.length===0){
-      window.speechSynthesis.onvoiceschanged = function(){
-        speechVoices = window.speechSynthesis.getVoices();
-      };
-    }
-  }
-
-  const ta=document.getElementById('word-input'); if(ta) ta.value=words.map(w=>w.word+"|"+w.sentence).join("\n");
-  const ce=document.getElementById('family-code'); if(ce) ce.textContent=localStorage.getItem('spellingWorldFamilyCode')||'SUNNY-CAT-42';
+// ═══════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════
+function init() {
+  loadProgress();
+  renderGarden();
+  registerSW();
 }
 
-function generateFamilyCode(){
-  const adj=['SUNNY','HAPPY','BRAVE','CALM','WISE','KIND','BOLD','SWIFT','GENTLE','BRIGHT'];
-  const nouns=['CAT','DOG','BIRD','FISH','TREE','STAR','MOON','BEAR','LION','FROG'];
-  return adj[Math.floor(Math.random()*adj.length)]+'-'+nouns[Math.floor(Math.random()*nouns.length)]+'-'+(Math.floor(Math.random()*90)+10);
+function registerSW() {
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      const CACHE = 'spelling-world-v1';
+      self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll([self.location.href]))));
+      self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+      self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));
+    `;
+    const blob = new Blob([swCode], {type: 'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  }
 }
 
-function saveToStorage(){ localStorage.setItem('spellingWorldData',JSON.stringify({words:words,lastUpdate:new Date().toISOString()})); }
+// ═══════════════════════════════════════════════════════════════
+//  AUDIO
+// ═══════════════════════════════════════════════════════════════
+function unlockAudio() {
+  state.audioUnlocked = true;
+  document.getElementById('startOverlay').style.display = 'none';
+  document.getElementById('app').style.display = 'flex';
+  init();
+  speak("Welcome to Spelling World!");
+}
 
-// ===================== AUDIO UNLOCK =====================
-function unlockAudio(){
-  if(!('speechSynthesis' in window)){
-    document.getElementById('sound-status').textContent = '❌ This device does not support speech. Try a different browser.';
-    document.getElementById('sound-status').className = 'sound-status sound-off';
-    setTimeout(()=>{ document.getElementById('welcome-screen').classList.add('hidden'); showScreen('screen-home'); renderHome(); }, 2000);
-    return;
-  }
-
-  // Force-load voices
-  speechVoices = window.speechSynthesis.getVoices();
-
-  // Try a silent utterance to unlock audio context
+function speak(text, rate) {
+  if (!state.audioUnlocked || !window.speechSynthesis) return;
   window.speechSynthesis.cancel();
-  const testUtter = new SpeechSynthesisUtterance('Ready');
-  testUtter.volume = 0.01; // nearly silent test
-  testUtter.rate = 1;
-  testUtter.onend = function(){
-    audioUnlocked = true;
-    document.getElementById('sound-status').textContent = '🔊 Sound is on! Starting...';
-    document.getElementById('sound-status').className = 'sound-status sound-on';
-    setTimeout(()=>{ document.getElementById('welcome-screen').classList.add('hidden'); showScreen('screen-home'); renderHome(); }, 600);
-  };
-  testUtter.onerror = function(){
-    // Some browsers block even silent utterances, but manual tap should work
-    audioUnlocked = true;
-    document.getElementById('sound-status').textContent = '🔊 Sound ready! Starting...';
-    document.getElementById('sound-status').className = 'sound-status sound-on';
-    setTimeout(()=>{ document.getElementById('welcome-screen').classList.add('hidden'); showScreen('screen-home'); renderHome(); }, 600);
-  };
-  window.speechSynthesis.speak(testUtter);
-}
-
-// ===================== SPEECH =====================
-function speak(text,rate=0.82){
-  if(!speechReady || !audioUnlocked) return;
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text); u.rate=rate; u.pitch=1.05; u.lang='en-SG';
-
-  // Pick best available voice
-  let voice = null;
-  const preferred = ['Samantha','Karen','Tessa','Moira','Fiona','Google UK English Female','Microsoft Zira'];
-  for(const name of preferred){
-    const found = speechVoices.find(v => v.name.includes(name));
-    if(found){ voice = found; break; }
-  }
-  if(!voice && speechVoices.length > 0){
-    // Fallback: any English voice
-    voice = speechVoices.find(v => v.lang.startsWith('en')) || speechVoices[0];
-  }
-  if(voice) u.voice = voice;
-
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = rate || 0.85;
+  u.pitch = 1.1;
+  u.lang = 'en-US';
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Google US English'));
+  if (preferred) u.voice = preferred;
   window.speechSynthesis.speak(u);
 }
 
-function speakCurrentWord(){
-  const w=words[currentIndex]; if(!w) return;
+function speakCurrentSentence() {
+  const w = SPELLING_WORDS[state.currentWordIndex];
+  if (!w) return;
   speak(w.sentence);
-  const btnId=currentGame===1?'garden-audio':currentGame===2?'treasure-audio':'workshop-audio';
-  const btn=document.getElementById(btnId); if(btn){ btn.style.transform='scale(0.9)'; setTimeout(()=>btn.style.transform='scale(1)',150);}
 }
 
-function showScreen(id){
-  document.querySelectorAll('.screen,.parent-panel').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active'); window.scrollTo(0,0);
-}
-
-function goHome(){ hideParentGate(); renderHome(); showScreen('screen-home'); }
-
-function goToGame(g){
-  currentGame=g;
-  if(g===1){ renderGarden(); showScreen('screen-garden');}
-  else if(g===2){ renderTreasureMap(); showScreen('screen-treasure');}
-  else{ renderWorkshop(); showScreen('screen-workshop');}
-}
-
-function renderHome(){
-  const c=words.filter(w=>w.done).length;
-  const pct=words.length>0?(c/words.length)*100:0;
-  const hf=document.getElementById('home-progress');
-  if(hf){ hf.style.width=pct+'%'; hf.textContent=c+' / '+words.length;}
-  [1,2,3].forEach(g=>{ const el=document.getElementById('mini-'+g); if(el) el.style.width=pct+'%'; });
-}
-
-function renderGarden(){
-  const grid=document.getElementById('garden-grid'); if(!grid) return; grid.innerHTML='';
-  const c=words.filter(w=>w.done).length;
-  const pct=words.length>0?(c/words.length)*100:0;
-  const gf=document.getElementById('garden-progress'); if(gf){ gf.style.width=pct+'%'; gf.textContent=c+' / '+words.length;}
-  const flowers=['🌸','🌺','🌻','🌷','🌹','🌼','🌵','🌳'];
-  words.forEach((w,i)=>{
-    const card=document.createElement('div'); card.className='word-card'+(w.done?' completed':''); card.onclick=()=>startGamePlay(i);
-    const emo=document.createElement('span'); emo.className='card-emoji'; emo.textContent=w.done?flowers[i%flowers.length]:'🌱';
-    const wt=document.createElement('div'); wt.className='card-word'; wt.textContent=w.done?w.word:'???';
-    const st=document.createElement('div'); st.className='card-status'; st.textContent=w.done?'Blooming!':'Tap to grow';
-    card.appendChild(emo); card.appendChild(wt); card.appendChild(st); grid.appendChild(card);
-  });
-}
-
-function renderTreasureMap(){
-  const map=document.getElementById('island-map'); if(!map) return; map.innerHTML='';
-  const c=words.filter(w=>w.done).length;
-  const pct=words.length>0?(c/words.length)*100:0;
-  const tf=document.getElementById('treasure-progress'); if(tf){ tf.style.width=pct+'%'; tf.textContent=c+' / '+words.length;}
-  for(let row=0;row<3;row++){
-    const rowDiv=document.createElement('div'); rowDiv.className='spot-row';
-    for(let col=0;col<3;col++){
-      const idx=row*3+col; if(idx>=words.length) break;
-      const spot=TREASURE_SPOTS[idx]||{emoji:'⭐',name:'Spot '+(idx+1)};
-      const w=words[idx];
-      const el=document.createElement('div'); el.className='treasure-spot'+(w.done?' completed':''); el.onclick=()=>startGamePlay(idx);
-      el.innerHTML='<span style="font-size:32px;">'+(w.done?'✨':spot.emoji)+'</span><span class="spot-label">'+(w.done?'Found!':spot.name)+'</span>';
-      rowDiv.appendChild(el);
-    }
-    map.appendChild(rowDiv);
-  }
-}
-
-function renderWorkshop(){
-  const list=document.getElementById('workshop-list'); if(!list) return; list.innerHTML='';
-  const c=words.filter(w=>w.done).length;
-  const pct=words.length>0?(c/words.length)*100:0;
-  const wf=document.getElementById('workshop-progress'); if(wf){ wf.style.width=pct+'%'; wf.textContent=c+' / '+words.length;}
-  words.forEach((w,i)=>{
-    const bp=BLUEPRINTS[i]||{emoji:'⭐',name:'Build Something'};
-    const item=document.createElement('div');
-    item.style.cssText='background:white;border-radius:20px;padding:18px 16px;margin-bottom:14px;border:3px solid #9B59B6;box-shadow:0 4px 0 #8E44AD;cursor:pointer;display:flex;align-items:center;gap:14px;transition:all 0.3s ease;';
-    item.onclick=()=>startGamePlay(i);
-    const emo=document.createElement('span'); emo.textContent=w.done?'✅':bp.emoji; emo.style.cssText='font-size:40px;flex-shrink:0;';
-    const info=document.createElement('div'); info.style.cssText='flex:1;';
-    const nm=document.createElement('div'); nm.textContent=bp.name; nm.style.cssText='font-size:20px;font-weight:bold;color:#8E44AD;';
-    const st=document.createElement('div'); st.textContent=w.done?'Built! 🎉':'Tap to build'; st.style.cssText='font-size:15px;color:var(--text-light);margin-top:2px;';
-    info.appendChild(nm); info.appendChild(st); item.appendChild(emo); item.appendChild(info); list.appendChild(item);
-  });
-}
-
-function startGamePlay(idx){
-  currentIndex=idx; currentAttempt=[]; hintCount=0;
-  const w=words[idx];
-  const blankHtml='<span class="blank" id="active-blank">_____</span>';
-  const sentenceHtml=w.sentence.replace(new RegExp('\b'+w.word+'\b','i'),blankHtml);
-  if(currentGame===1){
-    document.getElementById('garden-sentence').innerHTML=sentenceHtml;
-    document.getElementById('garden-feedback').textContent='';
-    document.getElementById('garden-hint').style.display='inline-flex';
-    buildSlots('garden-slots',w.word.length); buildPool('garden-pool',w.word);
-    showScreen('screen-garden-game');
-  } else if(currentGame===2){
-    const spot=TREASURE_SPOTS[idx]||{emoji:'🌴',name:'Mystery Spot'};
-    document.getElementById('treasure-scene-emoji').textContent=spot.emoji;
-    document.getElementById('treasure-scene-title').textContent=spot.name;
-    document.getElementById('treasure-sentence').innerHTML=sentenceHtml;
-    document.getElementById('treasure-feedback').textContent='';
-    document.getElementById('treasure-hint').style.display='inline-flex';
-    buildSlots('treasure-slots',w.word.length); buildPool('treasure-pool',w.word);
-    showScreen('screen-treasure-game');
-  } else {
-    const bp=BLUEPRINTS[idx]||{emoji:'⭐',name:'Build Something'};
-    document.getElementById('workshop-emoji').textContent=bp.emoji;
-    document.getElementById('workshop-blueprint-name').textContent=bp.name;
-    const partsEl=document.getElementById('workshop-parts'); partsEl.innerHTML='';
-    for(let p=0;p<3;p++){ const dot=document.createElement('div'); dot.className='part-dot'+(w.done?' done':''); partsEl.appendChild(dot);}
-    document.getElementById('workshop-sentence').innerHTML=sentenceHtml;
-    document.getElementById('workshop-feedback').textContent='';
-    document.getElementById('workshop-hint').style.display='inline-flex';
-    buildSlots('workshop-slots',w.word.length); buildPool('workshop-pool',w.word);
-    showScreen('screen-workshop-game');
-  }
-  setTimeout(()=>speakCurrentWord(),600);
-}
-
-function buildSlots(cid,len){
-  const c=document.getElementById(cid); c.innerHTML='';
-  for(let i=0;i<len;i++){ const s=document.createElement('div'); s.className='letter-slot'; s.dataset.index=i; s.id='slot-'+i; c.appendChild(s);}
-}
-
-function buildPool(cid,word){
-  const pool=document.getElementById(cid); pool.innerHTML='';
-  const letters=word.split(''); const indices=letters.map((_,i)=>i);
-  for(let i=indices.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [indices[i],indices[j]]=[indices[j],indices[i]];}
-  indices.forEach(oi=>{
-    const tile=document.createElement('div'); tile.className='letter-tile';
-    tile.textContent=letters[oi].toUpperCase(); tile.dataset.letter=letters[oi]; tile.dataset.originalIndex=oi;
-    tile.onclick=()=>tryLetter(tile,oi); pool.appendChild(tile);
-  });
-}
-
-function tryLetter(tile,oi){
-  const w=words[currentIndex]; const target=w.word[currentAttempt.length];
-  if(tile.dataset.letter===target){
-    currentAttempt.push({letter:target,originalIndex:oi}); tile.classList.add('used');
-    const slot=document.getElementById('slot-'+(currentAttempt.length-1));
-    slot.textContent=target.toUpperCase(); slot.classList.add('filled');
-    setFeedback('');
-    if(currentAttempt.length===w.word.length) setTimeout(()=>onWordComplete(),400);
-  } else {
-    tile.classList.add('wrong'); setFeedback('Not quite, try again! 💪'); speak('Not quite, try again!');
-    setTimeout(()=>tile.classList.remove('wrong'),500);
-  }
-}
-
-function setFeedback(msg){
-  const id=currentGame===1?'garden-feedback':currentGame===2?'treasure-feedback':'workshop-feedback';
-  const el=document.getElementById(id); if(el) el.textContent=msg;
-}
-
-function useHint(){
-  const w=words[currentIndex]; if(currentAttempt.length>=w.word.length) return;
-  const nextIdx=currentAttempt.length; const target=w.word[nextIdx];
-  const poolId=currentGame===1?'garden-pool':currentGame===2?'treasure-pool':'workshop-pool';
-  const tiles=document.querySelectorAll('#'+poolId+' .letter-tile:not(.used)');
-  for(const tile of tiles){ if(tile.dataset.letter===target){ tryLetter(tile,parseInt(tile.dataset.originalIndex)); const slot=document.getElementById('slot-'+nextIdx); if(slot) slot.classList.add('hinted'); break;}}
-  hintCount++;
-  const hintBtnId=currentGame===1?'garden-hint':currentGame===2?'treasure-hint':'workshop-hint';
-  if(hintCount>=2){ const btn=document.getElementById(hintBtnId); if(btn) btn.style.display='none';}
-}
-
-function resetCurrentGame(){ startGamePlay(currentIndex); }
-
-function onWordComplete(){
-  const w=words[currentIndex]; words[currentIndex].done=true; saveToStorage();
-  const blank=document.getElementById('active-blank'); if(blank){ blank.textContent=w.word; blank.classList.add('filled');}
-  speak('Wonderful! The word is '+w.word+'!',0.88);
-  setTimeout(()=>showCelebration(w.word),700);
-}
-
-function showCelebration(word){
-  const cel=document.getElementById('celebration'); if(!cel) return;
-  const emojis=['🌸','🌺','🌻','🌷','🌹','🌼','🌵','🌳','🏆','⭐','🎉','🎊'];
-  const emoji=emojis[currentIndex%emojis.length];
-  let title,text;
-  if(currentGame===1){ title='Beautiful flower!'; text='You spelled "'+word+'" and grew a flower in your garden!';}
-  else if(currentGame===2){ title='Treasure found!'; text='You spelled "'+word+'" and opened the treasure chest!';}
-  else{ title='Build complete!'; text='You spelled "'+word+'" and finished your build!';}
-  document.getElementById('celebration-emoji').textContent=emoji;
-  document.getElementById('celebration-title').textContent=title;
-  document.getElementById('celebration-text').textContent=text;
-  cel.classList.add('active');
-}
-
-function closeCelebration(){
-  document.getElementById('celebration').classList.remove('active');
-  if(currentGame===1){ renderGarden(); showScreen('screen-garden');}
-  else if(currentGame===2){ renderTreasureMap(); showScreen('screen-treasure');}
-  else{ renderWorkshop(); showScreen('screen-workshop');}
-}
-
-function showParentGate(){ document.getElementById('parent-gate').classList.add('active'); document.getElementById('gate-answer').value=''; setTimeout(()=>document.getElementById('gate-answer').focus(),100);}
-function hideParentGate(){ document.getElementById('parent-gate').classList.remove('active');}
-
-function checkGate(){
-  const ans=document.getElementById('gate-answer').value.trim();
-  if(ans==='7'){ hideParentGate(); showScreen('parent-panel');}
-  else{ speak('That is not correct. Try again.'); const input=document.getElementById('gate-answer'); input.style.borderColor='var(--wrong)'; setTimeout(()=>input.style.borderColor='',1000);}
-}
-
-function saveWords(){
-  const raw=document.getElementById('word-input').value.trim(); if(!raw) return;
-  const lines=raw.split('\n'); const newWords=[];
-  for(const line of lines){
-    const parts=line.split('|');
-    if(parts.length>=2){
-      const word=parts[0].trim().toLowerCase(); const sentence=parts[1].trim();
-      if(word&&sentence){ const existing=words.find(w=>w.word===word); newWords.push({word:word,sentence:sentence,done:existing?existing.done:false});}
-    }
-  }
-  if(newWords.length>0){ words=newWords; saveToStorage(); speak('Word list saved!'); alert('Word list saved! '+words.length+' words ready for practice.'); goHome();}
-  else alert('Could not parse words. Please use format: word|sentence');
-}
-
-function resetProgress(){
-  if(confirm('Are you sure? This will reset all progress across all 3 games.')){ words.forEach(w=>w.done=false); saveToStorage(); alert('All progress reset.'); goHome();}
-}
-
-function exportData(){
-  const data={words:words,familyCode:localStorage.getItem('spellingWorldFamilyCode'),exportDate:new Date().toISOString()};
-  const json=JSON.stringify(data,null,2);
-  navigator.clipboard.writeText(json).then(()=>alert('Save data copied to clipboard! Paste this into WhatsApp to share with family.')).catch(()=>{
-    const blob=new Blob([json],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='spelling-world-save.json'; a.click();
-  });
-}
-
-function importData(){ document.getElementById('import-file').click();}
-
-function handleImport(event){
-  const file=event.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=(e)=>{
-    try{
-      const data=JSON.parse(e.target.result);
-      if(data.words&&Array.isArray(data.words)){
-        words=data.words;
-        if(data.familyCode){ localStorage.setItem('spellingWorldFamilyCode',data.familyCode); document.getElementById('family-code').textContent=data.familyCode;}
-        saveToStorage(); document.getElementById('word-input').value=words.map(w=>w.word+"|"+w.sentence).join("\n");
-        alert('Save data imported! '+words.length+' words loaded.'); goHome();
-      } else throw new Error('Invalid');
-    } catch(err){ alert('Could not import file. Please make sure it is a valid Spelling World save file.');}
-  };
-  reader.readAsText(file);
-}
-
-// ===================== OCR / SCREENSHOT UPLOAD =====================
-
-async function handleOCRUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const preview = document.getElementById('ocr-preview');
-  const loading = document.getElementById('ocr-loading');
-  const resultDiv = document.getElementById('ocr-result');
-  const generateBtn = document.getElementById('ocr-generate-btn');
-
-  preview.src = URL.createObjectURL(file);
-  preview.classList.add('active');
-  loading.classList.add('active');
-  resultDiv.innerHTML = '';
-  generateBtn.style.display = 'none';
-  ocrSentences = [];
-
+// ═══════════════════════════════════════════════════════════════
+//  PROGRESS
+// ═══════════════════════════════════════════════════════════════
+function loadProgress() {
   try {
-    const result = await Tesseract.recognize(file, 'eng', {
-      logger: m => { }
-    });
+    const saved = localStorage.getItem('spelling_progress');
+    if (saved) state.progress = JSON.parse(saved);
+  } catch(e) {}
+}
 
-    const text = result.data.text;
-    loading.classList.remove('active');
+function saveProgress() {
+  try {
+    localStorage.setItem('spelling_progress', JSON.stringify(state.progress));
+  } catch(e) {}
+  renderGarden();
+}
 
-    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 10);
-    const parsed = [];
+function isMastered(word) {
+  return !!(state.progress[word.toLowerCase()] && state.progress[word.toLowerCase()].mastered);
+}
 
-    for (const line of lines) {
-      const match = line.match(/^\s*(?:\d+[.):]\s*)?(.+)$/);
-      if (match) {
-        let sentence = match[1].trim();
-        sentence = sentence.replace(/[_]{2,}/g, ' ').replace(/\s+/g, ' ').trim();
-        if (sentence.length > 10 && sentence.split(' ').length >= 3) {
-          parsed.push(sentence);
-        }
-      }
-    }
+function masterWord(word) {
+  state.progress[word.toLowerCase()] = { mastered: true, date: new Date().toISOString() };
+  saveProgress();
+}
 
-    const finalSentences = parsed.length > 0 ? parsed : lines.filter(l => l.split(' ').length >= 3);
-
-    if (finalSentences.length === 0) {
-      resultDiv.innerHTML = '<p style="color:#922B21;">Could not read sentences from the image. Please try typing them manually.</p>';
-      return;
-    }
-
-    ocrSentences = finalSentences.slice(0, 12);
-
-    let html = '<p style="font-size:16px;color:var(--text-light);margin-bottom:12px;">Great! I found ' + ocrSentences.length + ' sentences. Please type the <b>underlined word</b> for each:</p>';
-    ocrSentences.forEach((sent, i) => {
-      html += '<div class="ocr-sentence-card">';
-      html += '<div class="num">#' + (i+1) + '</div>';
-      html += '<div class="sent">' + escapeHtml(sent) + '</div>';
-      html += '<input type="text" id="ocr-word-' + i + '" placeholder="Type the underlined word here">';
-      html += '</div>';
-    });
-    resultDiv.innerHTML = html;
-    generateBtn.style.display = 'inline-flex';
-
-  } catch (err) {
-    loading.classList.remove('active');
-    resultDiv.innerHTML = '<p style="color:#922B21;">Oops, could not read the image. Please type the words manually below.</p>';
-    console.error(err);
+function resetProgress() {
+  if (confirm('Reset all progress? This cannot be undone.')) {
+    state.progress = {};
+    saveProgress();
+    renderGarden();
+    alert('Progress reset!');
   }
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+function renderGarden() {
+  const el = document.getElementById('garden');
+  if (!el) return;
+  el.innerHTML = SPELLING_WORDS.map(w => {
+    const m = isMastered(w.word);
+    return `<div class="garden-flower ${m ? 'mastered' : ''}" title="${w.word}">${m ? '🌸' : '🌱'}</div>`;
+  }).join('');
 }
 
-function generateFromOCR() {
-  const output = [];
-  for (let i = 0; i < ocrSentences.length; i++) {
-    const wordInput = document.getElementById('ocr-word-' + i);
-    const word = wordInput ? wordInput.value.trim().toLowerCase() : '';
-    const sentence = ocrSentences[i];
-    if (word && sentence) {
-      output.push(word + '|' + sentence);
+// ═══════════════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showWordList(gameNum) {
+  state.currentGame = gameNum;
+  const titles = ['', 'Memory Garden', 'Missing Middle', 'Sound Type'];
+  document.getElementById('words-title').textContent = titles[gameNum];
+  const grid = document.getElementById('word-grid');
+  grid.innerHTML = SPELLING_WORDS.map((w, i) => {
+    const m = isMastered(w.word);
+    return `
+      <div class="word-card ${m ? 'mastered' : ''}" onclick="startGame(${i})">
+        <div class="w-word">${w.word}</div>
+        <div class="w-status">${m ? '⭐' : '🌱'}</div>
+      </div>
+    `;
+  }).join('');
+  showScreen('screen-words');
+}
+
+function backToWords() {
+  showWordList(state.currentGame);
+}
+
+function startGame(wordIndex) {
+  state.currentWordIndex = wordIndex;
+  const w = SPELLING_WORDS[wordIndex];
+  if (state.currentGame === 1) startGame1(w);
+  else if (state.currentGame === 2) startGame2(w);
+  else if (state.currentGame === 3) startGame3(w);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  KEYBOARD
+// ═══════════════════════════════════════════════════════════════
+function renderKeyboard(containerId, onKey, options) {
+  const container = document.getElementById(containerId);
+  const opts = options || {};
+  let html = '';
+  ALPHABET.forEach(letter => {
+    html += `<button class="key" onclick="${onKey}('${letter}')">${letter}</button>`;
+  });
+  html += `<button class="key key-wide" onclick="${onKey}('BACKSPACE')">⌫</button>`;
+  html += `<button class="key key-wide key-submit" onclick="${onKey}('SUBMIT')">✓</button>`;
+  container.innerHTML = html;
+}
+
+function setupPhysicalKeyboard(onKey) {
+  const handler = e => {
+    const k = e.key.toUpperCase();
+    if (ALPHABET.includes(k)) { onKey(k); e.preventDefault(); }
+    else if (e.key === 'Backspace') { onKey('BACKSPACE'); e.preventDefault(); }
+    else if (e.key === 'Enter') { onKey('SUBMIT'); e.preventDefault(); }
+  };
+  document.addEventListener('keydown', handler);
+  return handler;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  GAME 1: MEMORY GARDEN
+// ═══════════════════════════════════════════════════════════════
+let g1Input = '';
+let g1Handler = null;
+
+function startGame1(w) {
+  g1Input = '';
+  showScreen('screen-game1');
+  document.getElementById('g1-feedback').textContent = '';
+  document.getElementById('g1-stars').textContent = '';
+  document.getElementById('g1-area').classList.remove('wiggle', 'success-glow');
+
+  const highlighted = w.sentence.replace(
+    new RegExp(`\b${w.word}\b`, 'i'),
+    `<span class="highlight">${w.word}</span>`
+  );
+  document.getElementById('g1-sentence').innerHTML = highlighted;
+  document.getElementById('g1-timer').style.display = 'block';
+  document.getElementById('g1-keyboard').style.display = 'none';
+
+  speak(w.sentence);
+
+  setTimeout(() => {
+    document.getElementById('g1-timer').style.display = 'none';
+    document.getElementById('g1-sentence').innerHTML = w.sentence.replace(
+      new RegExp(`\b${w.word}\b`, 'i'),
+      `<input type="text" class="blank" id="g1-blank" readonly placeholder=" " value="">`
+    ) + '<br><span style="font-size:14px;color:var(--text-light)">Type the word you saw!</span>';
+    document.getElementById('g1-keyboard').style.display = 'flex';
+    renderKeyboard('g1-keyboard', 'handleG1Key');
+    if (g1Handler) document.removeEventListener('keydown', g1Handler);
+    g1Handler = setupPhysicalKeyboard(handleG1Key);
+  }, 3000);
+}
+
+function handleG1Key(key) {
+  const blank = document.getElementById('g1-blank');
+  if (!blank) return;
+  if (key === 'BACKSPACE') {
+    g1Input = g1Input.slice(0, -1);
+  } else if (key === 'SUBMIT') {
+    checkGame1();
+    return;
+  } else if (ALPHABET.includes(key)) {
+    g1Input += key.toLowerCase();
+  }
+  blank.value = g1Input;
+}
+
+function checkGame1() {
+  const w = SPELLING_WORDS[state.currentWordIndex];
+  const area = document.getElementById('g1-area');
+  const fb = document.getElementById('g1-feedback');
+  const stars = document.getElementById('g1-stars');
+
+  if (g1Input.toLowerCase().trim() === w.word.toLowerCase()) {
+    area.classList.add('success-glow');
+    fb.textContent = 'Well done! 🌸';
+    fb.className = 'feedback correct';
+    stars.textContent = '⭐⭐⭐';
+    speak('Well done!');
+    masterWord(w.word);
+    setTimeout(() => nextWordOrMenu(), 2000);
+  } else {
+    area.classList.add('wiggle');
+    fb.textContent = 'Not quite. Try again! 💪';
+    fb.className = 'feedback wrong';
+    stars.textContent = '';
+    speak('Try again!');
+    setTimeout(() => area.classList.remove('wiggle'), 500);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  GAME 2: MISSING MIDDLE
+// ═══════════════════════════════════════════════════════════════
+let g2Input = '';
+let g2Handler = null;
+
+function startGame2(w) {
+  g2Input = '';
+  showScreen('screen-game2');
+  document.getElementById('g2-feedback').textContent = '';
+  document.getElementById('g2-stars').textContent = '';
+  document.getElementById('g2-area').classList.remove('wiggle', 'success-glow');
+
+  const first = w.word[0];
+  const last = w.word[w.word.length - 1];
+
+  document.getElementById('g2-sentence').innerHTML = w.sentence.replace(
+    new RegExp(`\b${w.word}\b`, 'i'),
+    `<span class="first-letter">${first}</span><input type="text" class="blank" id="g2-blank" readonly placeholder=" " value="" style="min-width:100px"><span class="last-letter">${last}</span>`
+  ) + '<br><span style="font-size:14px;color:var(--text-light)">Fill in the middle letters!</span>';
+
+  speak(w.sentence);
+  renderKeyboard('g2-keyboard', 'handleG2Key');
+  if (g2Handler) document.removeEventListener('keydown', g2Handler);
+  g2Handler = setupPhysicalKeyboard(handleG2Key);
+}
+
+function handleG2Key(key) {
+  const blank = document.getElementById('g2-blank');
+  if (!blank) return;
+  if (key === 'BACKSPACE') {
+    g2Input = g2Input.slice(0, -1);
+  } else if (key === 'SUBMIT') {
+    checkGame2();
+    return;
+  } else if (ALPHABET.includes(key)) {
+    g2Input += key.toLowerCase();
+  }
+  blank.value = g2Input;
+}
+
+function checkGame2() {
+  const w = SPELLING_WORDS[state.currentWordIndex];
+  const area = document.getElementById('g2-area');
+  const fb = document.getElementById('g2-feedback');
+  const stars = document.getElementById('g2-stars');
+  const first = w.word[0];
+  const last = w.word[w.word.length - 1];
+  const attempt = (first + g2Input.toLowerCase().trim() + last);
+
+  if (attempt === w.word.toLowerCase()) {
+    area.classList.add('success-glow');
+    fb.textContent = 'Great job! 🌉';
+    fb.className = 'feedback correct';
+    stars.textContent = '⭐⭐⭐';
+    speak('Great job!');
+    masterWord(w.word);
+    setTimeout(() => nextWordOrMenu(), 2000);
+  } else {
+    area.classList.add('wiggle');
+    fb.textContent = 'So close! Try again! 💪';
+    fb.className = 'feedback wrong';
+    stars.textContent = '';
+    speak('Try again!');
+    setTimeout(() => area.classList.remove('wiggle'), 500);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  GAME 3: SOUND TYPE
+// ═══════════════════════════════════════════════════════════════
+let g3Input = '';
+let g3Handler = null;
+
+function startGame3(w) {
+  g3Input = '';
+  showScreen('screen-game3');
+  document.getElementById('g3-feedback').textContent = '';
+  document.getElementById('g3-stars').textContent = '';
+  document.getElementById('g3-area').classList.remove('wiggle', 'success-glow');
+
+  document.getElementById('g3-sentence').innerHTML = w.sentence.replace(
+    new RegExp(`\b${w.word}\b`, 'i'),
+    `<input type="text" class="blank" id="g3-blank" readonly placeholder=" " value="">`
+  ) + '<br><span style="font-size:14px;color:var(--text-light)">Type the word you hear!</span>';
+
+  renderKeyboard('g3-keyboard', 'handleG3Key');
+  if (g3Handler) document.removeEventListener('keydown', g3Handler);
+  g3Handler = setupPhysicalKeyboard(handleG3Key);
+
+  setTimeout(() => speak(w.sentence), 500);
+}
+
+function handleG3Key(key) {
+  const blank = document.getElementById('g3-blank');
+  if (!blank) return;
+  if (key === 'BACKSPACE') {
+    g3Input = g3Input.slice(0, -1);
+  } else if (key === 'SUBMIT') {
+    checkGame3();
+    return;
+  } else if (ALPHABET.includes(key)) {
+    g3Input += key.toLowerCase();
+  }
+  blank.value = g3Input;
+}
+
+function checkGame3() {
+  const w = SPELLING_WORDS[state.currentWordIndex];
+  const area = document.getElementById('g3-area');
+  const fb = document.getElementById('g3-feedback');
+  const stars = document.getElementById('g3-stars');
+
+  if (g3Input.toLowerCase().trim() === w.word.toLowerCase()) {
+    area.classList.add('success-glow');
+    fb.textContent = 'Amazing! 🔊';
+    fb.className = 'feedback correct';
+    stars.textContent = '⭐⭐⭐';
+    speak('Amazing!');
+    masterWord(w.word);
+    setTimeout(() => nextWordOrMenu(), 2000);
+  } else {
+    area.classList.add('wiggle');
+    fb.textContent = 'Keep trying! You can do it! 💪';
+    fb.className = 'feedback wrong';
+    stars.textContent = '';
+    speak('Keep trying!');
+    setTimeout(() => area.classList.remove('wiggle'), 500);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  HINTS & NEXT WORD
+// ═══════════════════════════════════════════════════════════════
+function showGameHint(gameNum) {
+  const w = SPELLING_WORDS[state.currentWordIndex];
+  if (gameNum === 1) {
+    const sentenceEl = document.getElementById('g1-sentence');
+    sentenceEl.innerHTML = w.sentence.replace(
+      new RegExp(`\b${w.word}\b`, 'i'),
+      `<span class="highlight">${w.word}</span>`
+    );
+    setTimeout(() => {
+      sentenceEl.innerHTML = w.sentence.replace(
+        new RegExp(`\b${w.word}\b`, 'i'),
+        `<input type="text" class="blank" id="g1-blank" readonly placeholder=" " value="${g1Input}">`
+      ) + '<br><span style="font-size:14px;color:var(--text-light)">Type the word you saw!</span>';
+    }, 1500);
+  } else if (gameNum === 2) {
+    const middle = w.word.slice(1, -1);
+    const revealed = middle.slice(0, Math.max(1, Math.floor(middle.length / 2)));
+    g2Input = revealed;
+    const blank = document.getElementById('g2-blank');
+    if (blank) blank.value = g2Input;
+  } else if (gameNum === 3) {
+    g3Input = w.word[0];
+    const blank = document.getElementById('g3-blank');
+    if (blank) blank.value = g3Input;
+  }
+}
+
+function nextWordOrMenu() {
+  let nextIdx = -1;
+  for (let i = state.currentWordIndex + 1; i < SPELLING_WORDS.length; i++) {
+    if (!isMastered(SPELLING_WORDS[i].word)) { nextIdx = i; break; }
+  }
+  if (nextIdx === -1) {
+    for (let i = 0; i < state.currentWordIndex; i++) {
+      if (!isMastered(SPELLING_WORDS[i].word)) { nextIdx = i; break; }
     }
   }
+  if (nextIdx !== -1) {
+    startGame(nextIdx);
+  } else {
+    speak('You mastered all words!');
+    showScreen('screen-menu');
+  }
+}
 
-  if (output.length === 0) {
-    alert('Please type at least one underlined word.');
+// ═══════════════════════════════════════════════════════════════
+//  PARENT CORNER
+// ═══════════════════════════════════════════════════════════════
+function openParentGate() {
+  document.getElementById('parent-modal').classList.add('active');
+  document.getElementById('parent-gate').classList.remove('hidden');
+  document.getElementById('parent-content').classList.add('hidden');
+  document.getElementById('gate-answer').value = '';
+  document.getElementById('gate-answer').focus();
+}
+
+function checkGate() {
+  if (document.getElementById('gate-answer').value.trim() === '7') {
+    document.getElementById('parent-gate').classList.add('hidden');
+    document.getElementById('parent-content').classList.remove('hidden');
+    updateShareCode();
+  } else {
+    alert('That is not correct. Parents only please!');
+  }
+}
+
+function closeParentModal() {
+  document.getElementById('parent-modal').classList.remove('active');
+}
+
+function saveParentWords() {
+  const text = document.getElementById('parent-words').value.trim();
+  if (!text) { alert('Please enter some words first.'); return; }
+
+  const lines = text.split('\n');
+  const newWords = [];
+  lines.forEach(line => {
+    const match = line.match(/\*\*(\w+)\*\*/);
+    if (match) {
+      const word = match[1].toLowerCase();
+      const sentence = line.replace(/\*\*/g, '').trim();
+      newWords.push({ sentence, word });
+    }
+  });
+
+  if (newWords.length === 0) {
+    alert('Could not find any words. Use **word** to mark the spelling word.');
     return;
   }
 
-  document.getElementById('word-input').value = output.join('\n');
-  document.getElementById('ocr-result').innerHTML = '<p style="color:var(--success-dark);font-weight:bold;">✅ Word list ready! Review below and tap Save.</p>';
-  document.getElementById('ocr-generate-btn').style.display = 'none';
-  document.getElementById('word-input').scrollIntoView({ behavior: 'smooth' });
+  try {
+    localStorage.setItem('spelling_words_custom', JSON.stringify(newWords));
+    alert(`Saved ${newWords.length} words! Refresh to use them.`);
+  } catch(e) {
+    alert('Could not save. Storage may be full.');
+  }
 }
 
-window.addEventListener('DOMContentLoaded',init);
-document.getElementById('gate-answer').addEventListener('keypress',function(e){ if(e.key==='Enter') checkGate(); });
+(function loadCustomWords() {
+  try {
+    const custom = localStorage.getItem('spelling_words_custom');
+    if (custom) {
+      const parsed = JSON.parse(custom);
+      if (parsed && parsed.length > 0) {
+        SPELLING_WORDS.length = 0;
+        parsed.forEach(w => SPELLING_WORDS.push(w));
+      }
+    }
+  } catch(e) {}
+})();
+
+// ═══════════════════════════════════════════════════════════════
+//  OCR (Tesseract.js)
+// ═══════════════════════════════════════════════════════════════
+async function runOCR() {
+  const file = document.getElementById('ocr-file').files[0];
+  if (!file) return;
+
+  const resultEl = document.getElementById('ocr-result');
+  const useBtn = document.getElementById('ocr-use-btn');
+  resultEl.textContent = 'Reading image... please wait 🔄';
+  resultEl.classList.remove('hidden');
+  useBtn.style.display = 'none';
+
+  try {
+    if (!window.Tesseract) {
+      await loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js');
+    }
+
+    const { data: { text } } = await window.Tesseract.recognize(file, 'eng');
+    state.ocrText = text;
+    resultEl.textContent = text;
+    useBtn.style.display = 'flex';
+  } catch(err) {
+    resultEl.textContent = 'OCR failed: ' + err.message;
+  }
+}
+
+function useOCRResult() {
+  document.getElementById('parent-words').value = state.ocrText;
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  FAMILY SHARING
+// ═══════════════════════════════════════════════════════════════
+function updateShareCode() {
+  const code = btoa(JSON.stringify(state.progress));
+  document.getElementById('share-code').value = code;
+}
+
+function copyShareCode() {
+  const el = document.getElementById('share-code');
+  el.select();
+  document.execCommand('copy');
+  alert('Progress code copied! Paste in WhatsApp to share.');
+}
+
+function pasteShareCode() {
+  const raw = prompt('Paste the progress code here:');
+  if (!raw) return;
+  try {
+    const progress = JSON.parse(atob(raw));
+    state.progress = { ...state.progress, ...progress };
+    saveProgress();
+    updateShareCode();
+    alert('Progress loaded successfully!');
+  } catch(e) {
+    alert('Invalid code. Please check and try again.');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  Ensure voices are loaded
+// ═══════════════════════════════════════════════════════════════
+window.speechSynthesis?.getVoices();
+if (window.speechSynthesis?.onvoiceschanged !== undefined) {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
 </script>
 </body>
 </html>
