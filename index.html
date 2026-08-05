@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Spelling Studio">
-<meta name="description" content="A fun spelling practice game for children">
 <title>Spelling Studio</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
@@ -21,7 +20,6 @@
   --text: #2D2D2D;
   --text-light: #666666;
   --success: #4CAF50;
-  --warning: #FFC107;
   --error: #FF6B6B;
   --shadow: 0 4px 20px rgba(0,0,0,0.08);
   --radius: 20px;
@@ -65,10 +63,7 @@ html, body {
   font-size: 0.9rem;
   margin-top: 8px;
 }
-.header .stars-display {
-  margin-top: 12px;
-  font-size: 1.3rem;
-}
+.header .stars-display { margin-top: 12px; font-size: 1.3rem; }
 
 .nav-bar {
   position: fixed;
@@ -98,14 +93,12 @@ html, body {
   gap: 3px;
   cursor: pointer;
   padding: 4px 10px;
-  transition: color 0.2s;
   min-width: 56px;
   -webkit-appearance: none;
-  appearance: none;
 }
 
 .nav-btn.active { color: var(--primary); font-weight: 700; }
-.nav-btn .nav-icon { font-size: 1.4rem; pointer-events: none; }
+.nav-btn .nav-icon { font-size: 1.4rem; }
 
 .card {
   background: var(--card);
@@ -115,20 +108,24 @@ html, body {
   box-shadow: var(--shadow);
 }
 
+/* GAME CARDS AS BUTTONS for native clickability */
 .game-card {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 20px;
+  width: calc(100% - 32px);
   margin: 12px 16px;
+  padding: 20px;
   background: var(--card);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
   border: 3px solid transparent;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
   -webkit-tap-highlight-color: rgba(255,140,66,0.2);
-  user-select: none;
 }
 
 .game-card:active {
@@ -136,9 +133,9 @@ html, body {
   box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 }
 
-.game-card .game-icon { font-size: 2.5rem; pointer-events: none; }
-.game-card .game-info { flex: 1; pointer-events: none; }
-.game-card h3 { font-size: 1.1rem; margin-bottom: 4px; }
+.game-card .game-icon { font-size: 2.5rem; line-height: 1; }
+.game-card .game-info { flex: 1; }
+.game-card h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--text); }
 .game-card p { font-size: 0.85rem; color: var(--text-light); }
 
 .btn {
@@ -149,7 +146,6 @@ html, body {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -157,8 +153,6 @@ html, body {
   min-height: 52px;
   min-width: 52px;
   -webkit-appearance: none;
-  appearance: none;
-  user-select: none;
 }
 
 .btn-primary {
@@ -167,23 +161,13 @@ html, body {
   box-shadow: 0 4px 15px rgba(255,140,66,0.3);
 }
 
-.btn-secondary {
-  background: var(--secondary);
-  color: white;
-}
-
-.btn-accent {
-  background: var(--accent);
-  color: #1a5c3a;
-}
-
+.btn-secondary { background: var(--secondary); color: white; }
+.btn-accent { background: var(--accent); color: #1a5c3a; }
 .btn-outline {
   background: transparent;
   border: 2px solid var(--primary);
   color: var(--primary);
 }
-
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .word-hunt-grid {
   display: grid;
@@ -203,14 +187,11 @@ html, body {
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  user-select: none;
-  transition: all 0.2s;
   -webkit-tap-highlight-color: rgba(255,140,66,0.3);
 }
 
 .grid-cell.selected { background: var(--primary); color: white; }
 .grid-cell.found { background: var(--success); color: white; }
-.grid-cell:active { transform: scale(0.92); }
 
 .letter-slot {
   width: 42px;
@@ -244,12 +225,9 @@ html, body {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(107,91,149,0.3);
-  transition: transform 0.15s;
-  user-select: none;
   -webkit-tap-highlight-color: rgba(107,91,149,0.3);
 }
 
-.letter-tile:active { transform: scale(0.92); }
 .letter-tile.used { opacity: 0.3; pointer-events: none; }
 
 .sentence-text {
@@ -273,13 +251,9 @@ html, body {
   font-size: 1.15rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
-  user-select: none;
   -webkit-appearance: none;
-  appearance: none;
 }
 
-.choice-btn:active { border-color: var(--primary); transform: scale(0.98); }
 .choice-btn.correct { border-color: var(--success); background: #E8F5E9; }
 .choice-btn.wrong { border-color: var(--error); background: #FFEBEE; }
 
@@ -292,10 +266,7 @@ html, body {
   margin: 16px;
 }
 
-.studio-item {
-  position: absolute;
-  font-size: 2.5rem;
-}
+.studio-item { position: absolute; font-size: 2.5rem; }
 
 .shop-grid {
   display: grid;
@@ -311,13 +282,11 @@ html, body {
   text-align: center;
   cursor: pointer;
   border: 3px solid transparent;
-  transition: all 0.2s;
-  user-select: none;
+  -webkit-appearance: none;
 }
 
-.shop-item:active { border-color: var(--primary); transform: scale(0.95); }
 .shop-item.owned { border-color: var(--success); opacity: 0.7; }
-.shop-item .item-icon { font-size: 2rem; pointer-events: none; }
+.shop-item .item-icon { font-size: 2rem; }
 .shop-item .item-price { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
 
 .progress-word {
@@ -330,19 +299,8 @@ html, body {
   border-radius: 12px;
 }
 
-.progress-word .status { font-size: 1.3rem; }
-
-.parent-gate {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.parent-gate .math-q {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 24px 0;
-  color: var(--secondary);
-}
+.parent-gate { text-align: center; padding: 40px 20px; }
+.parent-gate .math-q { font-size: 2rem; font-weight: 700; margin: 24px 0; color: var(--secondary); }
 
 .gate-input {
   font-family: var(--font-main);
@@ -352,9 +310,7 @@ html, body {
   border-radius: 16px;
   width: 150px;
   text-align: center;
-  outline: none;
   -webkit-appearance: none;
-  appearance: none;
 }
 
 .setting-row {
@@ -385,30 +341,11 @@ html, body {
   text-align: center;
   max-width: 320px;
   width: 100%;
-  animation: popIn 0.3s ease;
-}
-
-@keyframes popIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
 }
 
 .feedback-card .feedback-emoji { font-size: 4rem; margin-bottom: 16px; }
 .feedback-card h2 { margin-bottom: 8px; }
 .feedback-card p { color: var(--text-light); margin-bottom: 20px; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.star-float {
-  position: fixed;
-  font-size: 2rem;
-  animation: float 1s ease-in-out;
-  pointer-events: none;
-  z-index: 300;
-}
 
 .hidden { display: none !important; }
 .text-center { text-align: center; }
@@ -419,71 +356,40 @@ html, body {
 .gap-8 { gap: 8px; }
 .gap-12 { gap: 12px; }
 .justify-center { justify-content: center; }
-.items-center { align-items: center; }
 
-.reduce-motion * {
-  animation: none !important;
-  transition: none !important;
-}
-
-.large-text { font-size: 1.2em; }
-.xlarge-text { font-size: 1.4em; }
-
-#loadingScreen {
+#debugBox {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 1000;
-}
-
-#loadingScreen .loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid var(--primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-#errorDisplay {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  right: 10px;
+  top: 0; left: 0; right: 0;
   background: #ffebee;
   color: #c62828;
-  padding: 12px;
-  border-radius: 12px;
-  z-index: 1001;
-  font-size: 0.85rem;
-  display: none;
+  padding: 10px;
+  font-size: 0.8rem;
+  z-index: 9999;
+  min-height: 30px;
+}
+
+#debugBox.ok {
+  background: #e8f5e9;
+  color: #2e7d32;
 }
 </style>
 </head>
 <body>
 
-<div id="loadingScreen">
-  <div class="loading-spinner"></div>
-  <h2>Loading Spelling Studio...</h2>
-  <p style="color: var(--text-light); margin-top: 8px;">If this stays for more than 5 seconds, try refreshing.</p>
-</div>
+<!-- Immediate visible debug -->
+<div id="debugBox">Loading...</div>
 
-<div id="errorDisplay"></div>
+<noscript>
+  <div style="padding:40px; text-align:center; background:#ffebee; color:#c62828;">
+    <h2>JavaScript is disabled</h2>
+    <p>This game needs JavaScript to work. Please enable it in your browser settings.</p>
+  </div>
+</noscript>
 
 <div id="app" class="app-container">
-  <div class="header" id="header">
+  <div class="header">
     <h1>Spelling Studio</h1>
-    <div class="week-badge" id="weekBadge">Week 6</div>
+    <div class="week-badge">Week 6</div>
     <div class="stars-display">&#9733; <span id="starCount">0</span></div>
   </div>
 
@@ -491,32 +397,32 @@ html, body {
     <div class="text-center mt-16 mb-16">
       <p style="font-size:1.1rem; color: var(--text-light);">Let us have some spelling fun!</p>
     </div>
-    <div class="game-card" id="card-wordhunt">
-      <div class="game-icon">&#128270;</div>
-      <div class="game-info"><h3>Word Hunt</h3><p>Find the hidden spelling words</p></div>
-    </div>
-    <div class="game-card" id="card-letterbuilder">
-      <div class="game-icon">&#129513;</div>
-      <div class="game-info"><h3>Letter Builder</h3><p>Build words letter by letter</p></div>
-    </div>
-    <div class="game-card" id="card-sentencestudio">
-      <div class="game-icon">&#127912;</div>
-      <div class="game-info"><h3>Sentence Studio</h3><p>Listen and complete sentences</p></div>
-    </div>
-    <div class="game-card" id="card-spellingtest">
-      <div class="game-icon">&#9999;</div>
-      <div class="game-info"><h3>Spelling Test</h3><p>Test your spelling skills</p></div>
-    </div>
+    <button class="game-card" id="card-wordhunt" type="button">
+      <span class="game-icon">&#128270;</span>
+      <span class="game-info"><h3>Word Hunt</h3><p>Find the hidden spelling words</p></span>
+    </button>
+    <button class="game-card" id="card-letterbuilder" type="button">
+      <span class="game-icon">&#129513;</span>
+      <span class="game-info"><h3>Letter Builder</h3><p>Build words letter by letter</p></span>
+    </button>
+    <button class="game-card" id="card-sentencestudio" type="button">
+      <span class="game-icon">&#127912;</span>
+      <span class="game-info"><h3>Sentence Studio</h3><p>Listen and complete sentences</p></span>
+    </button>
+    <button class="game-card" id="card-spellingtest" type="button">
+      <span class="game-icon">&#9999;</span>
+      <span class="game-info"><h3>Spelling Test</h3><p>Test your spelling skills</p></span>
+    </button>
   </div>
 
   <div id="view-wordhunt" class="hidden">
     <div class="card">
       <h2 class="text-center mb-16">&#128270; Word Hunt</h2>
-      <p class="text-center" style="color: var(--text-light); margin-bottom: 16px;">Find the words hidden in the grid! Tap first letter, then last letter.</p>
+      <p class="text-center" style="color: var(--text-light); margin-bottom: 16px;">Find the words! Tap first letter, then last letter.</p>
       <div id="wordHuntGrid" class="word-hunt-grid"></div>
       <div id="wordHuntList" style="margin-top: 16px;"></div>
       <div class="text-center mt-16">
-        <button class="btn btn-outline" id="btn-newgrid">&#128260; New Grid</button>
+        <button class="btn btn-outline" id="btn-newgrid" type="button">&#128260; New Grid</button>
       </div>
     </div>
   </div>
@@ -525,16 +431,16 @@ html, body {
     <div class="card">
       <h2 class="text-center mb-16">&#129513; Letter Builder</h2>
       <div class="text-center mb-16">
-        <button class="btn btn-secondary" id="btn-lb-hearword">&#128266; Hear Word</button>
+        <button class="btn btn-secondary" id="btn-lb-hearword" type="button">&#128266; Hear Word</button>
       </div>
       <p id="lbSentence" class="sentence-text"></p>
       <p id="lbPrompt" class="text-center" style="font-size:1.1rem; margin: 16px 0;"></p>
       <div id="lbSlots" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
       <div id="lbLetters" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
       <div class="flex justify-center gap-12 mt-16">
-        <button class="btn btn-outline" id="btn-lb-undo">&#8617; Undo</button>
-        <button class="btn btn-outline" id="btn-lb-reset">&#128260; Reset</button>
-        <button class="btn btn-primary" id="btn-lb-check">&#10003; Check</button>
+        <button class="btn btn-outline" id="btn-lb-undo" type="button">&#8617; Undo</button>
+        <button class="btn btn-outline" id="btn-lb-reset" type="button">&#128260; Reset</button>
+        <button class="btn btn-primary" id="btn-lb-check" type="button">&#10003; Check</button>
       </div>
     </div>
   </div>
@@ -543,8 +449,8 @@ html, body {
     <div class="card">
       <h2 class="text-center mb-16">&#127912; Sentence Studio</h2>
       <div class="text-center mb-16">
-        <button class="btn btn-secondary" id="btn-ss-hearsent">&#128266; Hear Sentence</button>
-        <button class="btn btn-secondary" id="btn-ss-hearword">&#128266; Hear Word</button>
+        <button class="btn btn-secondary" id="btn-ss-hearsent" type="button">&#128266; Hear Sentence</button>
+        <button class="btn btn-secondary" id="btn-ss-hearword" type="button">&#128266; Hear Word</button>
       </div>
       <p id="ssSentence" class="sentence-text"></p>
       <p id="ssPrompt" class="text-center" style="font-size:1.1rem; margin: 16px 0;"></p>
@@ -556,27 +462,27 @@ html, body {
     <div class="card">
       <h2 class="text-center mb-16">&#9999; Spelling Test</h2>
       <div class="text-center mb-16">
-        <button class="btn btn-secondary" id="btn-st-hearword">&#128266; Hear Word</button>
-        <button class="btn btn-secondary" id="btn-st-hearsent">&#128266; Hear Sentence</button>
+        <button class="btn btn-secondary" id="btn-st-hearword" type="button">&#128266; Hear Word</button>
+        <button class="btn btn-secondary" id="btn-st-hearsent" type="button">&#128266; Hear Sentence</button>
       </div>
       <p id="stPrompt" class="text-center" style="font-size:1.1rem; margin-bottom: 16px;"></p>
       <div id="stModeSelector" class="flex justify-center gap-12 mb-16">
-        <button class="btn btn-outline" id="btn-st-type">&#9000; Type</button>
-        <button class="btn btn-outline" id="btn-st-build">&#129513; Build</button>
+        <button class="btn btn-outline" id="btn-st-type" type="button">&#9000; Type</button>
+        <button class="btn btn-outline" id="btn-st-build" type="button">&#129513; Build</button>
       </div>
       <div id="stTypeArea" class="hidden text-center">
         <input type="text" id="stInput" class="gate-input" style="width: 200px; text-transform: lowercase;" placeholder="type here..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         <div class="mt-16">
-          <button class="btn btn-primary" id="btn-st-check-type">&#10003; Check</button>
+          <button class="btn btn-primary" id="btn-st-check-type" type="button">&#10003; Check</button>
         </div>
       </div>
       <div id="stBuildArea" class="hidden">
         <div id="stSlots" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
         <div id="stLetters" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
         <div class="flex justify-center gap-12 mt-16">
-          <button class="btn btn-outline" id="btn-st-undo">&#8617; Undo</button>
-          <button class="btn btn-outline" id="btn-st-reset">&#128260; Reset</button>
-          <button class="btn btn-primary" id="btn-st-check-build">&#10003; Check</button>
+          <button class="btn btn-outline" id="btn-st-undo" type="button">&#8617; Undo</button>
+          <button class="btn btn-outline" id="btn-st-reset" type="button">&#128260; Reset</button>
+          <button class="btn btn-primary" id="btn-st-check-build" type="button">&#10003; Check</button>
         </div>
       </div>
       <div id="stProgress" class="text-center mt-16" style="color: var(--text-light);"></div>
@@ -634,11 +540,11 @@ html, body {
       </div>
       <div class="setting-row">
         <span>Sound</span>
-        <button class="btn btn-outline" id="btn-toggle-sound" style="min-height: 40px; padding: 8px 16px;">On</button>
+        <button class="btn btn-outline" id="btn-toggle-sound" type="button" style="min-height: 40px; padding: 8px 16px;">On</button>
       </div>
       <div class="setting-row">
         <span>Voice</span>
-        <button class="btn btn-outline" id="btn-toggle-voice" style="min-height: 40px; padding: 8px 16px;">On</button>
+        <button class="btn btn-outline" id="btn-toggle-voice" type="button" style="min-height: 40px; padding: 8px 16px;">On</button>
       </div>
     </div>
   </div>
@@ -650,7 +556,7 @@ html, body {
       <div class="math-q" id="mathQuestion">5 + 3 = ?</div>
       <input type="number" id="gateAnswer" class="gate-input" placeholder="?">
       <div class="mt-16">
-        <button class="btn btn-primary" id="btn-gate-enter">Enter</button>
+        <button class="btn btn-primary" id="btn-gate-enter" type="button">Enter</button>
       </div>
     </div>
     <div id="parentPanel" class="hidden">
@@ -667,7 +573,7 @@ html, body {
           <div id="parentWordList" style="margin-top: 12px;"></div>
         </div>
         <div class="mt-16 text-center">
-          <button class="btn btn-error" style="background: var(--error); color: white;" id="btn-reset-progress">&#128465; Reset All Progress</button>
+          <button class="btn btn-error" style="background: var(--error); color: white;" id="btn-reset-progress" type="button">&#128465; Reset All Progress</button>
         </div>
       </div>
     </div>
@@ -678,24 +584,24 @@ html, body {
       <div class="feedback-emoji" id="feedbackEmoji">&#127881;</div>
       <h2 id="feedbackTitle">Great job!</h2>
       <p id="feedbackMessage">You found a word!</p>
-      <button class="btn btn-primary" id="btn-feedback-close">Continue</button>
+      <button class="btn btn-primary" id="btn-feedback-close" type="button">Continue</button>
     </div>
   </div>
 
   <div class="nav-bar">
-    <button class="nav-btn active" data-view="home" id="nav-home">
+    <button class="nav-btn active" data-view="home" id="nav-home" type="button">
       <span class="nav-icon">&#127968;</span><span>Home</span>
     </button>
-    <button class="nav-btn" data-view="studio" id="nav-studio">
+    <button class="nav-btn" data-view="studio" id="nav-studio" type="button">
       <span class="nav-icon">&#127912;</span><span>Studio</span>
     </button>
-    <button class="nav-btn" data-view="progress" id="nav-progress">
+    <button class="nav-btn" data-view="progress" id="nav-progress" type="button">
       <span class="nav-icon">&#11088;</span><span>Progress</span>
     </button>
-    <button class="nav-btn" data-view="settings" id="nav-settings">
+    <button class="nav-btn" data-view="settings" id="nav-settings" type="button">
       <span class="nav-icon">&#9881;</span><span>Settings</span>
     </button>
-    <button class="nav-btn" data-view="parent" id="nav-parent">
+    <button class="nav-btn" data-view="parent" id="nav-parent" type="button">
       <span class="nav-icon">&#128274;</span><span>Parent</span>
     </button>
   </div>
@@ -703,13 +609,30 @@ html, body {
 
 <script>
 
-// ============================================
-// SPELLING STUDIO - Pure ES5 for max compatibility
-// ============================================
+// Debug helper - always visible
+function debug(msg) {
+  var box = document.getElementById("debugBox");
+  if (box) {
+    box.textContent = "Debug: " + msg;
+    box.className = "";
+  }
+  console.log("[DEBUG] " + msg);
+}
 
+function debugOk(msg) {
+  var box = document.getElementById("debugBox");
+  if (box) {
+    box.textContent = "OK: " + msg;
+    box.className = "ok";
+  }
+  console.log("[OK] " + msg);
+}
+
+debug("Script started");
+
+// Data
 var weekData = {
   week: 6,
-  title: "Spelling Adventure - Week 6",
   sentences: [
     { sentence: "Johnny ran off in a hurry.", targetWord: "hurry" },
     { sentence: "I dirtied my clothes again.", targetWord: "clothes" },
@@ -728,6 +651,9 @@ for (var i = 0; i < weekData.sentences.length; i++) {
 }
 var sentences = weekData.sentences;
 
+debug("Data loaded, " + words.length + " words");
+
+// State
 var state = {
   stars: 0,
   currentView: "home",
@@ -754,19 +680,6 @@ var state = {
   stLetters: []
 };
 
-function showError(msg) {
-  var el = document.getElementById("errorDisplay");
-  if (el) {
-    el.textContent = "Error: " + msg;
-    el.style.display = "block";
-  }
-}
-
-function hideLoading() {
-  var el = document.getElementById("loadingScreen");
-  if (el) el.style.display = "none";
-}
-
 function loadState() {
   try {
     var saved = localStorage.getItem("spelling_studio_state");
@@ -785,7 +698,7 @@ function loadState() {
       }
     }
   } catch(e) {
-    console.log("No saved state");
+    debug("loadState error: " + e.message);
   }
   updateStars();
   applySettings();
@@ -800,11 +713,15 @@ function saveState() {
       settings: state.settings
     }));
   } catch(e) {
-    console.log("Could not save");
+    debug("saveState error: " + e.message);
   }
 }
 
+debug("State ready");
+
+// Navigation
 function navigateTo(view) {
+  debug("Navigating to: " + view);
   state.currentView = view;
   var views = document.querySelectorAll("[id^="view-"]");
   for (var i = 0; i < views.length; i++) {
@@ -831,58 +748,76 @@ function navigateTo(view) {
   window.scrollTo(0, 0);
 }
 
+// Event attachment with verification
 function attachEvents() {
-  // Game cards
-  document.getElementById("card-wordhunt").addEventListener("click", function() { navigateTo("wordhunt"); });
-  document.getElementById("card-letterbuilder").addEventListener("click", function() { navigateTo("letterbuilder"); });
-  document.getElementById("card-sentencestudio").addEventListener("click", function() { navigateTo("sentencestudio"); });
-  document.getElementById("card-spellingtest").addEventListener("click", function() { navigateTo("spellingtest"); });
+  debug("Attaching events...");
+  var attached = 0;
 
-  // Nav buttons
-  document.getElementById("nav-home").addEventListener("click", function() { navigateTo("home"); });
-  document.getElementById("nav-studio").addEventListener("click", function() { navigateTo("studio"); });
-  document.getElementById("nav-progress").addEventListener("click", function() { navigateTo("progress"); });
-  document.getElementById("nav-settings").addEventListener("click", function() { navigateTo("settings"); });
-  document.getElementById("nav-parent").addEventListener("click", function() { navigateTo("parent"); });
+  function attach(id, event, handler) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener(event, handler);
+      attached++;
+    } else {
+      debug("MISSING element: " + id);
+    }
+  }
 
-  // Word Hunt
-  document.getElementById("btn-newgrid").addEventListener("click", initWordHunt);
+  attach("card-wordhunt", "click", function() { navigateTo("wordhunt"); });
+  attach("card-letterbuilder", "click", function() { navigateTo("letterbuilder"); });
+  attach("card-sentencestudio", "click", function() { navigateTo("sentencestudio"); });
+  attach("card-spellingtest", "click", function() { navigateTo("spellingtest"); });
 
-  // Letter Builder
-  document.getElementById("btn-lb-hearword").addEventListener("click", speakCurrentWord);
-  document.getElementById("btn-lb-undo").addEventListener("click", lbUndo);
-  document.getElementById("btn-lb-reset").addEventListener("click", lbReset);
-  document.getElementById("btn-lb-check").addEventListener("click", lbCheck);
+  attach("nav-home", "click", function() { navigateTo("home"); });
+  attach("nav-studio", "click", function() { navigateTo("studio"); });
+  attach("nav-progress", "click", function() { navigateTo("progress"); });
+  attach("nav-settings", "click", function() { navigateTo("settings"); });
+  attach("nav-parent", "click", function() { navigateTo("parent"); });
 
-  // Sentence Studio
-  document.getElementById("btn-ss-hearsent").addEventListener("click", speakCurrentSentence);
-  document.getElementById("btn-ss-hearword").addEventListener("click", speakCurrentWord);
+  attach("btn-newgrid", "click", initWordHunt);
+  attach("btn-lb-hearword", "click", speakCurrentWord);
+  attach("btn-lb-undo", "click", lbUndo);
+  attach("btn-lb-reset", "click", lbReset);
+  attach("btn-lb-check", "click", lbCheck);
+  attach("btn-ss-hearsent", "click", speakCurrentSentence);
+  attach("btn-ss-hearword", "click", speakCurrentWord);
+  attach("btn-st-hearword", "click", speakCurrentWord);
+  attach("btn-st-hearsent", "click", speakCurrentSentence);
+  attach("btn-st-type", "click", function() { setTestMode("type"); });
+  attach("btn-st-build", "click", function() { setTestMode("build"); });
+  attach("btn-st-check-type", "click", stCheck);
+  attach("btn-st-check-build", "click", stCheck);
+  attach("btn-st-undo", "click", stUndo);
+  attach("btn-st-reset", "click", stReset);
+  attach("btn-toggle-sound", "click", toggleSound);
+  attach("btn-toggle-voice", "click", toggleVoice);
+  attach("btn-gate-enter", "click", checkGate);
+  attach("btn-reset-progress", "click", resetProgress);
+  attach("btn-feedback-close", "click", closeFeedback);
 
-  // Spelling Test
-  document.getElementById("btn-st-hearword").addEventListener("click", speakCurrentWord);
-  document.getElementById("btn-st-hearsent").addEventListener("click", speakCurrentSentence);
-  document.getElementById("btn-st-type").addEventListener("click", function() { setTestMode("type"); });
-  document.getElementById("btn-st-build").addEventListener("click", function() { setTestMode("build"); });
-  document.getElementById("btn-st-check-type").addEventListener("click", stCheck);
-  document.getElementById("btn-st-check-build").addEventListener("click", stCheck);
-  document.getElementById("btn-st-undo").addEventListener("click", stUndo);
-  document.getElementById("btn-st-reset").addEventListener("click", stReset);
+  var fontSel = document.getElementById("fontSelect");
+  if (fontSel) {
+    fontSel.addEventListener("change", function() { changeFont(this.value); });
+    attached++;
+  }
+  var sizeSel = document.getElementById("sizeSelect");
+  if (sizeSel) {
+    sizeSel.addEventListener("change", function() { changeSize(this.value); });
+    attached++;
+  }
+  var animSel = document.getElementById("animSelect");
+  if (animSel) {
+    animSel.addEventListener("change", function() { changeAnim(this.value); });
+    attached++;
+  }
 
-  // Settings
-  document.getElementById("btn-toggle-sound").addEventListener("click", toggleSound);
-  document.getElementById("btn-toggle-voice").addEventListener("click", toggleVoice);
-  document.getElementById("fontSelect").addEventListener("change", function() { changeFont(this.value); });
-  document.getElementById("sizeSelect").addEventListener("change", function() { changeSize(this.value); });
-  document.getElementById("animSelect").addEventListener("change", function() { changeAnim(this.value); });
-
-  // Parent
-  document.getElementById("btn-gate-enter").addEventListener("click", checkGate);
-  document.getElementById("btn-reset-progress").addEventListener("click", resetProgress);
-
-  // Feedback
-  document.getElementById("btn-feedback-close").addEventListener("click", closeFeedback);
+  debug("Attached " + attached + " events");
+  return attached;
 }
 
+debug("Functions defined");
+
+// TTS
 function speak(text) {
   if (!state.settings.voice) return;
   if (!window.speechSynthesis) return;
@@ -894,16 +829,11 @@ function speak(text) {
     var voices = window.speechSynthesis.getVoices();
     var enVoice = null;
     for (var i = 0; i < voices.length; i++) {
-      if (voices[i].lang.indexOf("en") !== -1) {
-        enVoice = voices[i];
-        break;
-      }
+      if (voices[i].lang.indexOf("en") !== -1) { enVoice = voices[i]; break; }
     }
     if (enVoice) utter.voice = enVoice;
     window.speechSynthesis.speak(utter);
-  } catch(e) {
-    console.log("TTS error", e);
-  }
+  } catch(e) {}
 }
 
 function speakCurrentWord() {
@@ -922,14 +852,12 @@ function speakCurrentSentence() {
   if (sent) speak(sent);
 }
 
-// ===================== WORD HUNT =====================
+// Word Hunt
 function initWordHunt() {
   state.whFound = [];
   state.whSelection = [];
   var maxLen = 0;
-  for (var i = 0; i < words.length; i++) {
-    if (words[i].length > maxLen) maxLen = words[i].length;
-  }
+  for (var i = 0; i < words.length; i++) { if (words[i].length > maxLen) maxLen = words[i].length; }
   var gridSize = Math.max(10, Math.ceil(maxLen + 2));
   var grid = [];
   for (var r = 0; r < gridSize; r++) {
@@ -937,7 +865,6 @@ function initWordHunt() {
     for (var c = 0; c < gridSize; c++) grid[r][c] = "";
   }
   var placed = [];
-
   for (var w = 0; w < words.length; w++) {
     var word = words[w];
     var placed_ok = false;
@@ -948,10 +875,7 @@ function initWordHunt() {
       var col = Math.floor(Math.random() * (maxCol + 1));
       var canPlace = true;
       for (var i = 0; i < word.length; i++) {
-        if (grid[row][col + i] !== "" && grid[row][col + i] !== word[i].toUpperCase()) {
-          canPlace = false;
-          break;
-        }
+        if (grid[row][col + i] !== "" && grid[row][col + i] !== word[i].toUpperCase()) { canPlace = false; break; }
       }
       if (canPlace) {
         for (var i = 0; i < word.length; i++) grid[row][col + i] = word[i].toUpperCase();
@@ -961,14 +885,12 @@ function initWordHunt() {
       attempts++;
     }
   }
-
   var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   for (var r = 0; r < gridSize; r++) {
     for (var c = 0; c < gridSize; c++) {
       if (grid[r][c] === "") grid[r][c] = letters.charAt(Math.floor(Math.random() * letters.length));
     }
   }
-
   state.whGrid = grid;
   state.whPlaced = placed;
   renderWordHunt();
@@ -979,94 +901,48 @@ function renderWordHunt() {
   var listEl = document.getElementById("wordHuntList");
   var grid = state.whGrid;
   var size = grid.length;
-
   gridEl.style.gridTemplateColumns = "repeat(" + size + ", 38px)";
   gridEl.innerHTML = "";
-
   for (var r = 0; r < size; r++) {
     for (var c = 0; c < size; c++) {
       var cell = document.createElement("div");
       cell.className = "grid-cell";
       cell.textContent = grid[r][c];
-      cell.dataset.r = r;
-      cell.dataset.c = c;
-
       var isFound = false;
-      for (var i = 0; i < state.whFound.length; i++) {
-        if (state.whFound[i].row === r && state.whFound[i].col === c) { isFound = true; break; }
-      }
+      for (var i = 0; i < state.whFound.length; i++) { if (state.whFound[i].row === r && state.whFound[i].col === c) { isFound = true; break; } }
       var isSelected = false;
-      for (var i = 0; i < state.whSelection.length; i++) {
-        if (state.whSelection[i].r === r && state.whSelection[i].c === c) { isSelected = true; break; }
-      }
+      for (var i = 0; i < state.whSelection.length; i++) { if (state.whSelection[i].r === r && state.whSelection[i].c === c) { isSelected = true; break; } }
       if (isFound) cell.classList.add("found");
       else if (isSelected) cell.classList.add("selected");
-
-      cell.addEventListener("click", (function(rr, cc) {
-        return function() { handleGridClick(rr, cc); };
-      })(r, c));
+      cell.addEventListener("click", (function(rr, cc) { return function() { handleGridClick(rr, cc); }; })(r, c));
       gridEl.appendChild(cell);
     }
   }
-
   var listHtml = '<p style="font-weight:700; margin-bottom:8px;">Find these:</p>';
   for (var w = 0; w < words.length; w++) {
     var found = false;
-    for (var i = 0; i < state.whFound.length; i++) {
-      if (state.whFound[i].word === words[w]) { found = true; break; }
-    }
-    listHtml += '<div style="padding:6px 0;' + (found ? ' text-decoration:line-through; opacity:0.5;' : '') + '">' + (found ? '&#10003;' : '&#9675;') + ' ' + words[w] + ' <span style="cursor:pointer; color:var(--primary);" class="wh-speak" data-word="' + words[w] + '">&#128266;</span></div>';
+    for (var i = 0; i < state.whFound.length; i++) { if (state.whFound[i].word === words[w]) { found = true; break; } }
+    listHtml += '<div style="padding:6px 0;' + (found ? ' text-decoration:line-through; opacity:0.5;' : '') + '">' + (found ? '&#10003;' : '&#9675;') + ' ' + words[w] + '</div>';
   }
   listEl.innerHTML = listHtml;
-
-  var speakEls = listEl.querySelectorAll(".wh-speak");
-  for (var i = 0; i < speakEls.length; i++) {
-    speakEls[i].addEventListener("click", function(e) {
-      e.stopPropagation();
-      speak(this.getAttribute("data-word"));
-    });
-  }
 }
 
 function handleGridClick(r, c) {
   var sel = state.whSelection;
-  if (sel.length === 0) {
-    state.whSelection = [{r:r, c:c}];
-    renderWordHunt();
-    return;
-  }
-  if (sel.length === 1 && sel[0].r === r && sel[0].c === c) {
-    state.whSelection = [];
-    renderWordHunt();
-    return;
-  }
-  if (sel.length >= 2) {
-    state.whSelection = [{r:r, c:c}];
-    renderWordHunt();
-    return;
-  }
+  if (sel.length === 0) { state.whSelection = [{r:r, c:c}]; renderWordHunt(); return; }
+  if (sel.length === 1 && sel[0].r === r && sel[0].c === c) { state.whSelection = []; renderWordHunt(); return; }
+  if (sel.length >= 2) { state.whSelection = [{r:r, c:c}]; renderWordHunt(); return; }
   var start = sel[0];
-  if (r !== start.r) {
-    showFeedback("&#129300;", "Look left to right!", "Words go across, not up and down. Try again!");
-    state.whSelection = [];
-    renderWordHunt();
-    return;
-  }
+  if (r !== start.r) { showFeedback("&#129300;", "Look left to right!", "Words go across. Try again!"); state.whSelection = []; renderWordHunt(); return; }
   var minC = Math.min(start.c, c);
   var maxC = Math.max(start.c, c);
   var selectedWord = "";
   for (var col = minC; col <= maxC; col++) selectedWord += state.whGrid[r][col];
   selectedWord = selectedWord.toLowerCase();
-
   var targetWord = null;
-  for (var i = 0; i < words.length; i++) {
-    if (words[i] === selectedWord) { targetWord = words[i]; break; }
-  }
+  for (var i = 0; i < words.length; i++) { if (words[i] === selectedWord) { targetWord = words[i]; break; } }
   var alreadyFound = false;
-  for (var i = 0; i < state.whFound.length; i++) {
-    if (state.whFound[i].word === targetWord) { alreadyFound = true; break; }
-  }
-
+  for (var i = 0; i < state.whFound.length; i++) { if (state.whFound[i].word === targetWord) { alreadyFound = true; break; } }
   if (targetWord && !alreadyFound) {
     for (var col = minC; col <= maxC; col++) state.whFound.push({ word: targetWord, row: r, col: col });
     state.whSelection = [];
@@ -1078,9 +954,7 @@ function handleGridClick(r, c) {
     var totalFoundCells = 0;
     for (var i = 0; i < words.length; i++) totalFoundCells += words[i].length;
     if (state.whFound.length === totalFoundCells) {
-      setTimeout(function() {
-        showFeedback("&#127942;", "Word Hunt Complete!", "You found all the words! &#127775;");
-      }, 1500);
+      setTimeout(function() { showFeedback("&#127942;", "Word Hunt Complete!", "You found all the words! &#127775;"); }, 1500);
     }
   } else {
     showFeedback("&#128173;", "Almost!", "Have another look.");
@@ -1089,7 +963,7 @@ function handleGridClick(r, c) {
   }
 }
 
-// ===================== LETTER BUILDER =====================
+// Letter Builder
 function initLetterBuilder() {
   state.lbCurrent = Math.floor(Math.random() * words.length);
   state.lbBuilt = [];
@@ -1102,14 +976,11 @@ function initLetterBuilder() {
   for (var i = 0; i < word.length; i++) {
     var slot = document.createElement("div");
     slot.className = "letter-slot";
-    slot.dataset.idx = i;
     slotsEl.appendChild(slot);
   }
   var letters = word.split("").sort(function() { return Math.random() - 0.5; });
   state.lbLetters = [];
-  for (var i = 0; i < letters.length; i++) {
-    state.lbLetters.push({ letter: letters[i], id: i, used: false });
-  }
+  for (var i = 0; i < letters.length; i++) state.lbLetters.push({ letter: letters[i], id: i, used: false });
   renderLbLetters();
 }
 
@@ -1122,21 +993,14 @@ function renderLbLetters() {
     tile.className = "letter-tile" + (item.used ? " used" : "");
     tile.textContent = item.letter.toUpperCase();
     if (!item.used) {
-      tile.addEventListener("click", (function(ii) {
-        return function() { lbPlaceLetter(ii); };
-      })(idx));
+      tile.addEventListener("click", (function(ii) { return function() { lbPlaceLetter(ii); }; })(idx));
     }
     el.appendChild(tile);
   }
   var slots = document.querySelectorAll("#lbSlots .letter-slot");
   for (var i = 0; i < slots.length; i++) {
-    if (i < state.lbBuilt.length) {
-      slots[i].textContent = state.lbBuilt[i].toUpperCase();
-      slots[i].classList.add("filled");
-    } else {
-      slots[i].textContent = "";
-      slots[i].classList.remove("filled");
-    }
+    if (i < state.lbBuilt.length) { slots[i].textContent = state.lbBuilt[i].toUpperCase(); slots[i].classList.add("filled"); }
+    else { slots[i].textContent = ""; slots[i].classList.remove("filled"); }
   }
 }
 
@@ -1151,12 +1015,7 @@ function lbPlaceLetter(idx) {
 function lbUndo() {
   if (state.lbBuilt.length === 0) return;
   var last = state.lbBuilt.pop();
-  for (var i = 0; i < state.lbLetters.length; i++) {
-    if (state.lbLetters[i].letter === last && state.lbLetters[i].used) {
-      state.lbLetters[i].used = false;
-      break;
-    }
-  }
+  for (var i = 0; i < state.lbLetters.length; i++) { if (state.lbLetters[i].letter === last && state.lbLetters[i].used) { state.lbLetters[i].used = false; break; } }
   renderLbLetters();
 }
 
@@ -1180,7 +1039,7 @@ function lbCheck() {
   }
 }
 
-// ===================== SENTENCE STUDIO =====================
+// Sentence Studio
 function initSentenceStudio() {
   state.ssCurrent = Math.floor(Math.random() * words.length);
   var sent = sentences[state.ssCurrent];
@@ -1196,10 +1055,9 @@ function initSentenceStudio() {
   for (var i = 0; i < choices.length; i++) {
     var btn = document.createElement("button");
     btn.className = "choice-btn";
+    btn.type = "button";
     btn.textContent = choices[i];
-    btn.addEventListener("click", (function(ch) {
-      return function() { handleSSChoice(ch, word, this); };
-    })(choices[i]));
+    btn.addEventListener("click", (function(ch) { return function() { handleSSChoice(ch, word, this); }; })(choices[i]));
     choicesEl.appendChild(btn);
   }
 }
@@ -1220,9 +1078,7 @@ function generateDistractors(word) {
 
 function handleSSChoice(choice, correct, btn) {
   var allBtns = document.querySelectorAll("#ssChoices .choice-btn");
-  for (var i = 0; i < allBtns.length; i++) {
-    allBtns[i].disabled = true;
-  }
+  for (var i = 0; i < allBtns.length; i++) allBtns[i].disabled = true;
   if (choice === correct) {
     btn.classList.add("correct");
     addStars(2);
@@ -1231,14 +1087,12 @@ function handleSSChoice(choice, correct, btn) {
     showFeedback("&#127912;", "Wonderful!", '"' + correct + '" is right!', function() { initSentenceStudio(); });
   } else {
     btn.classList.add("wrong");
-    for (var i = 0; i < allBtns.length; i++) {
-      if (allBtns[i].textContent === correct) allBtns[i].classList.add("correct");
-    }
+    for (var i = 0; i < allBtns.length; i++) { if (allBtns[i].textContent === correct) allBtns[i].classList.add("correct"); }
     showFeedback("&#127775;", "Good thinking!", 'The correct spelling is "' + correct + '".', function() { initSentenceStudio(); });
   }
 }
 
-// ===================== SPELLING TEST =====================
+// Spelling Test
 function initSpellingTest() {
   state.stCurrent = 0;
   state.stAnswers = [];
@@ -1266,17 +1120,12 @@ function loadTestQuestion() {
     '<div style="font-size:1.1rem;">' + sent.sentence + "</div>";
   if (state.stMode === "type") {
     document.getElementById("stInput").value = "";
-    setTimeout(function() {
-      var inp = document.getElementById("stInput");
-      if (inp) inp.focus();
-    }, 100);
+    setTimeout(function() { var inp = document.getElementById("stInput"); if (inp) inp.focus(); }, 100);
   } else {
     state.stBuilt = [];
     var letters = word.split("").sort(function() { return Math.random() - 0.5; });
     state.stLetters = [];
-    for (var i = 0; i < letters.length; i++) {
-      state.stLetters.push({ letter: letters[i], id: i, used: false });
-    }
+    for (var i = 0; i < letters.length; i++) state.stLetters.push({ letter: letters[i], id: i, used: false });
     renderStBuild();
   }
 }
@@ -1299,9 +1148,7 @@ function renderStBuild() {
     tile.className = "letter-tile" + (item.used ? " used" : "");
     tile.textContent = item.letter.toUpperCase();
     if (!item.used) {
-      tile.addEventListener("click", (function(ii) {
-        return function() { stPlaceLetter(ii); };
-      })(idx));
+      tile.addEventListener("click", (function(ii) { return function() { stPlaceLetter(ii); }; })(idx));
     }
     lettersEl.appendChild(tile);
   }
@@ -1318,12 +1165,7 @@ function stPlaceLetter(idx) {
 function stUndo() {
   if (state.stBuilt.length === 0) return;
   var last = state.stBuilt.pop();
-  for (var i = 0; i < state.stLetters.length; i++) {
-    if (state.stLetters[i].letter === last && state.stLetters[i].used) {
-      state.stLetters[i].used = false;
-      break;
-    }
-  }
+  for (var i = 0; i < state.stLetters.length; i++) { if (state.stLetters[i].letter === last && state.stLetters[i].used) { state.stLetters[i].used = false; break; } }
   renderStBuild();
 }
 
@@ -1336,17 +1178,11 @@ function stReset() {
 function stCheck() {
   var word = words[state.stCurrent];
   var answer = "";
-  if (state.stMode === "type") {
-    answer = document.getElementById("stInput").value.toLowerCase().trim();
-  } else {
-    answer = state.stBuilt.join("");
-  }
+  if (state.stMode === "type") answer = document.getElementById("stInput").value.toLowerCase().trim();
+  else answer = state.stBuilt.join("");
   state.stAnswers.push({ word: word, correct: answer === word, answer: answer });
   updateWordProgress(word, answer === word);
-  if (answer === word) {
-    addStars(2);
-    speak("Great!");
-  }
+  if (answer === word) { addStars(2); speak("Great!"); }
   state.stCurrent++;
   if (state.stCurrent >= words.length) showTestResults();
   else loadTestQuestion();
@@ -1376,7 +1212,7 @@ function showTestResults() {
     html += "</div>";
   }
   html += '<div style="margin-top:24px;">';
-  html += '<button class="btn btn-primary" id="btn-st-retry">&#128260; Try Again</button>';
+  html += '<button class="btn btn-primary" id="btn-st-retry" type="button">&#128260; Try Again</button>';
   html += "</div></div>";
   document.getElementById("stTypeArea").classList.add("hidden");
   document.getElementById("stBuildArea").classList.add("hidden");
@@ -1385,7 +1221,7 @@ function showTestResults() {
   document.getElementById("btn-st-retry").addEventListener("click", initSpellingTest);
 }
 
-// ===================== STUDIO =====================
+// Studio
 var shopItems = [
   { id: "desk", icon: "&#128221;", name: "Desk", cost: 10 },
   { id: "lamp", icon: "&#128715;", name: "Lamp", cost: 15 },
@@ -1406,9 +1242,7 @@ function initStudio() {
     room.innerHTML = '<div style="text-align: center; padding-top: 40px; color: #8B7355;"><div style="font-size: 3rem; margin-bottom: 16px;">&#127912;</div></div>';
     for (var i = 0; i < state.studioItems.length; i++) {
       var shopItem = null;
-      for (var j = 0; j < shopItems.length; j++) {
-        if (shopItems[j].id === state.studioItems[i]) { shopItem = shopItems[j]; break; }
-      }
+      for (var j = 0; j < shopItems.length; j++) { if (shopItems[j].id === state.studioItems[i]) { shopItem = shopItems[j]; break; } }
       if (shopItem) {
         var el = document.createElement("div");
         el.className = "studio-item";
@@ -1424,16 +1258,12 @@ function initStudio() {
   for (var i = 0; i < shopItems.length; i++) {
     var item = shopItems[i];
     var owned = false;
-    for (var j = 0; j < state.studioItems.length; j++) {
-      if (state.studioItems[j] === item.id) { owned = true; break; }
-    }
+    for (var j = 0; j < state.studioItems.length; j++) { if (state.studioItems[j] === item.id) { owned = true; break; } }
     var div = document.createElement("div");
     div.className = "shop-item" + (owned ? " owned" : "");
     div.innerHTML = '<div class="item-icon">' + item.icon + '</div><div style="font-weight:700; margin:4px 0;">' + item.name + '</div><div class="item-price">' + (owned ? "Owned" : "&#11088; " + item.cost) + "</div>";
     if (!owned) {
-      div.addEventListener("click", (function(it) {
-        return function() { buyItem(it); };
-      })(item));
+      div.addEventListener("click", (function(it) { return function() { buyItem(it); }; })(item));
     }
     grid.appendChild(div);
   }
@@ -1452,7 +1282,7 @@ function buyItem(item) {
   }
 }
 
-// ===================== PROGRESS =====================
+// Progress
 function initProgress() {
   var el = document.getElementById("progressList");
   var html = '<div style="text-align:center; margin-bottom:16px;"><div style="font-size: 2rem;">&#127775; You are getting stronger!</div></div>';
@@ -1465,7 +1295,7 @@ function initProgress() {
   el.innerHTML = html;
 }
 
-// ===================== PARENT MODE =====================
+// Parent Mode
 function initParent() {
   document.getElementById("parentGate").classList.remove("hidden");
   document.getElementById("parentPanel").classList.add("hidden");
@@ -1503,7 +1333,7 @@ function resetProgress() {
   }
 }
 
-// ===================== SETTINGS =====================
+// Settings
 function applySettings() {
   var app = document.getElementById("app");
   app.classList.remove("large-text", "xlarge-text", "reduce-motion");
@@ -1523,12 +1353,11 @@ function changeAnim(val) { state.settings.animation = val; saveState(); applySet
 function toggleSound() { state.settings.sound = !state.settings.sound; saveState(); applySettings(); }
 function toggleVoice() { state.settings.voice = !state.settings.voice; saveState(); applySettings(); }
 
-// ===================== UTILITIES =====================
+// Utilities
 function addStars(n) {
   state.stars += n;
   updateStars();
   saveState();
-  showStarAnimation();
 }
 
 function updateStars() {
@@ -1558,16 +1387,6 @@ function closeFeedback() {
   }
 }
 
-function showStarAnimation() {
-  var star = document.createElement("div");
-  star.className = "star-float";
-  star.textContent = "&#11088;";
-  star.style.left = (Math.random() * 80 + 10) + "%";
-  star.style.top = "50%";
-  document.body.appendChild(star);
-  setTimeout(function() { star.remove(); }, 1000);
-}
-
 function shuffle(arr) {
   var a = arr.slice();
   for (var i = a.length - 1; i > 0; i--) {
@@ -1577,20 +1396,18 @@ function shuffle(arr) {
   return a;
 }
 
-// ===================== INIT =====================
+// Init
 function initApp() {
   try {
+    debug("initApp started");
     loadState();
-    attachEvents();
-    hideLoading();
-    console.log("Spelling Studio loaded successfully!");
+    var count = attachEvents();
+    debugOk("Ready! " + count + " events attached");
   } catch(err) {
-    showError("Game error: " + err.message);
-    console.error(err);
+    debug("FATAL: " + err.message);
   }
 }
 
-// Wait for DOM to be ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initApp);
 } else {
