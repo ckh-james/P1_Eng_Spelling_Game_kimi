@@ -47,7 +47,6 @@ html, body {
   padding-bottom: 90px;
 }
 
-/* Header */
 .header {
   background: linear-gradient(135deg, var(--primary), #FF6B35);
   color: white;
@@ -71,7 +70,6 @@ html, body {
   font-size: 1.3rem;
 }
 
-/* Navigation */
 .nav-bar {
   position: fixed;
   bottom: 0;
@@ -104,13 +102,11 @@ html, body {
   min-width: 56px;
   -webkit-appearance: none;
   appearance: none;
-  touch-action: manipulation;
 }
 
 .nav-btn.active { color: var(--primary); font-weight: 700; }
 .nav-btn .nav-icon { font-size: 1.4rem; pointer-events: none; }
 
-/* Cards */
 .card {
   background: var(--card);
   border-radius: var(--radius);
@@ -133,7 +129,6 @@ html, body {
   border: 3px solid transparent;
   -webkit-tap-highlight-color: rgba(255,140,66,0.2);
   user-select: none;
-  touch-action: manipulation;
 }
 
 .game-card:active {
@@ -146,7 +141,6 @@ html, body {
 .game-card h3 { font-size: 1.1rem; margin-bottom: 4px; }
 .game-card p { font-size: 0.85rem; color: var(--text-light); }
 
-/* Buttons */
 .btn {
   font-family: var(--font-main);
   border: none;
@@ -164,7 +158,6 @@ html, body {
   min-width: 52px;
   -webkit-appearance: none;
   appearance: none;
-  touch-action: manipulation;
   user-select: none;
 }
 
@@ -192,13 +185,11 @@ html, body {
 
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* Word Hunt Grid */
 .word-hunt-grid {
   display: grid;
   gap: 4px;
   margin: 16px 0;
   justify-content: center;
-  touch-action: manipulation;
 }
 
 .grid-cell {
@@ -214,7 +205,6 @@ html, body {
   cursor: pointer;
   user-select: none;
   transition: all 0.2s;
-  touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(255,140,66,0.3);
 }
 
@@ -222,7 +212,6 @@ html, body {
 .grid-cell.found { background: var(--success); color: white; }
 .grid-cell:active { transform: scale(0.92); }
 
-/* Letter Builder */
 .letter-slot {
   width: 42px;
   height: 54px;
@@ -256,7 +245,6 @@ html, body {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(107,91,149,0.3);
   transition: transform 0.15s;
-  touch-action: manipulation;
   user-select: none;
   -webkit-tap-highlight-color: rgba(107,91,149,0.3);
 }
@@ -264,7 +252,6 @@ html, body {
 .letter-tile:active { transform: scale(0.92); }
 .letter-tile.used { opacity: 0.3; pointer-events: none; }
 
-/* Sentence Studio */
 .sentence-text {
   font-size: 1.15rem;
   line-height: 1.8;
@@ -287,7 +274,6 @@ html, body {
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
-  touch-action: manipulation;
   user-select: none;
   -webkit-appearance: none;
   appearance: none;
@@ -297,7 +283,6 @@ html, body {
 .choice-btn.correct { border-color: var(--success); background: #E8F5E9; }
 .choice-btn.wrong { border-color: var(--error); background: #FFEBEE; }
 
-/* Creative Studio */
 .studio-room {
   background: linear-gradient(180deg, #E8D5B7 0%, #D4C4A8 100%);
   border-radius: var(--radius);
@@ -327,7 +312,6 @@ html, body {
   cursor: pointer;
   border: 3px solid transparent;
   transition: all 0.2s;
-  touch-action: manipulation;
   user-select: none;
 }
 
@@ -336,7 +320,6 @@ html, body {
 .shop-item .item-icon { font-size: 2rem; pointer-events: none; }
 .shop-item .item-price { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
 
-/* Progress */
 .progress-word {
   display: flex;
   align-items: center;
@@ -349,7 +332,6 @@ html, body {
 
 .progress-word .status { font-size: 1.3rem; }
 
-/* Parent Mode */
 .parent-gate {
   text-align: center;
   padding: 40px 20px;
@@ -375,7 +357,6 @@ html, body {
   appearance: none;
 }
 
-/* Settings */
 .setting-row {
   display: flex;
   justify-content: space-between;
@@ -386,7 +367,6 @@ html, body {
   border-radius: 12px;
 }
 
-/* Feedback */
 .feedback-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -417,7 +397,6 @@ html, body {
 .feedback-card h2 { margin-bottom: 8px; }
 .feedback-card p { color: var(--text-light); margin-bottom: 20px; }
 
-/* Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -431,7 +410,6 @@ html, body {
   z-index: 300;
 }
 
-/* Utility */
 .hidden { display: none !important; }
 .text-center { text-align: center; }
 .mb-16 { margin-bottom: 16px; }
@@ -443,17 +421,40 @@ html, body {
 .justify-center { justify-content: center; }
 .items-center { align-items: center; }
 
-/* Reduced motion */
 .reduce-motion * {
   animation: none !important;
   transition: none !important;
 }
 
-/* Large text */
 .large-text { font-size: 1.2em; }
 .xlarge-text { font-size: 1.4em; }
 
-/* Error display */
+#loadingScreen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#loadingScreen .loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 #errorDisplay {
   position: fixed;
   top: 10px;
@@ -463,7 +464,7 @@ html, body {
   color: #c62828;
   padding: 12px;
   border-radius: 12px;
-  z-index: 1000;
+  z-index: 1001;
   font-size: 0.85rem;
   display: none;
 }
@@ -471,73 +472,79 @@ html, body {
 </head>
 <body>
 
+<div id="loadingScreen">
+  <div class="loading-spinner"></div>
+  <h2>Loading Spelling Studio...</h2>
+  <p style="color: var(--text-light); margin-top: 8px;">If this stays for more than 5 seconds, try refreshing.</p>
+</div>
+
 <div id="errorDisplay"></div>
 
 <div id="app" class="app-container">
   <div class="header" id="header">
-    <h1>🎨 Spelling Studio</h1>
+    <h1>Spelling Studio</h1>
     <div class="week-badge" id="weekBadge">Week 6</div>
-    <div class="stars-display">⭐ <span id="starCount">0</span></div>
+    <div class="stars-display">&#9733; <span id="starCount">0</span></div>
   </div>
 
   <div id="view-home">
     <div class="text-center mt-16 mb-16">
-      <p style="font-size:1.1rem; color: var(--text-light);">Let's have some spelling fun!</p>
+      <p style="font-size:1.1rem; color: var(--text-light);">Let us have some spelling fun!</p>
     </div>
-    <div class="game-card" id="card-wordhunt" role="button" tabindex="0">
-      <div class="game-icon">🔎</div>
+    <div class="game-card" id="card-wordhunt">
+      <div class="game-icon">&#128270;</div>
       <div class="game-info"><h3>Word Hunt</h3><p>Find the hidden spelling words</p></div>
     </div>
-    <div class="game-card" id="card-letterbuilder" role="button" tabindex="0">
-      <div class="game-icon">🧩</div>
+    <div class="game-card" id="card-letterbuilder">
+      <div class="game-icon">&#129513;</div>
       <div class="game-info"><h3>Letter Builder</h3><p>Build words letter by letter</p></div>
     </div>
-    <div class="game-card" id="card-sentencestudio" role="button" tabindex="0">
-      <div class="game-icon">🎨</div>
+    <div class="game-card" id="card-sentencestudio">
+      <div class="game-icon">&#127912;</div>
       <div class="game-info"><h3>Sentence Studio</h3><p>Listen and complete sentences</p></div>
     </div>
-    <div class="game-card" id="card-spellingtest" role="button" tabindex="0">
-      <div class="game-icon">✏️</div>
+    <div class="game-card" id="card-spellingtest">
+      <div class="game-icon">&#9999;</div>
       <div class="game-info"><h3>Spelling Test</h3><p>Test your spelling skills</p></div>
     </div>
   </div>
 
   <div id="view-wordhunt" class="hidden">
     <div class="card">
-      <h2 class="text-center mb-16">🔎 Word Hunt</h2>
+      <h2 class="text-center mb-16">&#128270; Word Hunt</h2>
       <p class="text-center" style="color: var(--text-light); margin-bottom: 16px;">Find the words hidden in the grid! Tap first letter, then last letter.</p>
       <div id="wordHuntGrid" class="word-hunt-grid"></div>
       <div id="wordHuntList" style="margin-top: 16px;"></div>
       <div class="text-center mt-16">
-        <button class="btn btn-outline" id="btn-newgrid">🔄 New Grid</button>
+        <button class="btn btn-outline" id="btn-newgrid">&#128260; New Grid</button>
       </div>
     </div>
   </div>
 
   <div id="view-letterbuilder" class="hidden">
     <div class="card">
-      <h2 class="text-center mb-16">🧩 Letter Builder</h2>
+      <h2 class="text-center mb-16">&#129513; Letter Builder</h2>
       <div class="text-center mb-16">
-        <button class="btn btn-secondary" id="btn-lb-hearword">🔊 Hear Word</button>
+        <button class="btn btn-secondary" id="btn-lb-hearword">&#128266; Hear Word</button>
       </div>
       <p id="lbSentence" class="sentence-text"></p>
       <p id="lbPrompt" class="text-center" style="font-size:1.1rem; margin: 16px 0;"></p>
       <div id="lbSlots" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
       <div id="lbLetters" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
       <div class="flex justify-center gap-12 mt-16">
-        <button class="btn btn-outline" id="btn-lb-undo">↩ Undo</button>
-        <button class="btn btn-outline" id="btn-lb-reset">🔄 Reset</button>
-        <button class="btn btn-primary" id="btn-lb-check">✓ Check</button>
+        <button class="btn btn-outline" id="btn-lb-undo">&#8617; Undo</button>
+        <button class="btn btn-outline" id="btn-lb-reset">&#128260; Reset</button>
+        <button class="btn btn-primary" id="btn-lb-check">&#10003; Check</button>
       </div>
     </div>
   </div>
 
   <div id="view-sentencestudio" class="hidden">
     <div class="card">
-      <h2 class="text-center mb-16">🎨 Sentence Studio</h2>
+      <h2 class="text-center mb-16">&#127912; Sentence Studio</h2>
       <div class="text-center mb-16">
-        <button class="btn btn-secondary" id="btn-ss-hearsent">🔊 Hear Sentence</button>
-        <button class="btn btn-secondary" id="btn-ss-hearword">🔊 Hear Word</button>
+        <button class="btn btn-secondary" id="btn-ss-hearsent">&#128266; Hear Sentence</button>
+        <button class="btn btn-secondary" id="btn-ss-hearword">&#128266; Hear Word</button>
       </div>
       <p id="ssSentence" class="sentence-text"></p>
       <p id="ssPrompt" class="text-center" style="font-size:1.1rem; margin: 16px 0;"></p>
@@ -547,29 +554,29 @@ html, body {
 
   <div id="view-spellingtest" class="hidden">
     <div class="card">
-      <h2 class="text-center mb-16">✏️ Spelling Test</h2>
+      <h2 class="text-center mb-16">&#9999; Spelling Test</h2>
       <div class="text-center mb-16">
-        <button class="btn btn-secondary" id="btn-st-hearword">🔊 Hear Word</button>
-        <button class="btn btn-secondary" id="btn-st-hearsent">🔊 Hear Sentence</button>
+        <button class="btn btn-secondary" id="btn-st-hearword">&#128266; Hear Word</button>
+        <button class="btn btn-secondary" id="btn-st-hearsent">&#128266; Hear Sentence</button>
       </div>
       <p id="stPrompt" class="text-center" style="font-size:1.1rem; margin-bottom: 16px;"></p>
       <div id="stModeSelector" class="flex justify-center gap-12 mb-16">
-        <button class="btn btn-outline" id="btn-st-type">⌨️ Type</button>
-        <button class="btn btn-outline" id="btn-st-build">🧩 Build</button>
+        <button class="btn btn-outline" id="btn-st-type">&#9000; Type</button>
+        <button class="btn btn-outline" id="btn-st-build">&#129513; Build</button>
       </div>
       <div id="stTypeArea" class="hidden text-center">
         <input type="text" id="stInput" class="gate-input" style="width: 200px; text-transform: lowercase;" placeholder="type here..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
         <div class="mt-16">
-          <button class="btn btn-primary" id="btn-st-check-type">✓ Check</button>
+          <button class="btn btn-primary" id="btn-st-check-type">&#10003; Check</button>
         </div>
       </div>
       <div id="stBuildArea" class="hidden">
         <div id="stSlots" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
         <div id="stLetters" class="flex justify-center gap-8 flex-wrap" style="margin: 20px 0;"></div>
         <div class="flex justify-center gap-12 mt-16">
-          <button class="btn btn-outline" id="btn-st-undo">↩ Undo</button>
-          <button class="btn btn-outline" id="btn-st-reset">🔄 Reset</button>
-          <button class="btn btn-primary" id="btn-st-check-build">✓ Check</button>
+          <button class="btn btn-outline" id="btn-st-undo">&#8617; Undo</button>
+          <button class="btn btn-outline" id="btn-st-reset">&#128260; Reset</button>
+          <button class="btn btn-primary" id="btn-st-check-build">&#10003; Check</button>
         </div>
       </div>
       <div id="stProgress" class="text-center mt-16" style="color: var(--text-light);"></div>
@@ -578,31 +585,31 @@ html, body {
 
   <div id="view-studio" class="hidden">
     <div class="text-center mt-16 mb-16">
-      <h2>🎨 My Creative Studio</h2>
+      <h2>&#127912; My Creative Studio</h2>
       <p style="color: var(--text-light);">Decorate your room with stars!</p>
     </div>
     <div class="studio-room" id="studioRoom">
       <div style="text-align: center; padding-top: 80px; color: #8B7355;">
-        <div style="font-size: 4rem; margin-bottom: 16px;">🪑</div>
+        <div style="font-size: 4rem; margin-bottom: 16px;">&#129693;</div>
         <p>Your studio is just getting started!</p>
       </div>
     </div>
     <div class="card">
-      <h3 class="text-center mb-16">🛒 Shop</h3>
+      <h3 class="text-center mb-16">&#128722; Shop</h3>
       <div class="shop-grid" id="shopGrid"></div>
     </div>
   </div>
 
   <div id="view-progress" class="hidden">
     <div class="card">
-      <h2 class="text-center mb-16">📊 My Progress</h2>
+      <h2 class="text-center mb-16">&#128202; My Progress</h2>
       <div id="progressList"></div>
     </div>
   </div>
 
   <div id="view-settings" class="hidden">
     <div class="card">
-      <h2 class="text-center mb-16">⚙️ Settings</h2>
+      <h2 class="text-center mb-16">&#9881; Settings</h2>
       <div class="setting-row">
         <span>Font</span>
         <select id="fontSelect" style="font-family: var(--font-main); padding: 8px; border-radius: 8px; border: 2px solid #ddd;">
@@ -638,7 +645,7 @@ html, body {
 
   <div id="view-parent" class="hidden">
     <div id="parentGate" class="parent-gate">
-      <h2>🔒 Parent Mode</h2>
+      <h2>&#128274; Parent Mode</h2>
       <p style="color: var(--text-light); margin: 16px 0;">Solve this to enter:</p>
       <div class="math-q" id="mathQuestion">5 + 3 = ?</div>
       <input type="number" id="gateAnswer" class="gate-input" placeholder="?">
@@ -648,7 +655,7 @@ html, body {
     </div>
     <div id="parentPanel" class="hidden">
       <div class="card">
-        <h2 class="text-center mb-16">👨‍👩‍👧 Parent Mode</h2>
+        <h2 class="text-center mb-16">&#128104;&#8205;&#128105;&#8205;&#128103; Parent Mode</h2>
         <div class="setting-row">
           <span>Current Week</span>
           <select id="weekSelect" style="font-family: var(--font-main); padding: 8px; border-radius: 8px;">
@@ -656,11 +663,11 @@ html, body {
           </select>
         </div>
         <div class="mt-16">
-          <h3>📖 Week 6 Words</h3>
+          <h3>&#128214; Week 6 Words</h3>
           <div id="parentWordList" style="margin-top: 12px;"></div>
         </div>
         <div class="mt-16 text-center">
-          <button class="btn btn-error" style="background: var(--error); color: white;" id="btn-reset-progress">🗑️ Reset All Progress</button>
+          <button class="btn btn-error" style="background: var(--error); color: white;" id="btn-reset-progress">&#128465; Reset All Progress</button>
         </div>
       </div>
     </div>
@@ -668,7 +675,7 @@ html, body {
 
   <div id="feedbackOverlay" class="feedback-overlay hidden">
     <div class="feedback-card">
-      <div class="feedback-emoji" id="feedbackEmoji">🎉</div>
+      <div class="feedback-emoji" id="feedbackEmoji">&#127881;</div>
       <h2 id="feedbackTitle">Great job!</h2>
       <p id="feedbackMessage">You found a word!</p>
       <button class="btn btn-primary" id="btn-feedback-close">Continue</button>
@@ -677,829 +684,918 @@ html, body {
 
   <div class="nav-bar">
     <button class="nav-btn active" data-view="home" id="nav-home">
-      <span class="nav-icon">🏠</span><span>Home</span>
+      <span class="nav-icon">&#127968;</span><span>Home</span>
     </button>
     <button class="nav-btn" data-view="studio" id="nav-studio">
-      <span class="nav-icon">🎨</span><span>Studio</span>
+      <span class="nav-icon">&#127912;</span><span>Studio</span>
     </button>
     <button class="nav-btn" data-view="progress" id="nav-progress">
-      <span class="nav-icon">⭐</span><span>Progress</span>
+      <span class="nav-icon">&#11088;</span><span>Progress</span>
     </button>
     <button class="nav-btn" data-view="settings" id="nav-settings">
-      <span class="nav-icon">⚙️</span><span>Settings</span>
+      <span class="nav-icon">&#9881;</span><span>Settings</span>
     </button>
     <button class="nav-btn" data-view="parent" id="nav-parent">
-      <span class="nav-icon">🔒</span><span>Parent</span>
+      <span class="nav-icon">&#128274;</span><span>Parent</span>
     </button>
   </div>
 </div>
 
 <script>
-(function() {
-  "use strict";
 
-  // Error display helper
-  function showError(msg) {
-    const el = document.getElementById("errorDisplay");
-    if (el) { el.textContent = msg; el.style.display = "block"; }
-    console.error(msg);
+// ============================================
+// SPELLING STUDIO - Pure ES5 for max compatibility
+// ============================================
+
+var weekData = {
+  week: 6,
+  title: "Spelling Adventure - Week 6",
+  sentences: [
+    { sentence: "Johnny ran off in a hurry.", targetWord: "hurry" },
+    { sentence: "I dirtied my clothes again.", targetWord: "clothes" },
+    { sentence: "The book on the table is mine.", targetWord: "mine" },
+    { sentence: "There is nothing in my pockets.", targetWord: "pockets" },
+    { sentence: "What did you have for breakfast today?", targetWord: "breakfast" },
+    { sentence: "Siti thanked her aunty for giving her green packets.", targetWord: "thanked" },
+    { sentence: "My family decorated our house to celebrate Hari Raya.", targetWord: "our" },
+    { sentence: "We visited our grandparents on the first day of Hari Raya.", targetWord: "visited" }
+  ]
+};
+
+var words = [];
+for (var i = 0; i < weekData.sentences.length; i++) {
+  words.push(weekData.sentences[i].targetWord);
+}
+var sentences = weekData.sentences;
+
+var state = {
+  stars: 0,
+  currentView: "home",
+  wordProgress: {},
+  studioItems: [],
+  settings: {
+    font: "atkinson",
+    size: "normal",
+    animation: "normal",
+    sound: true,
+    voice: true
+  },
+  whFound: [],
+  whGrid: [],
+  whSelection: [],
+  lbCurrent: 0,
+  lbBuilt: [],
+  lbLetters: [],
+  ssCurrent: 0,
+  stCurrent: 0,
+  stMode: "type",
+  stAnswers: [],
+  stBuilt: [],
+  stLetters: []
+};
+
+function showError(msg) {
+  var el = document.getElementById("errorDisplay");
+  if (el) {
+    el.textContent = "Error: " + msg;
+    el.style.display = "block";
+  }
+}
+
+function hideLoading() {
+  var el = document.getElementById("loadingScreen");
+  if (el) el.style.display = "none";
+}
+
+function loadState() {
+  try {
+    var saved = localStorage.getItem("spelling_studio_state");
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (parsed.stars !== undefined) state.stars = parsed.stars;
+      if (parsed.wordProgress !== undefined) state.wordProgress = parsed.wordProgress;
+      if (parsed.studioItems !== undefined) state.studioItems = parsed.studioItems;
+      if (parsed.settings) {
+        var s = parsed.settings;
+        if (s.font) state.settings.font = s.font;
+        if (s.size) state.settings.size = s.size;
+        if (s.animation) state.settings.animation = s.animation;
+        if (s.sound !== undefined) state.settings.sound = s.sound;
+        if (s.voice !== undefined) state.settings.voice = s.voice;
+      }
+    }
+  } catch(e) {
+    console.log("No saved state");
+  }
+  updateStars();
+  applySettings();
+}
+
+function saveState() {
+  try {
+    localStorage.setItem("spelling_studio_state", JSON.stringify({
+      stars: state.stars,
+      wordProgress: state.wordProgress,
+      studioItems: state.studioItems,
+      settings: state.settings
+    }));
+  } catch(e) {
+    console.log("Could not save");
+  }
+}
+
+function navigateTo(view) {
+  state.currentView = view;
+  var views = document.querySelectorAll("[id^="view-"]");
+  for (var i = 0; i < views.length; i++) {
+    views[i].classList.add("hidden");
+  }
+  var target = document.getElementById("view-" + view);
+  if (target) target.classList.remove("hidden");
+
+  var navBtns = document.querySelectorAll(".nav-btn");
+  for (var i = 0; i < navBtns.length; i++) {
+    navBtns[i].classList.remove("active");
+  }
+  var activeBtn = document.querySelector('.nav-btn[data-view="' + view + '"]');
+  if (activeBtn) activeBtn.classList.add("active");
+
+  if (view === "wordhunt") initWordHunt();
+  if (view === "letterbuilder") initLetterBuilder();
+  if (view === "sentencestudio") initSentenceStudio();
+  if (view === "spellingtest") initSpellingTest();
+  if (view === "studio") initStudio();
+  if (view === "progress") initProgress();
+  if (view === "parent") initParent();
+
+  window.scrollTo(0, 0);
+}
+
+function attachEvents() {
+  // Game cards
+  document.getElementById("card-wordhunt").addEventListener("click", function() { navigateTo("wordhunt"); });
+  document.getElementById("card-letterbuilder").addEventListener("click", function() { navigateTo("letterbuilder"); });
+  document.getElementById("card-sentencestudio").addEventListener("click", function() { navigateTo("sentencestudio"); });
+  document.getElementById("card-spellingtest").addEventListener("click", function() { navigateTo("spellingtest"); });
+
+  // Nav buttons
+  document.getElementById("nav-home").addEventListener("click", function() { navigateTo("home"); });
+  document.getElementById("nav-studio").addEventListener("click", function() { navigateTo("studio"); });
+  document.getElementById("nav-progress").addEventListener("click", function() { navigateTo("progress"); });
+  document.getElementById("nav-settings").addEventListener("click", function() { navigateTo("settings"); });
+  document.getElementById("nav-parent").addEventListener("click", function() { navigateTo("parent"); });
+
+  // Word Hunt
+  document.getElementById("btn-newgrid").addEventListener("click", initWordHunt);
+
+  // Letter Builder
+  document.getElementById("btn-lb-hearword").addEventListener("click", speakCurrentWord);
+  document.getElementById("btn-lb-undo").addEventListener("click", lbUndo);
+  document.getElementById("btn-lb-reset").addEventListener("click", lbReset);
+  document.getElementById("btn-lb-check").addEventListener("click", lbCheck);
+
+  // Sentence Studio
+  document.getElementById("btn-ss-hearsent").addEventListener("click", speakCurrentSentence);
+  document.getElementById("btn-ss-hearword").addEventListener("click", speakCurrentWord);
+
+  // Spelling Test
+  document.getElementById("btn-st-hearword").addEventListener("click", speakCurrentWord);
+  document.getElementById("btn-st-hearsent").addEventListener("click", speakCurrentSentence);
+  document.getElementById("btn-st-type").addEventListener("click", function() { setTestMode("type"); });
+  document.getElementById("btn-st-build").addEventListener("click", function() { setTestMode("build"); });
+  document.getElementById("btn-st-check-type").addEventListener("click", stCheck);
+  document.getElementById("btn-st-check-build").addEventListener("click", stCheck);
+  document.getElementById("btn-st-undo").addEventListener("click", stUndo);
+  document.getElementById("btn-st-reset").addEventListener("click", stReset);
+
+  // Settings
+  document.getElementById("btn-toggle-sound").addEventListener("click", toggleSound);
+  document.getElementById("btn-toggle-voice").addEventListener("click", toggleVoice);
+  document.getElementById("fontSelect").addEventListener("change", function() { changeFont(this.value); });
+  document.getElementById("sizeSelect").addEventListener("change", function() { changeSize(this.value); });
+  document.getElementById("animSelect").addEventListener("change", function() { changeAnim(this.value); });
+
+  // Parent
+  document.getElementById("btn-gate-enter").addEventListener("click", checkGate);
+  document.getElementById("btn-reset-progress").addEventListener("click", resetProgress);
+
+  // Feedback
+  document.getElementById("btn-feedback-close").addEventListener("click", closeFeedback);
+}
+
+function speak(text) {
+  if (!state.settings.voice) return;
+  if (!window.speechSynthesis) return;
+  try {
+    window.speechSynthesis.cancel();
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "en-US";
+    utter.rate = 0.9;
+    var voices = window.speechSynthesis.getVoices();
+    var enVoice = null;
+    for (var i = 0; i < voices.length; i++) {
+      if (voices[i].lang.indexOf("en") !== -1) {
+        enVoice = voices[i];
+        break;
+      }
+    }
+    if (enVoice) utter.voice = enVoice;
+    window.speechSynthesis.speak(utter);
+  } catch(e) {
+    console.log("TTS error", e);
+  }
+}
+
+function speakCurrentWord() {
+  var word = "";
+  if (state.currentView === "letterbuilder") word = words[state.lbCurrent];
+  if (state.currentView === "sentencestudio") word = words[state.ssCurrent];
+  if (state.currentView === "spellingtest") word = words[state.stCurrent];
+  if (word) speak(word);
+}
+
+function speakCurrentSentence() {
+  var sent = "";
+  if (state.currentView === "letterbuilder") sent = sentences[state.lbCurrent].sentence;
+  if (state.currentView === "sentencestudio") sent = sentences[state.ssCurrent].sentence;
+  if (state.currentView === "spellingtest") sent = sentences[state.stCurrent].sentence;
+  if (sent) speak(sent);
+}
+
+// ===================== WORD HUNT =====================
+function initWordHunt() {
+  state.whFound = [];
+  state.whSelection = [];
+  var maxLen = 0;
+  for (var i = 0; i < words.length; i++) {
+    if (words[i].length > maxLen) maxLen = words[i].length;
+  }
+  var gridSize = Math.max(10, Math.ceil(maxLen + 2));
+  var grid = [];
+  for (var r = 0; r < gridSize; r++) {
+    grid[r] = [];
+    for (var c = 0; c < gridSize; c++) grid[r][c] = "";
+  }
+  var placed = [];
+
+  for (var w = 0; w < words.length; w++) {
+    var word = words[w];
+    var placed_ok = false;
+    var attempts = 0;
+    while (!placed_ok && attempts < 100) {
+      var row = Math.floor(Math.random() * gridSize);
+      var maxCol = gridSize - word.length;
+      var col = Math.floor(Math.random() * (maxCol + 1));
+      var canPlace = true;
+      for (var i = 0; i < word.length; i++) {
+        if (grid[row][col + i] !== "" && grid[row][col + i] !== word[i].toUpperCase()) {
+          canPlace = false;
+          break;
+        }
+      }
+      if (canPlace) {
+        for (var i = 0; i < word.length; i++) grid[row][col + i] = word[i].toUpperCase();
+        placed.push({ word: word, row: row, col: col, length: word.length });
+        placed_ok = true;
+      }
+      attempts++;
+    }
   }
 
+  var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (var r = 0; r < gridSize; r++) {
+    for (var c = 0; c < gridSize; c++) {
+      if (grid[r][c] === "") grid[r][c] = letters.charAt(Math.floor(Math.random() * letters.length));
+    }
+  }
+
+  state.whGrid = grid;
+  state.whPlaced = placed;
+  renderWordHunt();
+}
+
+function renderWordHunt() {
+  var gridEl = document.getElementById("wordHuntGrid");
+  var listEl = document.getElementById("wordHuntList");
+  var grid = state.whGrid;
+  var size = grid.length;
+
+  gridEl.style.gridTemplateColumns = "repeat(" + size + ", 38px)";
+  gridEl.innerHTML = "";
+
+  for (var r = 0; r < size; r++) {
+    for (var c = 0; c < size; c++) {
+      var cell = document.createElement("div");
+      cell.className = "grid-cell";
+      cell.textContent = grid[r][c];
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+
+      var isFound = false;
+      for (var i = 0; i < state.whFound.length; i++) {
+        if (state.whFound[i].row === r && state.whFound[i].col === c) { isFound = true; break; }
+      }
+      var isSelected = false;
+      for (var i = 0; i < state.whSelection.length; i++) {
+        if (state.whSelection[i].r === r && state.whSelection[i].c === c) { isSelected = true; break; }
+      }
+      if (isFound) cell.classList.add("found");
+      else if (isSelected) cell.classList.add("selected");
+
+      cell.addEventListener("click", (function(rr, cc) {
+        return function() { handleGridClick(rr, cc); };
+      })(r, c));
+      gridEl.appendChild(cell);
+    }
+  }
+
+  var listHtml = '<p style="font-weight:700; margin-bottom:8px;">Find these:</p>';
+  for (var w = 0; w < words.length; w++) {
+    var found = false;
+    for (var i = 0; i < state.whFound.length; i++) {
+      if (state.whFound[i].word === words[w]) { found = true; break; }
+    }
+    listHtml += '<div style="padding:6px 0;' + (found ? ' text-decoration:line-through; opacity:0.5;' : '') + '">' + (found ? '&#10003;' : '&#9675;') + ' ' + words[w] + ' <span style="cursor:pointer; color:var(--primary);" class="wh-speak" data-word="' + words[w] + '">&#128266;</span></div>';
+  }
+  listEl.innerHTML = listHtml;
+
+  var speakEls = listEl.querySelectorAll(".wh-speak");
+  for (var i = 0; i < speakEls.length; i++) {
+    speakEls[i].addEventListener("click", function(e) {
+      e.stopPropagation();
+      speak(this.getAttribute("data-word"));
+    });
+  }
+}
+
+function handleGridClick(r, c) {
+  var sel = state.whSelection;
+  if (sel.length === 0) {
+    state.whSelection = [{r:r, c:c}];
+    renderWordHunt();
+    return;
+  }
+  if (sel.length === 1 && sel[0].r === r && sel[0].c === c) {
+    state.whSelection = [];
+    renderWordHunt();
+    return;
+  }
+  if (sel.length >= 2) {
+    state.whSelection = [{r:r, c:c}];
+    renderWordHunt();
+    return;
+  }
+  var start = sel[0];
+  if (r !== start.r) {
+    showFeedback("&#129300;", "Look left to right!", "Words go across, not up and down. Try again!");
+    state.whSelection = [];
+    renderWordHunt();
+    return;
+  }
+  var minC = Math.min(start.c, c);
+  var maxC = Math.max(start.c, c);
+  var selectedWord = "";
+  for (var col = minC; col <= maxC; col++) selectedWord += state.whGrid[r][col];
+  selectedWord = selectedWord.toLowerCase();
+
+  var targetWord = null;
+  for (var i = 0; i < words.length; i++) {
+    if (words[i] === selectedWord) { targetWord = words[i]; break; }
+  }
+  var alreadyFound = false;
+  for (var i = 0; i < state.whFound.length; i++) {
+    if (state.whFound[i].word === targetWord) { alreadyFound = true; break; }
+  }
+
+  if (targetWord && !alreadyFound) {
+    for (var col = minC; col <= maxC; col++) state.whFound.push({ word: targetWord, row: r, col: col });
+    state.whSelection = [];
+    addStars(2);
+    updateWordProgress(targetWord, true);
+    renderWordHunt();
+    speak("Great job! " + targetWord);
+    showFeedback("&#127881;", "Amazing!", 'You found "' + targetWord + '"!');
+    var totalFoundCells = 0;
+    for (var i = 0; i < words.length; i++) totalFoundCells += words[i].length;
+    if (state.whFound.length === totalFoundCells) {
+      setTimeout(function() {
+        showFeedback("&#127942;", "Word Hunt Complete!", "You found all the words! &#127775;");
+      }, 1500);
+    }
+  } else {
+    showFeedback("&#128173;", "Almost!", "Have another look.");
+    state.whSelection = [];
+    renderWordHunt();
+  }
+}
+
+// ===================== LETTER BUILDER =====================
+function initLetterBuilder() {
+  state.lbCurrent = Math.floor(Math.random() * words.length);
+  state.lbBuilt = [];
+  var word = words[state.lbCurrent];
+  var sent = sentences[state.lbCurrent];
+  document.getElementById("lbSentence").textContent = sent.sentence;
+  document.getElementById("lbPrompt").textContent = 'Build the word: "' + word + '"';
+  var slotsEl = document.getElementById("lbSlots");
+  slotsEl.innerHTML = "";
+  for (var i = 0; i < word.length; i++) {
+    var slot = document.createElement("div");
+    slot.className = "letter-slot";
+    slot.dataset.idx = i;
+    slotsEl.appendChild(slot);
+  }
+  var letters = word.split("").sort(function() { return Math.random() - 0.5; });
+  state.lbLetters = [];
+  for (var i = 0; i < letters.length; i++) {
+    state.lbLetters.push({ letter: letters[i], id: i, used: false });
+  }
+  renderLbLetters();
+}
+
+function renderLbLetters() {
+  var el = document.getElementById("lbLetters");
+  el.innerHTML = "";
+  for (var idx = 0; idx < state.lbLetters.length; idx++) {
+    var item = state.lbLetters[idx];
+    var tile = document.createElement("div");
+    tile.className = "letter-tile" + (item.used ? " used" : "");
+    tile.textContent = item.letter.toUpperCase();
+    if (!item.used) {
+      tile.addEventListener("click", (function(ii) {
+        return function() { lbPlaceLetter(ii); };
+      })(idx));
+    }
+    el.appendChild(tile);
+  }
+  var slots = document.querySelectorAll("#lbSlots .letter-slot");
+  for (var i = 0; i < slots.length; i++) {
+    if (i < state.lbBuilt.length) {
+      slots[i].textContent = state.lbBuilt[i].toUpperCase();
+      slots[i].classList.add("filled");
+    } else {
+      slots[i].textContent = "";
+      slots[i].classList.remove("filled");
+    }
+  }
+}
+
+function lbPlaceLetter(idx) {
+  var word = words[state.lbCurrent];
+  if (state.lbBuilt.length >= word.length) return;
+  state.lbLetters[idx].used = true;
+  state.lbBuilt.push(state.lbLetters[idx].letter);
+  renderLbLetters();
+}
+
+function lbUndo() {
+  if (state.lbBuilt.length === 0) return;
+  var last = state.lbBuilt.pop();
+  for (var i = 0; i < state.lbLetters.length; i++) {
+    if (state.lbLetters[i].letter === last && state.lbLetters[i].used) {
+      state.lbLetters[i].used = false;
+      break;
+    }
+  }
+  renderLbLetters();
+}
+
+function lbReset() {
+  state.lbBuilt = [];
+  for (var i = 0; i < state.lbLetters.length; i++) state.lbLetters[i].used = false;
+  renderLbLetters();
+}
+
+function lbCheck() {
+  var word = words[state.lbCurrent];
+  var built = "";
+  for (var i = 0; i < state.lbBuilt.length; i++) built += state.lbBuilt[i];
+  if (built === word) {
+    addStars(3);
+    updateWordProgress(word, true);
+    speak("Amazing! " + word);
+    showFeedback("&#11088;", "Fantastic!", 'You built "' + word + '"!', function() { initLetterBuilder(); });
+  } else {
+    showFeedback("&#128173;", "Hmm...", "Let us check that one. Try again!");
+  }
+}
+
+// ===================== SENTENCE STUDIO =====================
+function initSentenceStudio() {
+  state.ssCurrent = Math.floor(Math.random() * words.length);
+  var sent = sentences[state.ssCurrent];
+  var word = words[state.ssCurrent];
+  document.getElementById("ssSentence").textContent = sent.sentence;
+  document.getElementById("ssPrompt").textContent = "Which word belongs here?";
+  var distractors = generateDistractors(word);
+  var allChoices = [word];
+  for (var i = 0; i < distractors.length; i++) allChoices.push(distractors[i]);
+  var choices = shuffle(allChoices).slice(0, 4);
+  var choicesEl = document.getElementById("ssChoices");
+  choicesEl.innerHTML = "";
+  for (var i = 0; i < choices.length; i++) {
+    var btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.textContent = choices[i];
+    btn.addEventListener("click", (function(ch) {
+      return function() { handleSSChoice(ch, word, this); };
+    })(choices[i]));
+    choicesEl.appendChild(btn);
+  }
+}
+
+function generateDistractors(word) {
+  var common = {
+    "hurry": ["hurryy", "hury", "hurrie"],
+    "clothes": ["cloths", "clothess", "clohs"],
+    "mine": ["miine", "min", "myn"],
+    "pockets": ["pockts", "pocketts", "pokets"],
+    "breakfast": ["breakfust", "brekfast", "breakfest"],
+    "thanked": ["thankked", "thakned", "thnaked"],
+    "our": ["ouur", "or", "hour"],
+    "visited": ["vissited", "visted", "visitted"]
+  };
+  return common[word] || [word + "e", word.slice(0, -1), word + word.slice(-1)];
+}
+
+function handleSSChoice(choice, correct, btn) {
+  var allBtns = document.querySelectorAll("#ssChoices .choice-btn");
+  for (var i = 0; i < allBtns.length; i++) {
+    allBtns[i].disabled = true;
+  }
+  if (choice === correct) {
+    btn.classList.add("correct");
+    addStars(2);
+    updateWordProgress(correct, true);
+    speak("Great! " + correct);
+    showFeedback("&#127912;", "Wonderful!", '"' + correct + '" is right!', function() { initSentenceStudio(); });
+  } else {
+    btn.classList.add("wrong");
+    for (var i = 0; i < allBtns.length; i++) {
+      if (allBtns[i].textContent === correct) allBtns[i].classList.add("correct");
+    }
+    showFeedback("&#127775;", "Good thinking!", 'The correct spelling is "' + correct + '".', function() { initSentenceStudio(); });
+  }
+}
+
+// ===================== SPELLING TEST =====================
+function initSpellingTest() {
+  state.stCurrent = 0;
+  state.stAnswers = [];
+  state.stMode = "type";
+  document.getElementById("stModeSelector").classList.remove("hidden");
+  document.getElementById("stTypeArea").classList.add("hidden");
+  document.getElementById("stBuildArea").classList.add("hidden");
+  document.getElementById("stProgress").textContent = "";
+  document.getElementById("stPrompt").textContent = "Choose how you want to spell:";
+}
+
+function setTestMode(mode) {
+  state.stMode = mode;
+  document.getElementById("stModeSelector").classList.add("hidden");
+  if (mode === "type") document.getElementById("stTypeArea").classList.remove("hidden");
+  else document.getElementById("stBuildArea").classList.remove("hidden");
+  loadTestQuestion();
+}
+
+function loadTestQuestion() {
+  var sent = sentences[state.stCurrent];
+  var word = words[state.stCurrent];
+  document.getElementById("stPrompt").innerHTML =
+    '<div style="font-size:0.9rem; color: var(--text-light); margin-bottom:8px;">Word ' + (state.stCurrent + 1) + " of " + words.length + "</div>" +
+    '<div style="font-size:1.1rem;">' + sent.sentence + "</div>";
+  if (state.stMode === "type") {
+    document.getElementById("stInput").value = "";
+    setTimeout(function() {
+      var inp = document.getElementById("stInput");
+      if (inp) inp.focus();
+    }, 100);
+  } else {
+    state.stBuilt = [];
+    var letters = word.split("").sort(function() { return Math.random() - 0.5; });
+    state.stLetters = [];
+    for (var i = 0; i < letters.length; i++) {
+      state.stLetters.push({ letter: letters[i], id: i, used: false });
+    }
+    renderStBuild();
+  }
+}
+
+function renderStBuild() {
+  var word = words[state.stCurrent];
+  var slotsEl = document.getElementById("stSlots");
+  var lettersEl = document.getElementById("stLetters");
+  slotsEl.innerHTML = "";
+  for (var i = 0; i < word.length; i++) {
+    var slot = document.createElement("div");
+    slot.className = "letter-slot" + (i < state.stBuilt.length ? " filled" : "");
+    slot.textContent = i < state.stBuilt.length ? state.stBuilt[i].toUpperCase() : "";
+    slotsEl.appendChild(slot);
+  }
+  lettersEl.innerHTML = "";
+  for (var idx = 0; idx < state.stLetters.length; idx++) {
+    var item = state.stLetters[idx];
+    var tile = document.createElement("div");
+    tile.className = "letter-tile" + (item.used ? " used" : "");
+    tile.textContent = item.letter.toUpperCase();
+    if (!item.used) {
+      tile.addEventListener("click", (function(ii) {
+        return function() { stPlaceLetter(ii); };
+      })(idx));
+    }
+    lettersEl.appendChild(tile);
+  }
+}
+
+function stPlaceLetter(idx) {
+  var word = words[state.stCurrent];
+  if (state.stBuilt.length >= word.length) return;
+  state.stLetters[idx].used = true;
+  state.stBuilt.push(state.stLetters[idx].letter);
+  renderStBuild();
+}
+
+function stUndo() {
+  if (state.stBuilt.length === 0) return;
+  var last = state.stBuilt.pop();
+  for (var i = 0; i < state.stLetters.length; i++) {
+    if (state.stLetters[i].letter === last && state.stLetters[i].used) {
+      state.stLetters[i].used = false;
+      break;
+    }
+  }
+  renderStBuild();
+}
+
+function stReset() {
+  state.stBuilt = [];
+  for (var i = 0; i < state.stLetters.length; i++) state.stLetters[i].used = false;
+  renderStBuild();
+}
+
+function stCheck() {
+  var word = words[state.stCurrent];
+  var answer = "";
+  if (state.stMode === "type") {
+    answer = document.getElementById("stInput").value.toLowerCase().trim();
+  } else {
+    answer = state.stBuilt.join("");
+  }
+  state.stAnswers.push({ word: word, correct: answer === word, answer: answer });
+  updateWordProgress(word, answer === word);
+  if (answer === word) {
+    addStars(2);
+    speak("Great!");
+  }
+  state.stCurrent++;
+  if (state.stCurrent >= words.length) showTestResults();
+  else loadTestQuestion();
+}
+
+function showTestResults() {
+  var wellKnown = [];
+  var practice = [];
+  for (var i = 0; i < state.stAnswers.length; i++) {
+    if (state.stAnswers[i].correct) wellKnown.push(state.stAnswers[i].word);
+    else practice.push(state.stAnswers[i].word);
+  }
+  var html = '<div style="text-align:center;">';
+  html += '<div style="font-size:4rem; margin-bottom:16px;">&#127775;</div>';
+  html += '<h2>Fantastic effort!</h2>';
+  html += '<p style="margin:16px 0; color: var(--text-light);">You completed the spelling test!</p>';
+  if (wellKnown.length > 0) {
+    html += '<div style="margin:16px 0; text-align:left;">';
+    html += '<p style="font-weight:700; color: var(--success);">&#10003; Words you know well:</p>';
+    for (var i = 0; i < wellKnown.length; i++) html += '<div style="padding:4px 0;">&#8226; ' + wellKnown[i] + "</div>";
+    html += "</div>";
+  }
+  if (practice.length > 0) {
+    html += '<div style="margin:16px 0; text-align:left;">';
+    html += '<p style="font-weight:700; color: var(--primary);">&#127793; Let us practise these:</p>';
+    for (var i = 0; i < practice.length; i++) html += '<div style="padding:4px 0;">&#8226; ' + practice[i] + "</div>";
+    html += "</div>";
+  }
+  html += '<div style="margin-top:24px;">';
+  html += '<button class="btn btn-primary" id="btn-st-retry">&#128260; Try Again</button>';
+  html += "</div></div>";
+  document.getElementById("stTypeArea").classList.add("hidden");
+  document.getElementById("stBuildArea").classList.add("hidden");
+  document.getElementById("stPrompt").innerHTML = html;
+  document.getElementById("stProgress").textContent = "";
+  document.getElementById("btn-st-retry").addEventListener("click", initSpellingTest);
+}
+
+// ===================== STUDIO =====================
+var shopItems = [
+  { id: "desk", icon: "&#128221;", name: "Desk", cost: 10 },
+  { id: "lamp", icon: "&#128715;", name: "Lamp", cost: 15 },
+  { id: "plant", icon: "&#129716;", name: "Plant", cost: 12 },
+  { id: "painting", icon: "&#128444;", name: "Painting", cost: 20 },
+  { id: "rug", icon: "&#129525;", name: "Rug", cost: 8 },
+  { id: "shelf", icon: "&#128218;", name: "Bookshelf", cost: 18 },
+  { id: "flower", icon: "&#127800;", name: "Flowers", cost: 10 },
+  { id: "cat", icon: "&#128008;", name: "Cat", cost: 25 },
+  { id: "balloons", icon: "&#127880;", name: "Balloons", cost: 15 }
+];
+
+function initStudio() {
+  var room = document.getElementById("studioRoom");
+  if (state.studioItems.length === 0) {
+    room.innerHTML = '<div style="text-align: center; padding-top: 80px; color: #8B7355;"><div style="font-size: 4rem; margin-bottom: 16px;">&#129693;</div><p>Your studio is just getting started!</p><p style="font-size: 0.9rem; margin-top: 8px;">Play games to earn stars!</p></div>';
+  } else {
+    room.innerHTML = '<div style="text-align: center; padding-top: 40px; color: #8B7355;"><div style="font-size: 3rem; margin-bottom: 16px;">&#127912;</div></div>';
+    for (var i = 0; i < state.studioItems.length; i++) {
+      var shopItem = null;
+      for (var j = 0; j < shopItems.length; j++) {
+        if (shopItems[j].id === state.studioItems[i]) { shopItem = shopItems[j]; break; }
+      }
+      if (shopItem) {
+        var el = document.createElement("div");
+        el.className = "studio-item";
+        el.textContent = shopItem.icon;
+        el.style.left = (20 + (i * 40) % 300) + "px";
+        el.style.top = (60 + Math.floor(i / 3) * 60) + "px";
+        room.appendChild(el);
+      }
+    }
+  }
+  var grid = document.getElementById("shopGrid");
+  grid.innerHTML = "";
+  for (var i = 0; i < shopItems.length; i++) {
+    var item = shopItems[i];
+    var owned = false;
+    for (var j = 0; j < state.studioItems.length; j++) {
+      if (state.studioItems[j] === item.id) { owned = true; break; }
+    }
+    var div = document.createElement("div");
+    div.className = "shop-item" + (owned ? " owned" : "");
+    div.innerHTML = '<div class="item-icon">' + item.icon + '</div><div style="font-weight:700; margin:4px 0;">' + item.name + '</div><div class="item-price">' + (owned ? "Owned" : "&#11088; " + item.cost) + "</div>";
+    if (!owned) {
+      div.addEventListener("click", (function(it) {
+        return function() { buyItem(it); };
+      })(item));
+    }
+    grid.appendChild(div);
+  }
+}
+
+function buyItem(item) {
+  if (state.stars >= item.cost) {
+    state.stars -= item.cost;
+    state.studioItems.push(item.id);
+    saveState();
+    updateStars();
+    initStudio();
+    showFeedback("&#127873;", "New Item!", "You got " + item.name + "!");
+  } else {
+    showFeedback("&#11088;", "Need more stars!", "Keep playing to earn " + (item.cost - state.stars) + " more stars!");
+  }
+}
+
+// ===================== PROGRESS =====================
+function initProgress() {
+  var el = document.getElementById("progressList");
+  var html = '<div style="text-align:center; margin-bottom:16px;"><div style="font-size: 2rem;">&#127775; You are getting stronger!</div></div>';
+  for (var i = 0; i < words.length; i++) {
+    var word = words[i];
+    var prog = state.wordProgress[word] || { attempts: 0, correct: 0 };
+    var status = prog.correct > 0 ? "&#10003;" : "&#9675;";
+    html += '<div class="progress-word"><span class="status">' + status + '</span><span style="flex:1; font-weight:700;">' + word + '</span><span style="color: var(--text-light); font-size:0.85rem;">' + prog.correct + "/" + prog.attempts + "</span></div>";
+  }
+  el.innerHTML = html;
+}
+
+// ===================== PARENT MODE =====================
+function initParent() {
+  document.getElementById("parentGate").classList.remove("hidden");
+  document.getElementById("parentPanel").classList.add("hidden");
+  var a = Math.floor(Math.random() * 10) + 1;
+  var b = Math.floor(Math.random() * 10) + 1;
+  state.gateAnswer = a + b;
+  document.getElementById("mathQuestion").textContent = a + " + " + b + " = ?";
+  document.getElementById("gateAnswer").value = "";
+  var list = document.getElementById("parentWordList");
+  var listHtml = "";
+  for (var i = 0; i < sentences.length; i++) {
+    listHtml += '<div style="padding:8px; background:#f8f8f8; border-radius:8px; margin:4px 0;"><strong>' + sentences[i].targetWord + '</strong><div style="font-size:0.85rem; color: var(--text-light);">' + sentences[i].sentence + "</div></div>";
+  }
+  list.innerHTML = listHtml;
+}
+
+function checkGate() {
+  var ans = parseInt(document.getElementById("gateAnswer").value);
+  if (ans === state.gateAnswer) {
+    document.getElementById("parentGate").classList.add("hidden");
+    document.getElementById("parentPanel").classList.remove("hidden");
+  } else {
+    showFeedback("&#128274;", "Not quite!", "Try the math question again.");
+  }
+}
+
+function resetProgress() {
+  if (confirm("Are you sure you want to reset all progress?")) {
+    state.stars = 0;
+    state.wordProgress = {};
+    state.studioItems = [];
+    saveState();
+    updateStars();
+    showFeedback("&#128465;", "Progress Reset", "All progress has been cleared.");
+  }
+}
+
+// ===================== SETTINGS =====================
+function applySettings() {
+  var app = document.getElementById("app");
+  app.classList.remove("large-text", "xlarge-text", "reduce-motion");
+  if (state.settings.size === "large") app.classList.add("large-text");
+  if (state.settings.size === "xlarge") app.classList.add("xlarge-text");
+  if (state.settings.animation === "reduced") app.classList.add("reduce-motion");
+  document.getElementById("fontSelect").value = state.settings.font;
+  document.getElementById("sizeSelect").value = state.settings.size;
+  document.getElementById("animSelect").value = state.settings.animation;
+  document.getElementById("btn-toggle-sound").textContent = state.settings.sound ? "On" : "Off";
+  document.getElementById("btn-toggle-voice").textContent = state.settings.voice ? "On" : "Off";
+}
+
+function changeFont(val) { state.settings.font = val; saveState(); applySettings(); }
+function changeSize(val) { state.settings.size = val; saveState(); applySettings(); }
+function changeAnim(val) { state.settings.animation = val; saveState(); applySettings(); }
+function toggleSound() { state.settings.sound = !state.settings.sound; saveState(); applySettings(); }
+function toggleVoice() { state.settings.voice = !state.settings.voice; saveState(); applySettings(); }
+
+// ===================== UTILITIES =====================
+function addStars(n) {
+  state.stars += n;
+  updateStars();
+  saveState();
+  showStarAnimation();
+}
+
+function updateStars() {
+  document.getElementById("starCount").textContent = state.stars;
+}
+
+function updateWordProgress(word, correct) {
+  if (!state.wordProgress[word]) state.wordProgress[word] = { attempts: 0, correct: 0 };
+  state.wordProgress[word].attempts++;
+  if (correct) state.wordProgress[word].correct++;
+  saveState();
+}
+
+function showFeedback(emoji, title, message, onClose) {
+  document.getElementById("feedbackEmoji").textContent = emoji;
+  document.getElementById("feedbackTitle").textContent = title;
+  document.getElementById("feedbackMessage").textContent = message;
+  document.getElementById("feedbackOverlay").classList.remove("hidden");
+  state.feedbackCallback = onClose;
+}
+
+function closeFeedback() {
+  document.getElementById("feedbackOverlay").classList.add("hidden");
+  if (state.feedbackCallback) {
+    state.feedbackCallback();
+    state.feedbackCallback = null;
+  }
+}
+
+function showStarAnimation() {
+  var star = document.createElement("div");
+  star.className = "star-float";
+  star.textContent = "&#11088;";
+  star.style.left = (Math.random() * 80 + 10) + "%";
+  star.style.top = "50%";
+  document.body.appendChild(star);
+  setTimeout(function() { star.remove(); }, 1000);
+}
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+// ===================== INIT =====================
+function initApp() {
   try {
-
-    // ===================== DATA =====================
-    const weekData = {
-      week: 6,
-      title: "Spelling Adventure - Week 6",
-      sentences: [
-        { sentence: "Johnny ran off in a hurry.", targetWord: "hurry" },
-        { sentence: "I dirtied my clothes again.", targetWord: "clothes" },
-        { sentence: "The book on the table is mine.", targetWord: "mine" },
-        { sentence: "There is nothing in my pockets.", targetWord: "pockets" },
-        { sentence: "What did you have for breakfast today?", targetWord: "breakfast" },
-        { sentence: "Siti thanked her aunty for giving her green packets.", targetWord: "thanked" },
-        { sentence: "My family decorated our house to celebrate Hari Raya.", targetWord: "our" },
-        { sentence: "We visited our grandparents on the first day of Hari Raya.", targetWord: "visited" }
-      ]
-    };
-
-    const words = weekData.sentences.map(s => s.targetWord);
-    const sentences = weekData.sentences;
-
-    // ===================== STATE =====================
-    let state = {
-      stars: 0,
-      currentView: "home",
-      wordProgress: {},
-      studioItems: [],
-      settings: {
-        font: "atkinson",
-        size: "normal",
-        animation: "normal",
-        sound: true,
-        voice: true
-      },
-      whFound: [],
-      whGrid: [],
-      whSelection: [],
-      lbCurrent: 0,
-      lbBuilt: [],
-      lbLetters: [],
-      ssCurrent: 0,
-      stCurrent: 0,
-      stMode: "type",
-      stAnswers: [],
-      stBuilt: [],
-      stLetters: []
-    };
-
-    function loadState() {
-      try {
-        const saved = localStorage.getItem("spelling_studio_state");
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          state.stars = parsed.stars || 0;
-          state.wordProgress = parsed.wordProgress || {};
-          state.studioItems = parsed.studioItems || [];
-          state.settings = Object.assign({}, state.settings, parsed.settings || {});
-        }
-      } catch(e) { console.log("No saved state"); }
-      updateStars();
-      applySettings();
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem("spelling_studio_state", JSON.stringify({
-          stars: state.stars,
-          wordProgress: state.wordProgress,
-          studioItems: state.studioItems,
-          settings: state.settings
-        }));
-      } catch(e) { console.log("Could not save"); }
-    }
-
-    // ===================== NAVIGATION =====================
-    function navigateTo(view) {
-      state.currentView = view;
-      document.querySelectorAll("[id^="view-"]").forEach(function(el) { el.classList.add("hidden"); });
-      var target = document.getElementById("view-" + view);
-      if (target) target.classList.remove("hidden");
-
-      document.querySelectorAll(".nav-btn").forEach(function(btn) { btn.classList.remove("active"); });
-      var activeBtn = document.querySelector('.nav-btn[data-view="' + view + '"]');
-      if (activeBtn) activeBtn.classList.add("active");
-
-      if (view === "wordhunt") initWordHunt();
-      if (view === "letterbuilder") initLetterBuilder();
-      if (view === "sentencestudio") initSentenceStudio();
-      if (view === "spellingtest") initSpellingTest();
-      if (view === "studio") initStudio();
-      if (view === "progress") initProgress();
-      if (view === "parent") initParent();
-
-      window.scrollTo(0, 0);
-    }
-
-    // ===================== EVENT ATTACHMENT =====================
-    function attachEvents() {
-      // Game cards
-      document.getElementById("card-wordhunt").addEventListener("click", function() { navigateTo("wordhunt"); });
-      document.getElementById("card-letterbuilder").addEventListener("click", function() { navigateTo("letterbuilder"); });
-      document.getElementById("card-sentencestudio").addEventListener("click", function() { navigateTo("sentencestudio"); });
-      document.getElementById("card-spellingtest").addEventListener("click", function() { navigateTo("spellingtest"); });
-
-      // Nav buttons
-      document.getElementById("nav-home").addEventListener("click", function() { navigateTo("home"); });
-      document.getElementById("nav-studio").addEventListener("click", function() { navigateTo("studio"); });
-      document.getElementById("nav-progress").addEventListener("click", function() { navigateTo("progress"); });
-      document.getElementById("nav-settings").addEventListener("click", function() { navigateTo("settings"); });
-      document.getElementById("nav-parent").addEventListener("click", function() { navigateTo("parent"); });
-
-      // Word Hunt
-      document.getElementById("btn-newgrid").addEventListener("click", initWordHunt);
-
-      // Letter Builder
-      document.getElementById("btn-lb-hearword").addEventListener("click", speakCurrentWord);
-      document.getElementById("btn-lb-undo").addEventListener("click", lbUndo);
-      document.getElementById("btn-lb-reset").addEventListener("click", lbReset);
-      document.getElementById("btn-lb-check").addEventListener("click", lbCheck);
-
-      // Sentence Studio
-      document.getElementById("btn-ss-hearsent").addEventListener("click", speakCurrentSentence);
-      document.getElementById("btn-ss-hearword").addEventListener("click", speakCurrentWord);
-
-      // Spelling Test
-      document.getElementById("btn-st-hearword").addEventListener("click", speakCurrentWord);
-      document.getElementById("btn-st-hearsent").addEventListener("click", speakCurrentSentence);
-      document.getElementById("btn-st-type").addEventListener("click", function() { setTestMode("type"); });
-      document.getElementById("btn-st-build").addEventListener("click", function() { setTestMode("build"); });
-      document.getElementById("btn-st-check-type").addEventListener("click", stCheck);
-      document.getElementById("btn-st-check-build").addEventListener("click", stCheck);
-      document.getElementById("btn-st-undo").addEventListener("click", stUndo);
-      document.getElementById("btn-st-reset").addEventListener("click", stReset);
-
-      // Settings
-      document.getElementById("btn-toggle-sound").addEventListener("click", toggleSound);
-      document.getElementById("btn-toggle-voice").addEventListener("click", toggleVoice);
-      document.getElementById("fontSelect").addEventListener("change", function() { changeFont(this.value); });
-      document.getElementById("sizeSelect").addEventListener("change", function() { changeSize(this.value); });
-      document.getElementById("animSelect").addEventListener("change", function() { changeAnim(this.value); });
-
-      // Parent
-      document.getElementById("btn-gate-enter").addEventListener("click", checkGate);
-      document.getElementById("btn-reset-progress").addEventListener("click", resetProgress);
-
-      // Feedback
-      document.getElementById("btn-feedback-close").addEventListener("click", closeFeedback);
-    }
-
-    // ===================== TTS =====================
-    function speak(text) {
-      if (!state.settings.voice) return;
-      if (!window.speechSynthesis) return;
-      try {
-        window.speechSynthesis.cancel();
-        var utter = new SpeechSynthesisUtterance(text);
-        utter.lang = "en-US";
-        utter.rate = 0.9;
-        var voices = window.speechSynthesis.getVoices();
-        var enVoice = null;
-        for (var i = 0; i < voices.length; i++) {
-          if (voices[i].lang.indexOf("en") !== -1) { enVoice = voices[i]; break; }
-        }
-        if (enVoice) utter.voice = enVoice;
-        window.speechSynthesis.speak(utter);
-      } catch(e) { console.log("TTS error", e); }
-    }
-
-    function speakCurrentWord() {
-      var word = "";
-      if (state.currentView === "letterbuilder") word = words[state.lbCurrent];
-      if (state.currentView === "sentencestudio") word = words[state.ssCurrent];
-      if (state.currentView === "spellingtest") word = words[state.stCurrent];
-      if (word) speak(word);
-    }
-
-    function speakCurrentSentence() {
-      var sent = "";
-      if (state.currentView === "letterbuilder") sent = sentences[state.lbCurrent].sentence;
-      if (state.currentView === "sentencestudio") sent = sentences[state.ssCurrent].sentence;
-      if (state.currentView === "spellingtest") sent = sentences[state.stCurrent].sentence;
-      if (sent) speak(sent);
-    }
-
-    // ===================== WORD HUNT =====================
-    function initWordHunt() {
-      state.whFound = [];
-      state.whSelection = [];
-      var maxLen = 0;
-      for (var i = 0; i < words.length; i++) { if (words[i].length > maxLen) maxLen = words[i].length; }
-      var gridSize = Math.max(10, Math.ceil(maxLen + 2));
-      var grid = [];
-      for (var r = 0; r < gridSize; r++) {
-        grid[r] = [];
-        for (var c = 0; c < gridSize; c++) grid[r][c] = "";
-      }
-      var placed = [];
-
-      for (var w = 0; w < words.length; w++) {
-        var word = words[w];
-        var placed_ok = false;
-        var attempts = 0;
-        while (!placed_ok && attempts < 100) {
-          var row = Math.floor(Math.random() * gridSize);
-          var maxCol = gridSize - word.length;
-          var col = Math.floor(Math.random() * (maxCol + 1));
-          var canPlace = true;
-          for (var i = 0; i < word.length; i++) {
-            if (grid[row][col + i] !== "" && grid[row][col + i] !== word[i].toUpperCase()) {
-              canPlace = false; break;
-            }
-          }
-          if (canPlace) {
-            for (var i = 0; i < word.length; i++) grid[row][col + i] = word[i].toUpperCase();
-            placed.push({ word: word, row: row, col: col, length: word.length });
-            placed_ok = true;
-          }
-          attempts++;
-        }
-      }
-
-      var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      for (var r = 0; r < gridSize; r++) {
-        for (var c = 0; c < gridSize; c++) {
-          if (grid[r][c] === "") grid[r][c] = letters.charAt(Math.floor(Math.random() * letters.length));
-        }
-      }
-
-      state.whGrid = grid;
-      state.whPlaced = placed;
-      renderWordHunt();
-    }
-
-    function renderWordHunt() {
-      var gridEl = document.getElementById("wordHuntGrid");
-      var listEl = document.getElementById("wordHuntList");
-      var grid = state.whGrid;
-      var size = grid.length;
-
-      gridEl.style.gridTemplateColumns = "repeat(" + size + ", 38px)";
-      gridEl.innerHTML = "";
-
-      for (var r = 0; r < size; r++) {
-        for (var c = 0; c < size; c++) {
-          var cell = document.createElement("div");
-          cell.className = "grid-cell";
-          cell.textContent = grid[r][c];
-          cell.dataset.r = r;
-          cell.dataset.c = c;
-          var isFound = false;
-          for (var i = 0; i < state.whFound.length; i++) { if (state.whFound[i].row === r && state.whFound[i].col === c) { isFound = true; break; } }
-          var isSelected = false;
-          for (var i = 0; i < state.whSelection.length; i++) { if (state.whSelection[i].r === r && state.whSelection[i].c === c) { isSelected = true; break; } }
-          if (isFound) cell.classList.add("found");
-          else if (isSelected) cell.classList.add("selected");
-          cell.addEventListener("click", (function(rr, cc) { return function() { handleGridClick(rr, cc); }; })(r, c));
-          gridEl.appendChild(cell);
-        }
-      }
-
-      var listHtml = '<p style="font-weight:700; margin-bottom:8px;">Find these:</p>';
-      for (var w = 0; w < words.length; w++) {
-        var found = false;
-        for (var i = 0; i < state.whFound.length; i++) { if (state.whFound[i].word === words[w]) { found = true; break; } }
-        listHtml += '<div style="padding:6px 0;' + (found ? ' text-decoration:line-through; opacity:0.5;' : '') + '">' + (found ? '✓' : '○') + ' ' + words[w] + ' <span style="cursor:pointer; color:var(--primary);" class="wh-speak" data-word="' + words[w] + '">🔊</span></div>';
-      }
-      listEl.innerHTML = listHtml;
-
-      // Attach speak listeners
-      listEl.querySelectorAll(".wh-speak").forEach(function(el) {
-        el.addEventListener("click", function(e) { e.stopPropagation(); speak(this.dataset.word); });
-      });
-    }
-
-    function handleGridClick(r, c) {
-      var sel = state.whSelection;
-      if (sel.length === 0) {
-        state.whSelection = [{r:r, c:c}];
-        renderWordHunt();
-        return;
-      }
-      if (sel.length === 1 && sel[0].r === r && sel[0].c === c) {
-        state.whSelection = [];
-        renderWordHunt();
-        return;
-      }
-      if (sel.length >= 2) {
-        state.whSelection = [{r:r, c:c}];
-        renderWordHunt();
-        return;
-      }
-      var start = sel[0];
-      if (r !== start.r) {
-        showFeedback("🤔", "Look left to right!", "Words go across, not up and down. Try again!");
-        state.whSelection = [];
-        renderWordHunt();
-        return;
-      }
-      var minC = Math.min(start.c, c);
-      var maxC = Math.max(start.c, c);
-      var selectedWord = "";
-      for (var col = minC; col <= maxC; col++) selectedWord += state.whGrid[r][col];
-      selectedWord = selectedWord.toLowerCase();
-      var targetWord = null;
-      for (var i = 0; i < words.length; i++) { if (words[i] === selectedWord) { targetWord = words[i]; break; } }
-      var alreadyFound = false;
-      for (var i = 0; i < state.whFound.length; i++) { if (state.whFound[i].word === targetWord) { alreadyFound = true; break; } }
-      if (targetWord && !alreadyFound) {
-        for (var col = minC; col <= maxC; col++) state.whFound.push({ word: targetWord, row: r, col: col });
-        state.whSelection = [];
-        addStars(2);
-        updateWordProgress(targetWord, true);
-        renderWordHunt();
-        speak("Great job! " + targetWord);
-        showFeedback("🎉", "Amazing!", 'You found "' + targetWord + '"!');
-        var totalFoundCells = 0;
-        for (var i = 0; i < words.length; i++) totalFoundCells += words[i].length;
-        if (state.whFound.length === totalFoundCells) {
-          setTimeout(function() { showFeedback("🏆", "Word Hunt Complete!", "You found all the words! 🌟"); }, 1500);
-        }
-      } else {
-        showFeedback("💭", "Almost!", "Have another look.");
-        state.whSelection = [];
-        renderWordHunt();
-      }
-    }
-
-    // ===================== LETTER BUILDER =====================
-    function initLetterBuilder() {
-      state.lbCurrent = Math.floor(Math.random() * words.length);
-      state.lbBuilt = [];
-      var word = words[state.lbCurrent];
-      var sent = sentences[state.lbCurrent];
-      document.getElementById("lbSentence").textContent = sent.sentence;
-      document.getElementById("lbPrompt").textContent = 'Build the word: "' + word + '"';
-      var slotsEl = document.getElementById("lbSlots");
-      slotsEl.innerHTML = "";
-      for (var i = 0; i < word.length; i++) {
-        var slot = document.createElement("div");
-        slot.className = "letter-slot";
-        slot.dataset.idx = i;
-        slotsEl.appendChild(slot);
-      }
-      var letters = word.split("").sort(function() { return Math.random() - 0.5; });
-      state.lbLetters = [];
-      for (var i = 0; i < letters.length; i++) state.lbLetters.push({ letter: letters[i], id: i, used: false });
-      renderLbLetters();
-    }
-
-    function renderLbLetters() {
-      var el = document.getElementById("lbLetters");
-      el.innerHTML = "";
-      for (var idx = 0; idx < state.lbLetters.length; idx++) {
-        var item = state.lbLetters[idx];
-        var tile = document.createElement("div");
-        tile.className = "letter-tile" + (item.used ? " used" : "");
-        tile.textContent = item.letter.toUpperCase();
-        if (!item.used) {
-          tile.addEventListener("click", (function(ii) { return function() { lbPlaceLetter(ii); }; })(idx));
-        }
-        el.appendChild(tile);
-      }
-      var slots = document.querySelectorAll("#lbSlots .letter-slot");
-      for (var i = 0; i < slots.length; i++) {
-        if (i < state.lbBuilt.length) {
-          slots[i].textContent = state.lbBuilt[i].toUpperCase();
-          slots[i].classList.add("filled");
-        } else {
-          slots[i].textContent = "";
-          slots[i].classList.remove("filled");
-        }
-      }
-    }
-
-    function lbPlaceLetter(idx) {
-      var word = words[state.lbCurrent];
-      if (state.lbBuilt.length >= word.length) return;
-      state.lbLetters[idx].used = true;
-      state.lbBuilt.push(state.lbLetters[idx].letter);
-      renderLbLetters();
-    }
-
-    function lbUndo() {
-      if (state.lbBuilt.length === 0) return;
-      var last = state.lbBuilt.pop();
-      for (var i = 0; i < state.lbLetters.length; i++) {
-        if (state.lbLetters[i].letter === last && state.lbLetters[i].used) {
-          state.lbLetters[i].used = false;
-          break;
-        }
-      }
-      renderLbLetters();
-    }
-
-    function lbReset() {
-      state.lbBuilt = [];
-      for (var i = 0; i < state.lbLetters.length; i++) state.lbLetters[i].used = false;
-      renderLbLetters();
-    }
-
-    function lbCheck() {
-      var word = words[state.lbCurrent];
-      var built = state.lbBuilt.join("");
-      if (built === word) {
-        addStars(3);
-        updateWordProgress(word, true);
-        speak("Amazing! " + word);
-        showFeedback("⭐", "Fantastic!", 'You built "' + word + '"!', function() { initLetterBuilder(); });
-      } else {
-        showFeedback("💭", "Hmm...", "Let's check that one. Try again!");
-      }
-    }
-
-    // ===================== SENTENCE STUDIO =====================
-    function initSentenceStudio() {
-      state.ssCurrent = Math.floor(Math.random() * words.length);
-      var sent = sentences[state.ssCurrent];
-      var word = words[state.ssCurrent];
-      document.getElementById("ssSentence").textContent = sent.sentence;
-      document.getElementById("ssPrompt").textContent = "Which word belongs here?";
-      var distractors = generateDistractors(word);
-      var allChoices = [word];
-      for (var i = 0; i < distractors.length; i++) allChoices.push(distractors[i]);
-      var choices = shuffle(allChoices).slice(0, 4);
-      var choicesEl = document.getElementById("ssChoices");
-      choicesEl.innerHTML = "";
-      for (var i = 0; i < choices.length; i++) {
-        var btn = document.createElement("button");
-        btn.className = "choice-btn";
-        btn.textContent = choices[i];
-        btn.addEventListener("click", (function(ch) { return function() { handleSSChoice(ch, word, this); }; })(choices[i]));
-        choicesEl.appendChild(btn);
-      }
-    }
-
-    function generateDistractors(word) {
-      var common = {
-        "hurry": ["hurryy", "hury", "hurrie"],
-        "clothes": ["cloths", "clothess", "clohs"],
-        "mine": ["miine", "min", "myn"],
-        "pockets": ["pockts", "pocketts", "pokets"],
-        "breakfast": ["breakfust", "brekfast", "breakfest"],
-        "thanked": ["thankked", "thakned", "thnaked"],
-        "our": ["ouur", "or", "hour"],
-        "visited": ["vissited", "visted", "visitted"]
-      };
-      return common[word] || [word + "e", word.slice(0, -1), word + word.slice(-1)];
-    }
-
-    function handleSSChoice(choice, correct, btn) {
-      var allBtns = document.querySelectorAll("#ssChoices .choice-btn");
-      allBtns.forEach(function(b) { b.disabled = true; });
-      if (choice === correct) {
-        btn.classList.add("correct");
-        addStars(2);
-        updateWordProgress(correct, true);
-        speak("Great! " + correct);
-        showFeedback("🎨", "Wonderful!", '"' + correct + '" is right!', function() { initSentenceStudio(); });
-      } else {
-        btn.classList.add("wrong");
-        allBtns.forEach(function(b) { if (b.textContent === correct) b.classList.add("correct"); });
-        showFeedback("🌟", "Good thinking!", 'The correct spelling is "' + correct + '".', function() { initSentenceStudio(); });
-      }
-    }
-
-    // ===================== SPELLING TEST =====================
-    function initSpellingTest() {
-      state.stCurrent = 0;
-      state.stAnswers = [];
-      state.stMode = "type";
-      document.getElementById("stModeSelector").classList.remove("hidden");
-      document.getElementById("stTypeArea").classList.add("hidden");
-      document.getElementById("stBuildArea").classList.add("hidden");
-      document.getElementById("stProgress").textContent = "";
-      document.getElementById("stPrompt").textContent = "Choose how you want to spell:";
-    }
-
-    function setTestMode(mode) {
-      state.stMode = mode;
-      document.getElementById("stModeSelector").classList.add("hidden");
-      if (mode === "type") document.getElementById("stTypeArea").classList.remove("hidden");
-      else document.getElementById("stBuildArea").classList.remove("hidden");
-      loadTestQuestion();
-    }
-
-    function loadTestQuestion() {
-      var sent = sentences[state.stCurrent];
-      var word = words[state.stCurrent];
-      document.getElementById("stPrompt").innerHTML = 
-        '<div style="font-size:0.9rem; color: var(--text-light); margin-bottom:8px;">Word ' + (state.stCurrent + 1) + " of " + words.length + "</div>" +
-        '<div style="font-size:1.1rem;">' + sent.sentence + "</div>";
-      if (state.stMode === "type") {
-        document.getElementById("stInput").value = "";
-        setTimeout(function() { document.getElementById("stInput").focus(); }, 100);
-      } else {
-        state.stBuilt = [];
-        var letters = word.split("").sort(function() { return Math.random() - 0.5; });
-        state.stLetters = [];
-        for (var i = 0; i < letters.length; i++) state.stLetters.push({ letter: letters[i], id: i, used: false });
-        renderStBuild();
-      }
-    }
-
-    function renderStBuild() {
-      var word = words[state.stCurrent];
-      var slotsEl = document.getElementById("stSlots");
-      var lettersEl = document.getElementById("stLetters");
-      slotsEl.innerHTML = "";
-      for (var i = 0; i < word.length; i++) {
-        var slot = document.createElement("div");
-        slot.className = "letter-slot" + (i < state.stBuilt.length ? " filled" : "");
-        slot.textContent = i < state.stBuilt.length ? state.stBuilt[i].toUpperCase() : "";
-        slotsEl.appendChild(slot);
-      }
-      lettersEl.innerHTML = "";
-      for (var idx = 0; idx < state.stLetters.length; idx++) {
-        var item = state.stLetters[idx];
-        var tile = document.createElement("div");
-        tile.className = "letter-tile" + (item.used ? " used" : "");
-        tile.textContent = item.letter.toUpperCase();
-        if (!item.used) {
-          tile.addEventListener("click", (function(ii) { return function() { stPlaceLetter(ii); }; })(idx));
-        }
-        lettersEl.appendChild(tile);
-      }
-    }
-
-    function stPlaceLetter(idx) {
-      var word = words[state.stCurrent];
-      if (state.stBuilt.length >= word.length) return;
-      state.stLetters[idx].used = true;
-      state.stBuilt.push(state.stLetters[idx].letter);
-      renderStBuild();
-    }
-
-    function stUndo() {
-      if (state.stBuilt.length === 0) return;
-      var last = state.stBuilt.pop();
-      for (var i = 0; i < state.stLetters.length; i++) {
-        if (state.stLetters[i].letter === last && state.stLetters[i].used) {
-          state.stLetters[i].used = false;
-          break;
-        }
-      }
-      renderStBuild();
-    }
-
-    function stReset() {
-      state.stBuilt = [];
-      for (var i = 0; i < state.stLetters.length; i++) state.stLetters[i].used = false;
-      renderStBuild();
-    }
-
-    function stCheck() {
-      var word = words[state.stCurrent];
-      var answer = "";
-      if (state.stMode === "type") answer = document.getElementById("stInput").value.toLowerCase().trim();
-      else answer = state.stBuilt.join("");
-      state.stAnswers.push({ word: word, correct: answer === word, answer: answer });
-      updateWordProgress(word, answer === word);
-      if (answer === word) { addStars(2); speak("Great!"); }
-      state.stCurrent++;
-      if (state.stCurrent >= words.length) showTestResults();
-      else loadTestQuestion();
-    }
-
-    function showTestResults() {
-      var wellKnown = [];
-      var practice = [];
-      for (var i = 0; i < state.stAnswers.length; i++) {
-        if (state.stAnswers[i].correct) wellKnown.push(state.stAnswers[i].word);
-        else practice.push(state.stAnswers[i].word);
-      }
-      var html = '<div style="text-align:center;">';
-      html += '<div style="font-size:4rem; margin-bottom:16px;">🌟</div>';
-      html += '<h2>Fantastic effort!</h2>';
-      html += '<p style="margin:16px 0; color: var(--text-light);">You completed the spelling test!</p>';
-      if (wellKnown.length > 0) {
-        html += '<div style="margin:16px 0; text-align:left;">';
-        html += '<p style="font-weight:700; color: var(--success);">✓ Words you know well:</p>';
-        for (var i = 0; i < wellKnown.length; i++) html += '<div style="padding:4px 0;">• ' + wellKnown[i] + "</div>";
-        html += "</div>";
-      }
-      if (practice.length > 0) {
-        html += '<div style="margin:16px 0; text-align:left;">';
-        html += '<p style="font-weight:700; color: var(--primary);">🌱 Let\'s practise these:</p>';
-        for (var i = 0; i < practice.length; i++) html += '<div style="padding:4px 0;">• ' + practice[i] + "</div>";
-        html += "</div>";
-      }
-      html += '<div style="margin-top:24px;">';
-      html += '<button class="btn btn-primary" id="btn-st-retry">🔄 Try Again</button>';
-      html += "</div></div>";
-      document.getElementById("stTypeArea").classList.add("hidden");
-      document.getElementById("stBuildArea").classList.add("hidden");
-      document.getElementById("stPrompt").innerHTML = html;
-      document.getElementById("stProgress").textContent = "";
-      document.getElementById("btn-st-retry").addEventListener("click", initSpellingTest);
-    }
-
-    // ===================== STUDIO =====================
-    var shopItems = [
-      { id: "desk", icon: "📝", name: "Desk", cost: 10 },
-      { id: "lamp", icon: "🛋️", name: "Lamp", cost: 15 },
-      { id: "plant", icon: "🪴", name: "Plant", cost: 12 },
-      { id: "painting", icon: "🖼️", name: "Painting", cost: 20 },
-      { id: "rug", icon: "🧶", name: "Rug", cost: 8 },
-      { id: "shelf", icon: "📚", name: "Bookshelf", cost: 18 },
-      { id: "flower", icon: "🌸", name: "Flowers", cost: 10 },
-      { id: "cat", icon: "🐱", name: "Cat", cost: 25 },
-      { id: "balloons", icon: "🎈", name: "Balloons", cost: 15 }
-    ];
-
-    function initStudio() {
-      var room = document.getElementById("studioRoom");
-      if (state.studioItems.length === 0) {
-        room.innerHTML = '<div style="text-align: center; padding-top: 80px; color: #8B7355;"><div style="font-size: 4rem; margin-bottom: 16px;">🪑</div><p>Your studio is just getting started!</p><p style="font-size: 0.9rem; margin-top: 8px;">Play games to earn stars!</p></div>';
-      } else {
-        room.innerHTML = '<div style="text-align: center; padding-top: 40px; color: #8B7355;"><div style="font-size: 3rem; margin-bottom: 16px;">🎨</div></div>';
-        for (var i = 0; i < state.studioItems.length; i++) {
-          var shopItem = null;
-          for (var j = 0; j < shopItems.length; j++) { if (shopItems[j].id === state.studioItems[i]) { shopItem = shopItems[j]; break; } }
-          if (shopItem) {
-            var el = document.createElement("div");
-            el.className = "studio-item";
-            el.textContent = shopItem.icon;
-            el.style.left = (20 + (i * 40) % 300) + "px";
-            el.style.top = (60 + Math.floor(i / 3) * 60) + "px";
-            room.appendChild(el);
-          }
-        }
-      }
-      var grid = document.getElementById("shopGrid");
-      grid.innerHTML = "";
-      for (var i = 0; i < shopItems.length; i++) {
-        var item = shopItems[i];
-        var owned = false;
-        for (var j = 0; j < state.studioItems.length; j++) { if (state.studioItems[j] === item.id) { owned = true; break; } }
-        var div = document.createElement("div");
-        div.className = "shop-item" + (owned ? " owned" : "");
-        div.innerHTML = '<div class="item-icon">' + item.icon + '</div><div style="font-weight:700; margin:4px 0;">' + item.name + '</div><div class="item-price">' + (owned ? "Owned" : "⭐ " + item.cost) + "</div>";
-        if (!owned) {
-          div.addEventListener("click", (function(it) { return function() { buyItem(it); }; })(item));
-        }
-        grid.appendChild(div);
-      }
-    }
-
-    function buyItem(item) {
-      if (state.stars >= item.cost) {
-        state.stars -= item.cost;
-        state.studioItems.push(item.id);
-        saveState();
-        updateStars();
-        initStudio();
-        showFeedback("🎁", "New Item!", "You got " + item.name + "!");
-      } else {
-        showFeedback("⭐", "Need more stars!", "Keep playing to earn " + (item.cost - state.stars) + " more stars!");
-      }
-    }
-
-    // ===================== PROGRESS =====================
-    function initProgress() {
-      var el = document.getElementById("progressList");
-      var html = '<div style="text-align:center; margin-bottom:16px;"><div style="font-size: 2rem;">🌟 You\'re getting stronger!</div></div>';
-      for (var i = 0; i < words.length; i++) {
-        var word = words[i];
-        var prog = state.wordProgress[word] || { attempts: 0, correct: 0 };
-        var status = prog.correct > 0 ? "✓" : "○";
-        html += '<div class="progress-word"><span class="status">' + status + '</span><span style="flex:1; font-weight:700;">' + word + '</span><span style="color: var(--text-light); font-size:0.85rem;">' + prog.correct + "/" + prog.attempts + "</span></div>";
-      }
-      el.innerHTML = html;
-    }
-
-    // ===================== PARENT MODE =====================
-    function initParent() {
-      document.getElementById("parentGate").classList.remove("hidden");
-      document.getElementById("parentPanel").classList.add("hidden");
-      var a = Math.floor(Math.random() * 10) + 1;
-      var b = Math.floor(Math.random() * 10) + 1;
-      state.gateAnswer = a + b;
-      document.getElementById("mathQuestion").textContent = a + " + " + b + " = ?";
-      document.getElementById("gateAnswer").value = "";
-      var list = document.getElementById("parentWordList");
-      var listHtml = "";
-      for (var i = 0; i < sentences.length; i++) {
-        listHtml += '<div style="padding:8px; background:#f8f8f8; border-radius:8px; margin:4px 0;"><strong>' + sentences[i].targetWord + '</strong><div style="font-size:0.85rem; color: var(--text-light);">' + sentences[i].sentence + "</div></div>";
-      }
-      list.innerHTML = listHtml;
-    }
-
-    function checkGate() {
-      var ans = parseInt(document.getElementById("gateAnswer").value);
-      if (ans === state.gateAnswer) {
-        document.getElementById("parentGate").classList.add("hidden");
-        document.getElementById("parentPanel").classList.remove("hidden");
-      } else {
-        showFeedback("🔒", "Not quite!", "Try the math question again.");
-      }
-    }
-
-    function resetProgress() {
-      if (confirm("Are you sure you want to reset all progress?")) {
-        state.stars = 0;
-        state.wordProgress = {};
-        state.studioItems = [];
-        saveState();
-        updateStars();
-        showFeedback("🗑️", "Progress Reset", "All progress has been cleared.");
-      }
-    }
-
-    // ===================== SETTINGS =====================
-    function applySettings() {
-      var app = document.getElementById("app");
-      app.classList.remove("large-text", "xlarge-text", "reduce-motion");
-      if (state.settings.size === "large") app.classList.add("large-text");
-      if (state.settings.size === "xlarge") app.classList.add("xlarge-text");
-      if (state.settings.animation === "reduced") app.classList.add("reduce-motion");
-      document.getElementById("fontSelect").value = state.settings.font;
-      document.getElementById("sizeSelect").value = state.settings.size;
-      document.getElementById("animSelect").value = state.settings.animation;
-      document.getElementById("btn-toggle-sound").textContent = state.settings.sound ? "On" : "Off";
-      document.getElementById("btn-toggle-voice").textContent = state.settings.voice ? "On" : "Off";
-    }
-
-    function changeFont(val) { state.settings.font = val; saveState(); applySettings(); }
-    function changeSize(val) { state.settings.size = val; saveState(); applySettings(); }
-    function changeAnim(val) { state.settings.animation = val; saveState(); applySettings(); }
-    function toggleSound() { state.settings.sound = !state.settings.sound; saveState(); applySettings(); }
-    function toggleVoice() { state.settings.voice = !state.settings.voice; saveState(); applySettings(); }
-
-    // ===================== UTILITIES =====================
-    function addStars(n) {
-      state.stars += n;
-      updateStars();
-      saveState();
-      showStarAnimation();
-    }
-
-    function updateStars() {
-      document.getElementById("starCount").textContent = state.stars;
-    }
-
-    function updateWordProgress(word, correct) {
-      if (!state.wordProgress[word]) state.wordProgress[word] = { attempts: 0, correct: 0 };
-      state.wordProgress[word].attempts++;
-      if (correct) state.wordProgress[word].correct++;
-      saveState();
-    }
-
-    function showFeedback(emoji, title, message, onClose) {
-      document.getElementById("feedbackEmoji").textContent = emoji;
-      document.getElementById("feedbackTitle").textContent = title;
-      document.getElementById("feedbackMessage").textContent = message;
-      document.getElementById("feedbackOverlay").classList.remove("hidden");
-      state.feedbackCallback = onClose;
-    }
-
-    function closeFeedback() {
-      document.getElementById("feedbackOverlay").classList.add("hidden");
-      if (state.feedbackCallback) {
-        state.feedbackCallback();
-        state.feedbackCallback = null;
-      }
-    }
-
-    function showStarAnimation() {
-      var star = document.createElement("div");
-      star.className = "star-float";
-      star.textContent = "⭐";
-      star.style.left = (Math.random() * 80 + 10) + "%";
-      star.style.top = "50%";
-      document.body.appendChild(star);
-      setTimeout(function() { star.remove(); }, 1000);
-    }
-
-    function shuffle(arr) {
-      var a = arr.slice();
-      for (var i = a.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-      }
-      return a;
-    }
-
-    // ===================== INIT =====================
     loadState();
     attachEvents();
+    hideLoading();
     console.log("Spelling Studio loaded successfully!");
-
   } catch(err) {
     showError("Game error: " + err.message);
     console.error(err);
   }
-})();
+}
+
+// Wait for DOM to be ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  initApp();
+}
 </script>
 </body>
 </html>
